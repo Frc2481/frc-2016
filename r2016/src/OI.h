@@ -1,14 +1,21 @@
-#ifndef OI_H
-#define OI_H
+/*
+ * OI.h
+ *
+ *  Created on: Jan 16, 2016
+ *      Author: Team2481
+ */
 
+#ifndef SRC_OI_H_
+#define SRC_OI_H_
 #include "WPILib.h"
+#include "XboxController.h"
+//#include "Joystick2.h"
 
-class OI
-{
-private:
-
+class OI {
 public:
+	Joystick* driveStick;
 	OI();
+	virtual ~OI();
 };
 
-#endif
+#endif /* SRC_OI_H_ */
