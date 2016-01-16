@@ -73,6 +73,8 @@ private:
 
 	void TeleopPeriodic()
 	{
+
+		SmartDashboard::PutNumber("Area",CommandBase::mCameraProcessor->getArea());
 		Scheduler::GetInstance()->Run();
 	}
 
