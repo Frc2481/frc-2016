@@ -7,12 +7,12 @@
 
 #include <OI.h>
 
-OI::OI() {
-	// TODO Auto-generated constructor stub
-	driveStick = new Joystick(0);
-}
+OI::OI() {}
 
 OI::~OI() {
 	// TODO Auto-generated destructor stub
 }
 
+Joystick* OI::GetDriveStick() {
+	return driveStick;
+}

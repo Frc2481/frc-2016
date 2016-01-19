@@ -14,7 +14,7 @@ private:
 	{
 		CommandBase::init();
 		chooser = new SendableChooser();
-		chooser->AddDefault("Default Auto", new ExampleCommand());
+		//chooser->AddDefault("Default Auto", new ExampleCommand());
 		//chooser->AddObject("My Auto", new MyAutoCommand());
 		SmartDashboard::PutData("Auto Modes", chooser);
 	}
