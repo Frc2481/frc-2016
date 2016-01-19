@@ -1,6 +1,7 @@
 #include "WPILib.h"
 #include "Commands/Command.h"
 #include "Commands/ExampleCommand.h"
+#include "Commands/RotateToAngleCommand.h"
 #include "CommandBase.h"
 
 class Robot: public IterativeRobot
@@ -76,6 +77,8 @@ private:
 
 		SmartDashboard::PutNumber("Area",CommandBase::mCameraProcessor->getArea());
 		Scheduler::GetInstance()->Run();
+
+		SmartDashboard::PutData("Rotate To Angle", new RotateToAngleCommand(45));
 	}
 
 	void TestPeriodic()
