@@ -11,13 +11,13 @@
 
 DriveTrain::DriveTrain() : Subsystem("DriveTrain"){
 	// TODO Auto-generated constructor stub
-	m_topLeft = new CANTalon(0);
+	m_topLeft = new CANTalon(FL_MOTOR);
 	m_topLeft->ConfigNeutralMode(CANTalon::kNeutralMode_Brake);
-	m_topRight = new CANTalon(1);
+	m_topRight = new CANTalon(FR_MOTOR);
 	m_topRight->ConfigNeutralMode(CANTalon::kNeutralMode_Brake);
-	m_botLeft = new CANTalon(2);
+	m_botLeft = new CANTalon(BL_MOTOR);
 	m_botLeft->ConfigNeutralMode(CANTalon::kNeutralMode_Brake);
-	m_botRight = new CANTalon(3);
+	m_botRight = new CANTalon(BR_MOTOR);
 	m_botRight->ConfigNeutralMode(CANTalon::kNeutralMode_Brake);
 	m_serialPort = new SerialPort(57600,SerialPort::kMXP);
 	m_imu = new AHRS(SerialPort::kMXP);

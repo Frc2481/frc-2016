@@ -9,6 +9,7 @@
 #define SRC_SUBSYSTEMS_DRIVETRAIN_H_
 #include "WPILib.h"
 #include "../IMU/AHRS.h"
+#include "RobotMap.h"
 
 class DriveTrain : public Subsystem{
 private:
