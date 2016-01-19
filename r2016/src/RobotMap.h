@@ -13,5 +13,9 @@
 
 
 //Intake
+#define INTAKE_MOTOR 4
+#define INTAKE_EXTENDER 0
+#define INTAKE_FWD_SPD 1
+#define INTAKE_REV_SPD -1
 
 #endif

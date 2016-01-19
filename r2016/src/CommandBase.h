@@ -4,6 +4,7 @@
 #include <string>
 #include "Commands/Command.h"
 #include "Subsystems/DriveTrain.h"
+#include "Subsystems/Intake.h"
 #include "OI.h"
 #include "WPILib.h"
 #include "Subsystems/CameraProcessor.h"
@@ -23,6 +24,8 @@ public:
 	// Create a single static instance of all of your subsystems
 	static std::unique_ptr<CameraProcessor> mCameraProcessor;
 	static std::unique_ptr<DriveTrain> driveTrain;
+	static std::unique_ptr<Intake> intake;
+
 	static std::unique_ptr<OI> oi;
 };
 
