@@ -1,0 +1,537 @@
+<grip:Pipeline>
+  <sources>
+    <grip:MultiImageFile>
+      <property name="path[108]" value="/Users/collinstratton/Downloads/RealFullField/223.jpg"/>
+      <property name="path[363]" value="/Users/collinstratton/Downloads/RealFullField/516.jpg"/>
+      <property name="path[295]" value="/Users/collinstratton/Downloads/RealFullField/438.jpg"/>
+      <property name="path[191]" value="/Users/collinstratton/Downloads/RealFullField/312.jpg"/>
+      <property name="path[359]" value="/Users/collinstratton/Downloads/RealFullField/512.jpg"/>
+      <property name="path[323]" value="/Users/collinstratton/Downloads/RealFullField/476.jpg"/>
+      <property name="path[73]" value="/Users/collinstratton/Downloads/RealFullField/188.jpg"/>
+      <property name="path[255]" value="/Users/collinstratton/Downloads/RealFullField/376.jpg"/>
+      <property name="path[187]" value="/Users/collinstratton/Downloads/RealFullField/308.jpg"/>
+      <property name="path[151]" value="/Users/collinstratton/Downloads/RealFullField/268.jpg"/>
+      <property name="path[319]" value="/Users/collinstratton/Downloads/RealFullField/472.jpg"/>
+      <property name="path[69]" value="/Users/collinstratton/Downloads/RealFullField/184.jpg"/>
+      <property name="path[33]" value="/Users/collinstratton/Downloads/RealFullField/58.jpg"/>
+      <property name="path[215]" value="/Users/collinstratton/Downloads/RealFullField/336.jpg"/>
+      <property name="path[147]" value="/Users/collinstratton/Downloads/RealFullField/264.jpg"/>
+      <property name="path[111]" value="/Users/collinstratton/Downloads/RealFullField/226.jpg"/>
+      <property name="path[29]" value="/Users/collinstratton/Downloads/RealFullField/32.jpg"/>
+      <property name="path[107]" value="/Users/collinstratton/Downloads/RealFullField/222.jpg"/>
+      <property name="path[362]" value="/Users/collinstratton/Downloads/RealFullField/515.jpg"/>
+      <property name="path[294]" value="/Users/collinstratton/Downloads/RealFullField/437.jpg"/>
+      <property name="path[190]" value="/Users/collinstratton/Downloads/RealFullField/311.jpg"/>
+      <property name="path[358]" value="/Users/collinstratton/Downloads/RealFullField/511.jpg"/>
+      <property name="path[322]" value="/Users/collinstratton/Downloads/RealFullField/475.jpg"/>
+      <property name="path[72]" value="/Users/collinstratton/Downloads/RealFullField/187.jpg"/>
+      <property name="path[254]" value="/Users/collinstratton/Downloads/RealFullField/375.jpg"/>
+      <property name="path[186]" value="/Users/collinstratton/Downloads/RealFullField/307.jpg"/>
+      <property name="path[150]" value="/Users/collinstratton/Downloads/RealFullField/267.jpg"/>
+      <property name="path[318]" value="/Users/collinstratton/Downloads/RealFullField/471.jpg"/>
+      <property name="path[68]" value="/Users/collinstratton/Downloads/RealFullField/183.jpg"/>
+      <property name="path[32]" value="/Users/collinstratton/Downloads/RealFullField/56.jpg"/>
+      <property name="path[214]" value="/Users/collinstratton/Downloads/RealFullField/335.jpg"/>
+      <property name="path[146]" value="/Users/collinstratton/Downloads/RealFullField/263.jpg"/>
+      <property name="path[110]" value="/Users/collinstratton/Downloads/RealFullField/225.jpg"/>
+      <property name="path[28]" value="/Users/collinstratton/Downloads/RealFullField/31.jpg"/>
+      <property name="path[106]" value="/Users/collinstratton/Downloads/RealFullField/221.jpg"/>
+      <property name="path[361]" value="/Users/collinstratton/Downloads/RealFullField/514.jpg"/>
+      <property name="path[293]" value="/Users/collinstratton/Downloads/RealFullField/436.jpg"/>
+      <property name="path[357]" value="/Users/collinstratton/Downloads/RealFullField/510.jpg"/>
+      <property name="path[321]" value="/Users/collinstratton/Downloads/RealFullField/474.jpg"/>
+      <property name="path[289]" value="/Users/collinstratton/Downloads/RealFullField/432.jpg"/>
+      <property name="path[71]" value="/Users/collinstratton/Downloads/RealFullField/186.jpg"/>
+      <property name="path[9]" value="/Users/collinstratton/Downloads/RealFullField/12.jpg"/>
+      <property name="path[253]" value="/Users/collinstratton/Downloads/RealFullField/374.jpg"/>
+      <property name="path[185]" value="/Users/collinstratton/Downloads/RealFullField/306.jpg"/>
+      <property name="path[317]" value="/Users/collinstratton/Downloads/RealFullField/470.jpg"/>
+      <property name="path[67]" value="/Users/collinstratton/Downloads/RealFullField/182.jpg"/>
+      <property name="path[249]" value="/Users/collinstratton/Downloads/RealFullField/370.jpg"/>
+      <property name="path[31]" value="/Users/collinstratton/Downloads/RealFullField/55.jpg"/>
+      <property name="path[213]" value="/Users/collinstratton/Downloads/RealFullField/334.jpg"/>
+      <property name="path[145]" value="/Users/collinstratton/Downloads/RealFullField/262.jpg"/>
+      <property name="path[27]" value="/Users/collinstratton/Downloads/RealFullField/30.jpg"/>
+      <property name="path[209]" value="/Users/collinstratton/Downloads/RealFullField/330.jpg"/>
+      <property name="path[105]" value="/Users/collinstratton/Downloads/RealFullField/220.jpg"/>
+      <property name="path[360]" value="/Users/collinstratton/Downloads/RealFullField/513.jpg"/>
+      <property name="path[292]" value="/Users/collinstratton/Downloads/RealFullField/435.jpg"/>
+      <property name="path[356]" value="/Users/collinstratton/Downloads/RealFullField/509.jpg"/>
+      <property name="path[320]" value="/Users/collinstratton/Downloads/RealFullField/473.jpg"/>
+      <property name="path[288]" value="/Users/collinstratton/Downloads/RealFullField/431.jpg"/>
+      <property name="path[70]" value="/Users/collinstratton/Downloads/RealFullField/185.jpg"/>
+      <property name="path[8]" value="/Users/collinstratton/Downloads/RealFullField/11.jpg"/>
+      <property name="path[252]" value="/Users/collinstratton/Downloads/RealFullField/373.jpg"/>
+      <property name="path[184]" value="/Users/collinstratton/Downloads/RealFullField/305.jpg"/>
+      <property name="path[316]" value="/Users/collinstratton/Downloads/RealFullField/469.jpg"/>
+      <property name="path[66]" value="/Users/collinstratton/Downloads/RealFullField/181.jpg"/>
+      <property name="path[248]" value="/Users/collinstratton/Downloads/RealFullField/369.jpg"/>
+      <property name="path[30]" value="/Users/collinstratton/Downloads/RealFullField/33.jpg"/>
+      <property name="path[212]" value="/Users/collinstratton/Downloads/RealFullField/333.jpg"/>
+      <property name="path[144]" value="/Users/collinstratton/Downloads/RealFullField/261.jpg"/>
+      <property name="path[26]" value="/Users/collinstratton/Downloads/RealFullField/29.jpg"/>
+      <property name="path[208]" value="/Users/collinstratton/Downloads/RealFullField/329.jpg"/>
+      <property name="path[104]" value="/Users/collinstratton/Downloads/RealFullField/219.jpg"/>
+      <property name="path[291]" value="/Users/collinstratton/Downloads/RealFullField/434.jpg"/>
+      <property name="numImages" value="390"/>
+      <property name="path[355]" value="/Users/collinstratton/Downloads/RealFullField/508.jpg"/>
+      <property name="path[287]" value="/Users/collinstratton/Downloads/RealFullField/430.jpg"/>
+      <property name="path[7]" value="/Users/collinstratton/Downloads/RealFullField/9.jpg"/>
+      <property name="path[251]" value="/Users/collinstratton/Downloads/RealFullField/372.jpg"/>
+      <property name="path[183]" value="/Users/collinstratton/Downloads/RealFullField/304.jpg"/>
+      <property name="path[315]" value="/Users/collinstratton/Downloads/RealFullField/468.jpg"/>
+      <property name="path[65]" value="/Users/collinstratton/Downloads/RealFullField/92.jpg"/>
+      <property name="path[247]" value="/Users/collinstratton/Downloads/RealFullField/368.jpg"/>
+      <property name="path[179]" value="/Users/collinstratton/Downloads/RealFullField/300.jpg"/>
+      <property name="path[211]" value="/Users/collinstratton/Downloads/RealFullField/332.jpg"/>
+      <property name="path[143]" value="/Users/collinstratton/Downloads/RealFullField/260.jpg"/>
+      <property name="path[25]" value="/Users/collinstratton/Downloads/RealFullField/28.jpg"/>
+      <property name="path[207]" value="/Users/collinstratton/Downloads/RealFullField/328.jpg"/>
+      <property name="path[139]" value="/Users/collinstratton/Downloads/RealFullField/255.jpg"/>
+      <property name="path[103]" value="/Users/collinstratton/Downloads/RealFullField/218.jpg"/>
+      <property name="path[290]" value="/Users/collinstratton/Downloads/RealFullField/433.jpg"/>
+      <property name="path[354]" value="/Users/collinstratton/Downloads/RealFullField/507.jpg"/>
+      <property name="path[286]" value="/Users/collinstratton/Downloads/RealFullField/429.jpg"/>
+      <property name="path[6]" value="/Users/collinstratton/Downloads/RealFullField/8.jpg"/>
+      <property name="path[250]" value="/Users/collinstratton/Downloads/RealFullField/371.jpg"/>
+      <property name="path[182]" value="/Users/collinstratton/Downloads/RealFullField/303.jpg"/>
+      <property name="path[314]" value="/Users/collinstratton/Downloads/RealFullField/467.jpg"/>
+      <property name="path[64]" value="/Users/collinstratton/Downloads/RealFullField/91.jpg"/>
+      <property name="path[246]" value="/Users/collinstratton/Downloads/RealFullField/367.jpg"/>
+      <property name="path[210]" value="/Users/collinstratton/Downloads/RealFullField/331.jpg"/>
+      <property name="path[178]" value="/Users/collinstratton/Downloads/RealFullField/299.jpg"/>
+      <property name="path[142]" value="/Users/collinstratton/Downloads/RealFullField/259.jpg"/>
+      <property name="path[24]" value="/Users/collinstratton/Downloads/RealFullField/27.jpg"/>
+      <property name="path[206]" value="/Users/collinstratton/Downloads/RealFullField/327.jpg"/>
+      <property name="path[138]" value="/Users/collinstratton/Downloads/RealFullField/254.jpg"/>
+      <property name="path[102]" value="/Users/collinstratton/Downloads/RealFullField/217.jpg"/>
+      <property name="path[389]" value="/Users/collinstratton/Downloads/RealFullField/542.jpg"/>
+      <property name="path[353]" value="/Users/collinstratton/Downloads/RealFullField/506.jpg"/>
+      <property name="path[285]" value="/Users/collinstratton/Downloads/RealFullField/428.jpg"/>
+      <property name="path[5]" value="/Users/collinstratton/Downloads/RealFullField/7.jpg"/>
+      <property name="path[181]" value="/Users/collinstratton/Downloads/RealFullField/302.jpg"/>
+      <property name="path[349]" value="/Users/collinstratton/Downloads/RealFullField/502.jpg"/>
+      <property name="path[99]" value="/Users/collinstratton/Downloads/RealFullField/214.jpg"/>
+      <property name="path[313]" value="/Users/collinstratton/Downloads/RealFullField/466.jpg"/>
+      <property name="path[63]" value="/Users/collinstratton/Downloads/RealFullField/90.jpg"/>
+      <property name="path[245]" value="/Users/collinstratton/Downloads/RealFullField/366.jpg"/>
+      <property name="path[177]" value="/Users/collinstratton/Downloads/RealFullField/298.jpg"/>
+      <property name="path[141]" value="/Users/collinstratton/Downloads/RealFullField/258.jpg"/>
+      <property name="path[309]" value="/Users/collinstratton/Downloads/RealFullField/452.jpg"/>
+      <property name="path[59]" value="/Users/collinstratton/Downloads/RealFullField/86.jpg"/>
+      <property name="path[23]" value="/Users/collinstratton/Downloads/RealFullField/26.jpg"/>
+      <property name="path[205]" value="/Users/collinstratton/Downloads/RealFullField/326.jpg"/>
+      <property name="path[137]" value="/Users/collinstratton/Downloads/RealFullField/253.jpg"/>
+      <property name="path[101]" value="/Users/collinstratton/Downloads/RealFullField/216.jpg"/>
+      <property name="path[19]" value="/Users/collinstratton/Downloads/RealFullField/22.jpg"/>
+      <property name="path[388]" value="/Users/collinstratton/Downloads/RealFullField/541.jpg"/>
+      <property name="path[352]" value="/Users/collinstratton/Downloads/RealFullField/505.jpg"/>
+      <property name="path[4]" value="/Users/collinstratton/Downloads/RealFullField/6.jpg"/>
+      <property name="path[284]" value="/Users/collinstratton/Downloads/RealFullField/427.jpg"/>
+      <property name="path[180]" value="/Users/collinstratton/Downloads/RealFullField/301.jpg"/>
+      <property name="path[348]" value="/Users/collinstratton/Downloads/RealFullField/501.jpg"/>
+      <property name="path[98]" value="/Users/collinstratton/Downloads/RealFullField/213.jpg"/>
+      <property name="path[312]" value="/Users/collinstratton/Downloads/RealFullField/465.jpg"/>
+      <property name="path[62]" value="/Users/collinstratton/Downloads/RealFullField/89.jpg"/>
+      <property name="path[244]" value="/Users/collinstratton/Downloads/RealFullField/365.jpg"/>
+      <property name="path[176]" value="/Users/collinstratton/Downloads/RealFullField/297.jpg"/>
+      <property name="path[140]" value="/Users/collinstratton/Downloads/RealFullField/257.jpg"/>
+      <property name="path[308]" value="/Users/collinstratton/Downloads/RealFullField/451.jpg"/>
+      <property name="path[58]" value="/Users/collinstratton/Downloads/RealFullField/85.jpg"/>
+      <property name="path[22]" value="/Users/collinstratton/Downloads/RealFullField/25.jpg"/>
+      <property name="path[204]" value="/Users/collinstratton/Downloads/RealFullField/325.jpg"/>
+      <property name="path[136]" value="/Users/collinstratton/Downloads/RealFullField/252.jpg"/>
+      <property name="path[100]" value="/Users/collinstratton/Downloads/RealFullField/215.jpg"/>
+      <property name="path[18]" value="/Users/collinstratton/Downloads/RealFullField/21.jpg"/>
+      <property name="path[387]" value="/Users/collinstratton/Downloads/RealFullField/540.jpg"/>
+      <property name="path[351]" value="/Users/collinstratton/Downloads/RealFullField/504.jpg"/>
+      <property name="path[3]" value="/Users/collinstratton/Downloads/RealFullField/5.jpg"/>
+      <property name="path[283]" value="/Users/collinstratton/Downloads/RealFullField/426.jpg"/>
+      <property name="path[347]" value="/Users/collinstratton/Downloads/RealFullField/500.jpg"/>
+      <property name="path[97]" value="/Users/collinstratton/Downloads/RealFullField/212.jpg"/>
+      <property name="path[311]" value="/Users/collinstratton/Downloads/RealFullField/454.jpg"/>
+      <property name="path[279]" value="/Users/collinstratton/Downloads/RealFullField/422.jpg"/>
+      <property name="path[61]" value="/Users/collinstratton/Downloads/RealFullField/88.jpg"/>
+      <property name="path[243]" value="/Users/collinstratton/Downloads/RealFullField/364.jpg"/>
+      <property name="path[175]" value="/Users/collinstratton/Downloads/RealFullField/296.jpg"/>
+      <property name="path[307]" value="/Users/collinstratton/Downloads/RealFullField/450.jpg"/>
+      <property name="path[57]" value="/Users/collinstratton/Downloads/RealFullField/84.jpg"/>
+      <property name="path[239]" value="/Users/collinstratton/Downloads/RealFullField/360.jpg"/>
+      <property name="path[21]" value="/Users/collinstratton/Downloads/RealFullField/24.jpg"/>
+      <property name="path[203]" value="/Users/collinstratton/Downloads/RealFullField/324.jpg"/>
+      <property name="path[135]" value="/Users/collinstratton/Downloads/RealFullField/251.jpg"/>
+      <property name="path[17]" value="/Users/collinstratton/Downloads/RealFullField/20.jpg"/>
+      <property name="path[386]" value="/Users/collinstratton/Downloads/RealFullField/539.jpg"/>
+      <property name="path[350]" value="/Users/collinstratton/Downloads/RealFullField/503.jpg"/>
+      <property name="path[2]" value="/Users/collinstratton/Downloads/RealFullField/4.jpg"/>
+      <property name="path[282]" value="/Users/collinstratton/Downloads/RealFullField/425.jpg"/>
+      <property name="path[346]" value="/Users/collinstratton/Downloads/RealFullField/499.jpg"/>
+      <property name="path[96]" value="/Users/collinstratton/Downloads/RealFullField/211.jpg"/>
+      <property name="path[310]" value="/Users/collinstratton/Downloads/RealFullField/453.jpg"/>
+      <property name="path[278]" value="/Users/collinstratton/Downloads/RealFullField/421.jpg"/>
+      <property name="path[60]" value="/Users/collinstratton/Downloads/RealFullField/87.jpg"/>
+      <property name="path[242]" value="/Users/collinstratton/Downloads/RealFullField/363.jpg"/>
+      <property name="path[174]" value="/Users/collinstratton/Downloads/RealFullField/295.jpg"/>
+      <property name="path[306]" value="/Users/collinstratton/Downloads/RealFullField/449.jpg"/>
+      <property name="path[56]" value="/Users/collinstratton/Downloads/RealFullField/83.jpg"/>
+      <property name="path[238]" value="/Users/collinstratton/Downloads/RealFullField/359.jpg"/>
+      <property name="path[20]" value="/Users/collinstratton/Downloads/RealFullField/23.jpg"/>
+      <property name="path[202]" value="/Users/collinstratton/Downloads/RealFullField/323.jpg"/>
+      <property name="path[134]" value="/Users/collinstratton/Downloads/RealFullField/249.jpg"/>
+      <property name="path[16]" value="/Users/collinstratton/Downloads/RealFullField/19.jpg"/>
+      <property name="path[385]" value="/Users/collinstratton/Downloads/RealFullField/538.jpg"/>
+      <property name="path[1]" value="/Users/collinstratton/Downloads/RealFullField/3.jpg"/>
+      <property name="path[281]" value="/Users/collinstratton/Downloads/RealFullField/424.jpg"/>
+      <property name="path[345]" value="/Users/collinstratton/Downloads/RealFullField/498.jpg"/>
+      <property name="path[95]" value="/Users/collinstratton/Downloads/RealFullField/210.jpg"/>
+      <property name="path[277]" value="/Users/collinstratton/Downloads/RealFullField/420.jpg"/>
+      <property name="path[241]" value="/Users/collinstratton/Downloads/RealFullField/362.jpg"/>
+      <property name="path[173]" value="/Users/collinstratton/Downloads/RealFullField/294.jpg"/>
+      <property name="path[305]" value="/Users/collinstratton/Downloads/RealFullField/448.jpg"/>
+      <property name="path[55]" value="/Users/collinstratton/Downloads/RealFullField/82.jpg"/>
+      <property name="path[237]" value="/Users/collinstratton/Downloads/RealFullField/358.jpg"/>
+      <property name="path[169]" value="/Users/collinstratton/Downloads/RealFullField/290.jpg"/>
+      <property name="path[201]" value="/Users/collinstratton/Downloads/RealFullField/322.jpg"/>
+      <property name="path[133]" value="/Users/collinstratton/Downloads/RealFullField/248.jpg"/>
+      <property name="path[15]" value="/Users/collinstratton/Downloads/RealFullField/18.jpg"/>
+      <property name="path[129]" value="/Users/collinstratton/Downloads/RealFullField/244.jpg"/>
+      <property name="path[384]" value="/Users/collinstratton/Downloads/RealFullField/537.jpg"/>
+      <property name="path[0]" value="/Users/collinstratton/Downloads/RealFullField/0.jpg"/>
+      <property name="path[280]" value="/Users/collinstratton/Downloads/RealFullField/423.jpg"/>
+      <property name="path[344]" value="/Users/collinstratton/Downloads/RealFullField/497.jpg"/>
+      <property name="path[94]" value="/Users/collinstratton/Downloads/RealFullField/209.jpg"/>
+      <property name="path[276]" value="/Users/collinstratton/Downloads/RealFullField/399.jpg"/>
+      <property name="path[240]" value="/Users/collinstratton/Downloads/RealFullField/361.jpg"/>
+      <property name="path[172]" value="/Users/collinstratton/Downloads/RealFullField/293.jpg"/>
+      <property name="path[304]" value="/Users/collinstratton/Downloads/RealFullField/447.jpg"/>
+      <property name="path[54]" value="/Users/collinstratton/Downloads/RealFullField/81.jpg"/>
+      <property name="path[236]" value="/Users/collinstratton/Downloads/RealFullField/357.jpg"/>
+      <property name="path[168]" value="/Users/collinstratton/Downloads/RealFullField/285.jpg"/>
+      <property name="path[200]" value="/Users/collinstratton/Downloads/RealFullField/321.jpg"/>
+      <property name="path[132]" value="/Users/collinstratton/Downloads/RealFullField/247.jpg"/>
+      <property name="path[14]" value="/Users/collinstratton/Downloads/RealFullField/17.jpg"/>
+      <property name="path[128]" value="/Users/collinstratton/Downloads/RealFullField/243.jpg"/>
+      <property name="path[383]" value="/Users/collinstratton/Downloads/RealFullField/536.jpg"/>
+      <property name="path[379]" value="/Users/collinstratton/Downloads/RealFullField/532.jpg"/>
+      <property name="path[343]" value="/Users/collinstratton/Downloads/RealFullField/496.jpg"/>
+      <property name="path[93]" value="/Users/collinstratton/Downloads/RealFullField/208.jpg"/>
+      <property name="path[275]" value="/Users/collinstratton/Downloads/RealFullField/398.jpg"/>
+      <property name="path[171]" value="/Users/collinstratton/Downloads/RealFullField/292.jpg"/>
+      <property name="path[339]" value="/Users/collinstratton/Downloads/RealFullField/492.jpg"/>
+      <property name="path[89]" value="/Users/collinstratton/Downloads/RealFullField/204.jpg"/>
+      <property name="path[303]" value="/Users/collinstratton/Downloads/RealFullField/446.jpg"/>
+      <property name="path[53]" value="/Users/collinstratton/Downloads/RealFullField/80.jpg"/>
+      <property name="path[235]" value="/Users/collinstratton/Downloads/RealFullField/356.jpg"/>
+      <property name="path[167]" value="/Users/collinstratton/Downloads/RealFullField/284.jpg"/>
+      <property name="path[131]" value="/Users/collinstratton/Downloads/RealFullField/246.jpg"/>
+      <property name="path[49]" value="/Users/collinstratton/Downloads/RealFullField/74.jpg"/>
+      <property name="path[13]" value="/Users/collinstratton/Downloads/RealFullField/16.jpg"/>
+      <property name="path[127]" value="/Users/collinstratton/Downloads/RealFullField/242.jpg"/>
+      <property name="path[382]" value="/Users/collinstratton/Downloads/RealFullField/535.jpg"/>
+      <property name="path[378]" value="/Users/collinstratton/Downloads/RealFullField/531.jpg"/>
+      <property name="path[342]" value="/Users/collinstratton/Downloads/RealFullField/495.jpg"/>
+      <property name="path[92]" value="/Users/collinstratton/Downloads/RealFullField/207.jpg"/>
+      <property name="path[274]" value="/Users/collinstratton/Downloads/RealFullField/397.jpg"/>
+      <property name="path[170]" value="/Users/collinstratton/Downloads/RealFullField/291.jpg"/>
+      <property name="path[338]" value="/Users/collinstratton/Downloads/RealFullField/491.jpg"/>
+      <property name="path[88]" value="/Users/collinstratton/Downloads/RealFullField/203.jpg"/>
+      <property name="path[302]" value="/Users/collinstratton/Downloads/RealFullField/445.jpg"/>
+      <property name="path[52]" value="/Users/collinstratton/Downloads/RealFullField/79.jpg"/>
+      <property name="path[234]" value="/Users/collinstratton/Downloads/RealFullField/355.jpg"/>
+      <property name="path[166]" value="/Users/collinstratton/Downloads/RealFullField/283.jpg"/>
+      <property name="path[130]" value="/Users/collinstratton/Downloads/RealFullField/245.jpg"/>
+      <property name="path[48]" value="/Users/collinstratton/Downloads/RealFullField/73.jpg"/>
+      <property name="path[12]" value="/Users/collinstratton/Downloads/RealFullField/15.jpg"/>
+      <property name="path[126]" value="/Users/collinstratton/Downloads/RealFullField/241.jpg"/>
+      <property name="path[381]" value="/Users/collinstratton/Downloads/RealFullField/534.jpg"/>
+      <property name="path[377]" value="/Users/collinstratton/Downloads/RealFullField/530.jpg"/>
+      <property name="path[341]" value="/Users/collinstratton/Downloads/RealFullField/494.jpg"/>
+      <property name="path[91]" value="/Users/collinstratton/Downloads/RealFullField/206.jpg"/>
+      <property name="path[273]" value="/Users/collinstratton/Downloads/RealFullField/396.jpg"/>
+      <property name="path[337]" value="/Users/collinstratton/Downloads/RealFullField/490.jpg"/>
+      <property name="path[87]" value="/Users/collinstratton/Downloads/RealFullField/202.jpg"/>
+      <property name="path[301]" value="/Users/collinstratton/Downloads/RealFullField/444.jpg"/>
+      <property name="path[269]" value="/Users/collinstratton/Downloads/RealFullField/392.jpg"/>
+      <property name="path[51]" value="/Users/collinstratton/Downloads/RealFullField/76.jpg"/>
+      <property name="path[233]" value="/Users/collinstratton/Downloads/RealFullField/354.jpg"/>
+      <property name="path[165]" value="/Users/collinstratton/Downloads/RealFullField/282.jpg"/>
+      <property name="path[47]" value="/Users/collinstratton/Downloads/RealFullField/72.jpg"/>
+      <property name="path[229]" value="/Users/collinstratton/Downloads/RealFullField/350.jpg"/>
+      <property name="path[11]" value="/Users/collinstratton/Downloads/RealFullField/14.jpg"/>
+      <property name="path[125]" value="/Users/collinstratton/Downloads/RealFullField/240.jpg"/>
+      <property name="path[380]" value="/Users/collinstratton/Downloads/RealFullField/533.jpg"/>
+      <property name="path[376]" value="/Users/collinstratton/Downloads/RealFullField/529.jpg"/>
+      <property name="path[340]" value="/Users/collinstratton/Downloads/RealFullField/493.jpg"/>
+      <property name="path[90]" value="/Users/collinstratton/Downloads/RealFullField/205.jpg"/>
+      <property name="path[272]" value="/Users/collinstratton/Downloads/RealFullField/395.jpg"/>
+      <property name="path[336]" value="/Users/collinstratton/Downloads/RealFullField/489.jpg"/>
+      <property name="path[86]" value="/Users/collinstratton/Downloads/RealFullField/201.jpg"/>
+      <property name="path[300]" value="/Users/collinstratton/Downloads/RealFullField/443.jpg"/>
+      <property name="path[268]" value="/Users/collinstratton/Downloads/RealFullField/391.jpg"/>
+      <property name="path[50]" value="/Users/collinstratton/Downloads/RealFullField/75.jpg"/>
+      <property name="path[232]" value="/Users/collinstratton/Downloads/RealFullField/353.jpg"/>
+      <property name="path[164]" value="/Users/collinstratton/Downloads/RealFullField/281.jpg"/>
+      <property name="path[46]" value="/Users/collinstratton/Downloads/RealFullField/71.jpg"/>
+      <property name="path[228]" value="/Users/collinstratton/Downloads/RealFullField/349.jpg"/>
+      <property name="path[10]" value="/Users/collinstratton/Downloads/RealFullField/13.jpg"/>
+      <property name="path[124]" value="/Users/collinstratton/Downloads/RealFullField/239.jpg"/>
+      <property name="path[375]" value="/Users/collinstratton/Downloads/RealFullField/528.jpg"/>
+      <property name="path[271]" value="/Users/collinstratton/Downloads/RealFullField/394.jpg"/>
+      <property name="path[335]" value="/Users/collinstratton/Downloads/RealFullField/488.jpg"/>
+      <property name="path[85]" value="/Users/collinstratton/Downloads/RealFullField/200.jpg"/>
+      <property name="path[267]" value="/Users/collinstratton/Downloads/RealFullField/390.jpg"/>
+      <property name="path[199]" value="/Users/collinstratton/Downloads/RealFullField/320.jpg"/>
+      <property name="path[231]" value="/Users/collinstratton/Downloads/RealFullField/352.jpg"/>
+      <property name="path[163]" value="/Users/collinstratton/Downloads/RealFullField/280.jpg"/>
+      <property name="path[45]" value="/Users/collinstratton/Downloads/RealFullField/70.jpg"/>
+      <property name="path[227]" value="/Users/collinstratton/Downloads/RealFullField/348.jpg"/>
+      <property name="path[159]" value="/Users/collinstratton/Downloads/RealFullField/276.jpg"/>
+      <property name="path[123]" value="/Users/collinstratton/Downloads/RealFullField/238.jpg"/>
+      <property name="index" value="7"/>
+      <property name="path[119]" value="/Users/collinstratton/Downloads/RealFullField/234.jpg"/>
+      <property name="path[374]" value="/Users/collinstratton/Downloads/RealFullField/527.jpg"/>
+      <property name="path[270]" value="/Users/collinstratton/Downloads/RealFullField/393.jpg"/>
+      <property name="path[334]" value="/Users/collinstratton/Downloads/RealFullField/487.jpg"/>
+      <property name="path[84]" value="/Users/collinstratton/Downloads/RealFullField/199.jpg"/>
+      <property name="path[266]" value="/Users/collinstratton/Downloads/RealFullField/389.jpg"/>
+      <property name="path[230]" value="/Users/collinstratton/Downloads/RealFullField/351.jpg"/>
+      <property name="path[198]" value="/Users/collinstratton/Downloads/RealFullField/319.jpg"/>
+      <property name="path[162]" value="/Users/collinstratton/Downloads/RealFullField/279.jpg"/>
+      <property name="path[44]" value="/Users/collinstratton/Downloads/RealFullField/69.jpg"/>
+      <property name="path[226]" value="/Users/collinstratton/Downloads/RealFullField/347.jpg"/>
+      <property name="path[158]" value="/Users/collinstratton/Downloads/RealFullField/275.jpg"/>
+      <property name="path[122]" value="/Users/collinstratton/Downloads/RealFullField/237.jpg"/>
+      <property name="path[118]" value="/Users/collinstratton/Downloads/RealFullField/233.jpg"/>
+      <property name="path[373]" value="/Users/collinstratton/Downloads/RealFullField/526.jpg"/>
+      <property name="path[369]" value="/Users/collinstratton/Downloads/RealFullField/522.jpg"/>
+      <property name="path[333]" value="/Users/collinstratton/Downloads/RealFullField/486.jpg"/>
+      <property name="path[83]" value="/Users/collinstratton/Downloads/RealFullField/198.jpg"/>
+      <property name="path[265]" value="/Users/collinstratton/Downloads/RealFullField/388.jpg"/>
+      <property name="path[197]" value="/Users/collinstratton/Downloads/RealFullField/318.jpg"/>
+      <property name="path[161]" value="/Users/collinstratton/Downloads/RealFullField/278.jpg"/>
+      <property name="path[329]" value="/Users/collinstratton/Downloads/RealFullField/482.jpg"/>
+      <property name="path[79]" value="/Users/collinstratton/Downloads/RealFullField/194.jpg"/>
+      <property name="path[43]" value="/Users/collinstratton/Downloads/RealFullField/68.jpg"/>
+      <property name="path[225]" value="/Users/collinstratton/Downloads/RealFullField/346.jpg"/>
+      <property name="path[157]" value="/Users/collinstratton/Downloads/RealFullField/274.jpg"/>
+      <property name="path[121]" value="/Users/collinstratton/Downloads/RealFullField/236.jpg"/>
+      <property name="path[39]" value="/Users/collinstratton/Downloads/RealFullField/64.jpg"/>
+      <property name="path[117]" value="/Users/collinstratton/Downloads/RealFullField/232.jpg"/>
+      <property name="path[372]" value="/Users/collinstratton/Downloads/RealFullField/525.jpg"/>
+      <property name="path[368]" value="/Users/collinstratton/Downloads/RealFullField/521.jpg"/>
+      <property name="path[332]" value="/Users/collinstratton/Downloads/RealFullField/485.jpg"/>
+      <property name="path[82]" value="/Users/collinstratton/Downloads/RealFullField/197.jpg"/>
+      <property name="path[264]" value="/Users/collinstratton/Downloads/RealFullField/387.jpg"/>
+      <property name="path[196]" value="/Users/collinstratton/Downloads/RealFullField/317.jpg"/>
+      <property name="path[160]" value="/Users/collinstratton/Downloads/RealFullField/277.jpg"/>
+      <property name="path[328]" value="/Users/collinstratton/Downloads/RealFullField/481.jpg"/>
+      <property name="path[78]" value="/Users/collinstratton/Downloads/RealFullField/193.jpg"/>
+      <property name="path[42]" value="/Users/collinstratton/Downloads/RealFullField/67.jpg"/>
+      <property name="path[224]" value="/Users/collinstratton/Downloads/RealFullField/345.jpg"/>
+      <property name="path[156]" value="/Users/collinstratton/Downloads/RealFullField/273.jpg"/>
+      <property name="path[120]" value="/Users/collinstratton/Downloads/RealFullField/235.jpg"/>
+      <property name="path[38]" value="/Users/collinstratton/Downloads/RealFullField/63.jpg"/>
+      <property name="path[116]" value="/Users/collinstratton/Downloads/RealFullField/231.jpg"/>
+      <property name="path[371]" value="/Users/collinstratton/Downloads/RealFullField/524.jpg"/>
+      <property name="path[367]" value="/Users/collinstratton/Downloads/RealFullField/520.jpg"/>
+      <property name="path[331]" value="/Users/collinstratton/Downloads/RealFullField/484.jpg"/>
+      <property name="path[299]" value="/Users/collinstratton/Downloads/RealFullField/442.jpg"/>
+      <property name="path[81]" value="/Users/collinstratton/Downloads/RealFullField/196.jpg"/>
+      <property name="path[263]" value="/Users/collinstratton/Downloads/RealFullField/386.jpg"/>
+      <property name="path[195]" value="/Users/collinstratton/Downloads/RealFullField/316.jpg"/>
+      <property name="path[327]" value="/Users/collinstratton/Downloads/RealFullField/480.jpg"/>
+      <property name="path[77]" value="/Users/collinstratton/Downloads/RealFullField/192.jpg"/>
+      <property name="path[259]" value="/Users/collinstratton/Downloads/RealFullField/380.jpg"/>
+      <property name="path[41]" value="/Users/collinstratton/Downloads/RealFullField/66.jpg"/>
+      <property name="path[223]" value="/Users/collinstratton/Downloads/RealFullField/344.jpg"/>
+      <property name="path[155]" value="/Users/collinstratton/Downloads/RealFullField/272.jpg"/>
+      <property name="path[37]" value="/Users/collinstratton/Downloads/RealFullField/62.jpg"/>
+      <property name="path[219]" value="/Users/collinstratton/Downloads/RealFullField/340.jpg"/>
+      <property name="path[115]" value="/Users/collinstratton/Downloads/RealFullField/230.jpg"/>
+      <property name="path[370]" value="/Users/collinstratton/Downloads/RealFullField/523.jpg"/>
+      <property name="path[366]" value="/Users/collinstratton/Downloads/RealFullField/519.jpg"/>
+      <property name="path[330]" value="/Users/collinstratton/Downloads/RealFullField/483.jpg"/>
+      <property name="path[298]" value="/Users/collinstratton/Downloads/RealFullField/441.jpg"/>
+      <property name="path[80]" value="/Users/collinstratton/Downloads/RealFullField/195.jpg"/>
+      <property name="path[262]" value="/Users/collinstratton/Downloads/RealFullField/385.jpg"/>
+      <property name="path[194]" value="/Users/collinstratton/Downloads/RealFullField/315.jpg"/>
+      <property name="path[326]" value="/Users/collinstratton/Downloads/RealFullField/479.jpg"/>
+      <property name="path[76]" value="/Users/collinstratton/Downloads/RealFullField/191.jpg"/>
+      <property name="path[258]" value="/Users/collinstratton/Downloads/RealFullField/379.jpg"/>
+      <property name="path[40]" value="/Users/collinstratton/Downloads/RealFullField/65.jpg"/>
+      <property name="path[222]" value="/Users/collinstratton/Downloads/RealFullField/343.jpg"/>
+      <property name="path[154]" value="/Users/collinstratton/Downloads/RealFullField/271.jpg"/>
+      <property name="path[36]" value="/Users/collinstratton/Downloads/RealFullField/61.jpg"/>
+      <property name="path[218]" value="/Users/collinstratton/Downloads/RealFullField/339.jpg"/>
+      <property name="path[114]" value="/Users/collinstratton/Downloads/RealFullField/229.jpg"/>
+      <property name="path[365]" value="/Users/collinstratton/Downloads/RealFullField/518.jpg"/>
+      <property name="path[297]" value="/Users/collinstratton/Downloads/RealFullField/440.jpg"/>
+      <property name="path[261]" value="/Users/collinstratton/Downloads/RealFullField/384.jpg"/>
+      <property name="path[193]" value="/Users/collinstratton/Downloads/RealFullField/314.jpg"/>
+      <property name="path[325]" value="/Users/collinstratton/Downloads/RealFullField/478.jpg"/>
+      <property name="path[75]" value="/Users/collinstratton/Downloads/RealFullField/190.jpg"/>
+      <property name="path[257]" value="/Users/collinstratton/Downloads/RealFullField/378.jpg"/>
+      <property name="path[189]" value="/Users/collinstratton/Downloads/RealFullField/310.jpg"/>
+      <property name="path[221]" value="/Users/collinstratton/Downloads/RealFullField/342.jpg"/>
+      <property name="path[153]" value="/Users/collinstratton/Downloads/RealFullField/270.jpg"/>
+      <property name="path[35]" value="/Users/collinstratton/Downloads/RealFullField/60.jpg"/>
+      <property name="path[217]" value="/Users/collinstratton/Downloads/RealFullField/338.jpg"/>
+      <property name="path[149]" value="/Users/collinstratton/Downloads/RealFullField/266.jpg"/>
+      <property name="path[113]" value="/Users/collinstratton/Downloads/RealFullField/228.jpg"/>
+      <property name="path[109]" value="/Users/collinstratton/Downloads/RealFullField/224.jpg"/>
+      <property name="path[364]" value="/Users/collinstratton/Downloads/RealFullField/517.jpg"/>
+      <property name="path[296]" value="/Users/collinstratton/Downloads/RealFullField/439.jpg"/>
+      <property name="path[260]" value="/Users/collinstratton/Downloads/RealFullField/381.jpg"/>
+      <property name="path[192]" value="/Users/collinstratton/Downloads/RealFullField/313.jpg"/>
+      <property name="path[324]" value="/Users/collinstratton/Downloads/RealFullField/477.jpg"/>
+      <property name="path[74]" value="/Users/collinstratton/Downloads/RealFullField/189.jpg"/>
+      <property name="path[256]" value="/Users/collinstratton/Downloads/RealFullField/377.jpg"/>
+      <property name="path[188]" value="/Users/collinstratton/Downloads/RealFullField/309.jpg"/>
+      <property name="path[220]" value="/Users/collinstratton/Downloads/RealFullField/341.jpg"/>
+      <property name="path[152]" value="/Users/collinstratton/Downloads/RealFullField/269.jpg"/>
+      <property name="path[34]" value="/Users/collinstratton/Downloads/RealFullField/59.jpg"/>
+      <property name="path[216]" value="/Users/collinstratton/Downloads/RealFullField/337.jpg"/>
+      <property name="path[148]" value="/Users/collinstratton/Downloads/RealFullField/265.jpg"/>
+      <property name="path[112]" value="/Users/collinstratton/Downloads/RealFullField/227.jpg"/>
+    </grip:MultiImageFile>
+  </sources>
+  <steps>
+    <grip:Step name="HSL Threshold">
+      <grip:Input step="0" socket="0"/>
+      <grip:Input step="0" socket="1">
+        <value>
+          <double>46.942446043165475</double>
+          <double>92.90322580645167</double>
+        </value>
+      </grip:Input>
+      <grip:Input step="0" socket="2">
+        <value>
+          <double>45.86330935251798</double>
+          <double>255.0</double>
+        </value>
+      </grip:Input>
+      <grip:Input step="0" socket="3">
+        <value>
+          <double>34.39748201438849</double>
+          <double>255.0</double>
+        </value>
+      </grip:Input>
+      <grip:Output step="0" socket="0" previewed="true"/>
+    </grip:Step>
+    <grip:Step name="CV dilate">
+      <grip:Input step="1" socket="0"/>
+      <grip:Input step="1" socket="1"/>
+      <grip:Input step="1" socket="2"/>
+      <grip:Input step="1" socket="3">
+        <value>7.0</value>
+      </grip:Input>
+      <grip:Input step="1" socket="4">
+        <value>BORDER_CONSTANT</value>
+      </grip:Input>
+      <grip:Input step="1" socket="5"/>
+      <grip:Output step="1" socket="0" previewed="true"/>
+    </grip:Step>
+    <grip:Step name="CV erode">
+      <grip:Input step="2" socket="0"/>
+      <grip:Input step="2" socket="1"/>
+      <grip:Input step="2" socket="2"/>
+      <grip:Input step="2" socket="3">
+        <value>7.0</value>
+      </grip:Input>
+      <grip:Input step="2" socket="4">
+        <value>BORDER_CONSTANT</value>
+      </grip:Input>
+      <grip:Input step="2" socket="5"/>
+      <grip:Output step="2" socket="0" previewed="true"/>
+    </grip:Step>
+    <grip:Step name="Find Contours">
+      <grip:Input step="3" socket="0"/>
+      <grip:Input step="3" socket="1">
+        <value>false</value>
+      </grip:Input>
+      <grip:Output step="3" socket="0" previewed="true"/>
+    </grip:Step>
+    <grip:Step name="Filter Contours">
+      <grip:Input step="4" socket="0"/>
+      <grip:Input step="4" socket="1">
+        <value>400.0</value>
+      </grip:Input>
+      <grip:Input step="4" socket="2">
+        <value>0.0</value>
+      </grip:Input>
+      <grip:Input step="4" socket="3">
+        <value>0.0</value>
+      </grip:Input>
+      <grip:Input step="4" socket="4">
+        <value>1000.0</value>
+      </grip:Input>
+      <grip:Input step="4" socket="5">
+        <value>0.0</value>
+      </grip:Input>
+      <grip:Input step="4" socket="6">
+        <value>1000.0</value>
+      </grip:Input>
+      <grip:Output step="4" socket="0" previewed="true"/>
+    </grip:Step>
+    <grip:Step name="Convex Hulls">
+      <grip:Input step="5" socket="0"/>
+      <grip:Output step="5" socket="0" previewed="true"/>
+    </grip:Step>
+    <grip:Step name="Publish ContoursReport">
+      <grip:Input step="6" socket="0"/>
+      <grip:Input step="6" socket="1">
+        <value>aGoalContours</value>
+      </grip:Input>
+      <grip:Input step="6" socket="2">
+        <value>true</value>
+      </grip:Input>
+      <grip:Input step="6" socket="3">
+        <value>true</value>
+      </grip:Input>
+      <grip:Input step="6" socket="4">
+        <value>true</value>
+      </grip:Input>
+      <grip:Input step="6" socket="5">
+        <value>true</value>
+      </grip:Input>
+      <grip:Input step="6" socket="6">
+        <value>true</value>
+      </grip:Input>
+    </grip:Step>
+  </steps>
+  <connections>
+    <grip:Connection>
+      <grip:Output source="0" socket="0" previewed="true"/>
+      <grip:Input step="0" socket="0"/>
+    </grip:Connection>
+    <grip:Connection>
+      <grip:Output step="1" socket="0" previewed="true"/>
+      <grip:Input step="2" socket="0"/>
+    </grip:Connection>
+    <grip:Connection>
+      <grip:Output step="0" socket="0" previewed="true"/>
+      <grip:Input step="1" socket="0"/>
+    </grip:Connection>
+    <grip:Connection>
+      <grip:Output step="3" socket="0" previewed="true"/>
+      <grip:Input step="4" socket="0"/>
+    </grip:Connection>
+    <grip:Connection>
+      <grip:Output step="5" socket="0" previewed="true"/>
+      <grip:Input step="6" socket="0"/>
+    </grip:Connection>
+    <grip:Connection>
+      <grip:Output step="2" socket="0" previewed="true"/>
+      <grip:Input step="3" socket="0"/>
+    </grip:Connection>
+    <grip:Connection>
+      <grip:Output step="4" socket="0" previewed="true"/>
+      <grip:Input step="5" socket="0"/>
+    </grip:Connection>
+  </connections>
+  <settings>
+    <teamNumber>0</teamNumber>
+    <publishAddress></publishAddress>
+    <deployAddress></deployAddress>
+  </settings>
+</grip:Pipeline>
