@@ -14,7 +14,7 @@ private:
 	int m_onTargetCounter;
 public:
 	RotateToAngleCommand(double angle){
-		Requires(driveTrain);
+		Requires(driveTrain.get());
 		m_angle = angle;
 		m_curError = 0;
 		m_clockwise = false;
