@@ -8,10 +8,7 @@ Lift::Lift() :
 	m_ballSensor = new DigitalInput(LIFT_LIMIT_SWITCH);
 }
 
-void Lift::InitDefaultCommand()
-{
-	// Set the default command for a subsystem here.
-	//SetDefaultCommand(new MySpecialCommand());
+void Lift::InitDefaultCommand(){
 }
 
 void Lift::SetLiftSpeed(double spd) {
