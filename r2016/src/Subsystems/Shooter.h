@@ -3,7 +3,6 @@
 
 #include "Commands/Subsystem.h"
 #include "WPILib.h"
-#include "RobotMap.h"
 
 class Shooter: public Subsystem
 {
