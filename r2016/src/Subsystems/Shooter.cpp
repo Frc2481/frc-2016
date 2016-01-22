@@ -36,7 +36,6 @@ void Shooter::TurnOff(){
 	m_shooterState = false;
 }
 
-
 void Shooter::SetShooterSpeed(double val) {
 	m_shooterSpd = val;
 }
