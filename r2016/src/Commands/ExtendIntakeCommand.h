@@ -7,7 +7,7 @@
 class ExtendIntakeCommand: public CommandBase
 {
 public:
-	ExtendIntakeCommand(){
+	ExtendIntakeCommand() : CommandBase("ExtendIntakeCommand"){
 		Requires(intake.get());
 	}
 	void Initialize(){
@@ -19,8 +19,6 @@ public:
 		return true;
 	}
 	void End(){
-		intake->TurnOff();
-		intake->Retract();
 	}
 	void Interrupted(){}
 };
