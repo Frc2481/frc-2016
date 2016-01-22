@@ -7,7 +7,7 @@
 class TurnOnShooterCommand: public CommandBase
 {
 public:
-	TurnOnShooterCommand(){
+	TurnOnShooterCommand() : Subsystem("Turn On Shooter Command"){
 		Requires(shooter.get());
 	}
 	void Initialize(){
