@@ -68,7 +68,8 @@ double CameraProcessor::calculate(){
 		double angle = atan(w_i/d)*180/3.14159265;
 		SmartDashboard::PutNumber("Target Angle", angle);
 
-		return angle;
+		m_angle = angle;
 	}
-	return 180;
+	//if we cant see the goal that means we are not facing the goal
+	m_angle = 180;
 }
