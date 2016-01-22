@@ -2,7 +2,7 @@
 #include "../RobotMap.h"
 
 Lift::Lift() :
-		Subsystem("ExampleSubsystem")
+		Subsystem("Lift")
 {
 	m_liftMotor = new CANTalon(LIFT_MOTOR);
 	m_ballSensor = new DigitalInput(LIFT_LIMIT_SWITCH);
