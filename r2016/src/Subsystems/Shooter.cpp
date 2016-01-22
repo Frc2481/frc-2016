@@ -53,8 +53,6 @@ void Shooter::SetGoalHeight(double val) {
 	m_shooterHeight = val;
 }
 
-
-//||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 double Shooter::GetShooterSpeed() {
 	return m_shooterWheelLeft->Get();
 }
