@@ -7,7 +7,7 @@
 class LiftUpCommand: public CommandBase
 {
 public:
-	LiftUpCommand() : Subsystem("Lift Up Command"){
+	LiftUpCommand() : CommandBase("Lift Up Command"){
 		Requires(lift.get());
 	}
 
