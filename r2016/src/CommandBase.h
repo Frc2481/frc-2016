@@ -7,7 +7,7 @@
 #include "OI.h"
 #include "WPILib.h"
 #include "Subsystems/CameraProcessor.h"
-#include "Lift.h"
+#include "Subsystems/Lift.h"
 
 /**
  * The base for all commands. All atomic commands should subclass CommandBase.

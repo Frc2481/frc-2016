@@ -22,7 +22,7 @@ double Lift::GetLiftSpeed() {
 	return m_liftMotor->Get();
 }
 
-bool Lift::IsPressed() {
+bool Lift::HasBall() {
 	return m_ballSensor->Get();
 }
 // Put methods for controlling this subsystem

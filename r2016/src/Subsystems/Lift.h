@@ -19,7 +19,7 @@ public:
 
 	double GetLiftSpeed();
 
-	bool IsPressed();
+	bool HasBall();
 };
 
 #endif
