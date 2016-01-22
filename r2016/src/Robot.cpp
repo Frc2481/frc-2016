@@ -82,7 +82,6 @@ private:
 
 		SmartDashboard::PutData("Rotate To Angle", new RotateToAngleCommand(45));
 		SmartDashboard::PutNumber("Shooter Speed", CommandBase::shooter->GetShooterSpeed());
-		SmartDashboard::GetNumber("Shooter Speed", CommandBase::shooter->GetShooterSpeed());
 		SmartDashboard::PutData("Turn On Shooter", new TurnOnShooterCommand());
 	}
 
