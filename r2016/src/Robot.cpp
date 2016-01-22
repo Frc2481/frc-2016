@@ -79,6 +79,8 @@ private:
 		Scheduler::GetInstance()->Run();
 
 		SmartDashboard::PutData("Rotate To Angle", new RotateToAngleCommand(45));
+
+		SmartDashboard::PutNumber("Lift Speed",CommandBase::lift->GetLiftSpeed());
 	}
 
 	void TestPeriodic()

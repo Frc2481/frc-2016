@@ -18,4 +18,9 @@
 #define INTAKE_FWD_SPD 1
 #define INTAKE_REV_SPD -1
 
+
+//Lift
+#define LIFT_MOTOR 7
+#define LIFT_LIMIT_SWITCH 0
+
 #endif
