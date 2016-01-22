@@ -7,7 +7,7 @@
 class TurnOnShooterCommand: public CommandBase
 {
 public:
-	TurnOnShooterCommand() : Subsystem("Turn On Shooter Command"){
+	TurnOnShooterCommand() : CommandBase("TurnOnShooterCommand"){
 		Requires(shooter.get());
 	}
 	void Initialize(){
@@ -16,13 +16,11 @@ public:
 	void Execute(){
 	}
 	bool IsFinished(){
-		return false;
+		return true;
 	}
 	void End(){
-		shooter->TurnOff();
 	}
 	void Interrupted(){
-		End();
 	}
 };
 
