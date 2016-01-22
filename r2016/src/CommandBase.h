@@ -7,6 +7,7 @@
 #include "OI.h"
 #include "WPILib.h"
 #include "Subsystems/CameraProcessor.h"
+#include "Lift.h"
 
 /**
  * The base for all commands. All atomic commands should subclass CommandBase.
@@ -23,6 +24,7 @@ public:
 	// Create a single static instance of all of your subsystems
 	static std::unique_ptr<CameraProcessor> mCameraProcessor;
 	static std::unique_ptr<DriveTrain> driveTrain;
+	static std::unique_ptr<Lift> lift;
 	static std::unique_ptr<OI> oi;
 };
 

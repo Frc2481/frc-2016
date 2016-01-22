@@ -14,4 +14,9 @@
 
 //Intake
 
+
+//Lift
+#define LIFT_MOTOR 7
+#define LIFT_LIMIT_SWITCH 0
+
 #endif
