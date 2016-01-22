@@ -4,6 +4,7 @@
 // Initialize a single static instance of all of your subsystems to NULL
 std::unique_ptr<CameraProcessor> CommandBase::mCameraProcessor;
 std::unique_ptr<DriveTrain> CommandBase::driveTrain;
+std::unique_ptr<Shooter> CommandBase::shooter;
 std::unique_ptr<OI> CommandBase::oi;
 
 CommandBase::CommandBase(char const *name) :
@@ -23,5 +24,6 @@ void CommandBase::init()
 	// line should be repeated for each subsystem in the project.
 	mCameraProcessor.reset(new CameraProcessor());
 	driveTrain.reset(new DriveTrain());
+	shooter.reset(new Shooter());
 	oi.reset(new OI());
 }

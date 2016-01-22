@@ -3,7 +3,6 @@
 #include "Commands/ExampleCommand.h"
 #include "Commands/RotateToAngleCommand.h"
 #include "CommandBase.h"
-
 class Robot: public IterativeRobot
 {
 private:
@@ -75,10 +74,12 @@ private:
 	void TeleopPeriodic()
 	{
 
+		CommandBase::mCameraProcessor->calculate();
 		SmartDashboard::PutNumber("Area",CommandBase::mCameraProcessor->getArea());
 		Scheduler::GetInstance()->Run();
 
 		SmartDashboard::PutData("Rotate To Angle", new RotateToAngleCommand(45));
+		SmartDashboard::PutNumber("Shooter Speed", CommandBase::shooter->GetShooterSpeed());
 	}
 
 	void TestPeriodic()
