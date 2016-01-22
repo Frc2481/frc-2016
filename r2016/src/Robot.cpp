@@ -82,11 +82,12 @@ private:
 		Scheduler::GetInstance()->Run();
 
 		SmartDashboard::PutData("Rotate To Angle", new RotateToAngleCommand(45));
+		SmartDashboard::PutData("TurnOnShooterCommand", new TurnOnShooterCommand());
+		SmartDashboard::PutData("TurnOffShooterCommand", new TurnOffShooterCommand());
 		SmartDashboard::PutNumber("Lift Speed",CommandBase::lift->GetLiftSpeed());
 		SmartDashboard::PutNumber("Shooter Speed", CommandBase::shooter->GetShooterSpeed());
 		SmartDashboard::PutNumber("Desired Shooter Speed", CommandBase::shooter->GetDesiredSpeed());
-		SmartDashboard::PutData("Turn On Shooter", new TurnOnShooterCommand());
-		SmartDashboard::PutData("Turn Off Shooter", new TurnOffShooterCommand());
+
 	}
 
 	void TestPeriodic()
