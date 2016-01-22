@@ -30,7 +30,7 @@ public:
 	}
 
 	void Interrupted(){
-
+		End();
 	}
 };
 
