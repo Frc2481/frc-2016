@@ -9,6 +9,7 @@
 #include "WPILib.h"
 #include "Subsystems/CameraProcessor.h"
 #include "Subsystems/Lift.h"
+#include "Subsystems/Shooter.h"
 
 /**
  * The base for all commands. All atomic commands should subclass CommandBase.
@@ -27,6 +28,7 @@ public:
 	static std::unique_ptr<DriveTrain> driveTrain;
 	static std::unique_ptr<Intake> intake;
 	static std::unique_ptr<Lift> lift;
+	static std::unique_ptr<Shooter> shooter;
 	static std::unique_ptr<OI> oi;
 };
 

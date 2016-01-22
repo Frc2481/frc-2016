@@ -45,12 +45,14 @@ int CameraProcessor::getHeight(){
 }
 
 double CameraProcessor::calculate(){
-	m_table = NetworkTable::GetTable("Grip/GoalContours");
+	m_table = NetworkTable::GetTable("GRIP/aGoalContours");
 	std::vector<double> areas = m_table->GetNumberArray("area", llvm::ArrayRef<double>());
 	std::vector<double> centerYs = m_table->GetNumberArray("centerY", llvm::ArrayRef<double>());
 	std::vector<double> centerXs = m_table->GetNumberArray("centerX", llvm::ArrayRef<double>());
 	std::vector<double> widths = m_table->GetNumberArray("width", llvm::ArrayRef<double>());
 	std::vector<double> heights = m_table->GetNumberArray("height", llvm::ArrayRef<double>());
+	double angle = 0;
+	if(areas.size() > 0){
 		for (unsigned int i = 0; i < areas.size(); i++) {
 			if(areas[i] > m_area) {
 				m_area = areas[i];
@@ -64,6 +66,10 @@ double CameraProcessor::calculate(){
 		m_posy = (m_posy - k_resY/2.0);
 		double d = (k_tWidthIn*k_resX)/(2.0*m_width*tan(k_FOV*(3.1415965/180)/2.0));
 		double w_i = m_posx*(k_tWidthIn/m_width);
-		double angle = atan(w_i/d)*180/3.14159265;
-		return angle;
+		angle = atan(w_i/d)*180/3.14159265;
+		SmartDashboard::PutNumber("Target Angle", angle);
+		m_angle = angle;
+	}
+	//if we cant see the goal that means we are not facing the goal
+	m_angle = 180;
 }

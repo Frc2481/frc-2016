@@ -6,6 +6,7 @@ std::unique_ptr<CameraProcessor> CommandBase::mCameraProcessor;
 std::unique_ptr<DriveTrain> CommandBase::driveTrain;
 std::unique_ptr<Intake> CommandBase::intake;
 std::unique_ptr<Lift> CommandBase::lift;
+std::unique_ptr<Shooter> CommandBase::shooter;
 std::unique_ptr<OI> CommandBase::oi;
 
 CommandBase::CommandBase(char const *name) :
@@ -27,5 +28,6 @@ void CommandBase::init()
 	driveTrain.reset(new DriveTrain());
 	intake.reset(new Intake());
 	lift.reset(new Lift());
+	shooter.reset(new Shooter());
 	oi.reset(new OI());
 }

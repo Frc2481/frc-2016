@@ -1,7 +1,6 @@
 #ifndef Lift_H
 #define Lift_H
 
-#include "Commands/Subsystem.h"
 #include "WPILib.h"
 
 class Lift: public Subsystem
