@@ -7,7 +7,7 @@
 class RetractIntakeCommand: public CommandBase
 {
 public:
-	RetractIntakeCommand(){
+	RetractIntakeCommand() : CommandBase("RetractIntakeCommand"){
 		Requires(intake.get());
 	}
 	void Initialize(){
