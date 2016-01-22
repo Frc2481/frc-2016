@@ -71,5 +71,9 @@ double Shooter::GetGoalHeight() {
 bool Shooter::IsOn() {
 	return m_shooterState;
 }
+
+double Shooter::GetDesiredSpeed() {
+	return m_shooterSpd;
+}
 // Put methods for controlling this subsystem
 // here. Call these from Commands.

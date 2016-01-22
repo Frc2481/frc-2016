@@ -25,6 +25,7 @@ private:
 	int m_posy;
 	int m_width;
 	int m_height;
+	double m_angle;
 	std::shared_ptr<NetworkTable> m_table;
 public:
 

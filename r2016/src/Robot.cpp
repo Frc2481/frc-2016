@@ -3,6 +3,7 @@
 #include "Commands/ExampleCommand.h"
 #include "Commands/RotateToAngleCommand.h"
 #include "Commands/TurnOnShooterCommand.h"
+#include "Commands/TurnOffShooterCommand.h"
 #include "CommandBase.h"
 
 class Robot: public IterativeRobot
@@ -82,7 +83,9 @@ private:
 
 		SmartDashboard::PutData("Rotate To Angle", new RotateToAngleCommand(45));
 		SmartDashboard::PutNumber("Shooter Speed", CommandBase::shooter->GetShooterSpeed());
+		SmartDashboard::PutNumber("Desired Shooter Speed", CommandBase::shooter->GetDesiredSpeed());
 		SmartDashboard::PutData("Turn On Shooter", new TurnOnShooterCommand());
+		SmartDashboard::PutData("Turn Off Shooter", new TurnOffShooterCommand());
 	}
 
 	void TestPeriodic()
