@@ -13,6 +13,8 @@ private:
 	CANTalon* m_shooterWheelRight;
 	Encoder* m_shooterEncoder;
 	Servo* m_angAdjust;
+	
+	double m_angle;
 
 	double m_kp;
 	double m_ki;
