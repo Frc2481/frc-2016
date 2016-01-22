@@ -25,7 +25,6 @@ public:
 	static std::unique_ptr<CameraProcessor> mCameraProcessor;
 	static std::unique_ptr<DriveTrain> driveTrain;
 	static std::unique_ptr<Intake> intake;
-
 	static std::unique_ptr<OI> oi;
 };
 
