@@ -23,4 +23,7 @@
 #define LIFT_MOTOR 7
 #define LIFT_LIMIT_SWITCH 0
 
+#define LIFT_UP_SPEED 0.5
+#define LIFT_DOWN_SPEED -0.5
+
 #endif
