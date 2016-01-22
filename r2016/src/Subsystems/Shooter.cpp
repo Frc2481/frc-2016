@@ -4,7 +4,8 @@
 Shooter::Shooter() :
 		Subsystem("Shooter")
 {
-	m_shooterWheel = new CANTalon(SHOOTER_MOTOR);
+	m_shooterWheelLeft = new CANTalon(SHOOTER_MOTOR_LEFT);
+	m_shooterWheelRight = new CANTalon(SHOOTER_MOTOR_RIGHT);
 	/* TODO: change SHOOTER_ENCODER to uint32_t
 	m_shooterEncoder = new Encoder(SHOOTER_ENCODER);
 	*/
@@ -24,12 +25,14 @@ void Shooter::InitDefaultCommand()
 }
 
 void Shooter::TurnOn() {
-	m_shooterWheel->Set(m_shooterSpd);
+	m_shooterWheelLeft->Set(m_shooterSpd);
+	m_shooterWheelRight->Set(-m_shooterSpd);
 	m_shooterState = true;
 }
 
 void Shooter::TurnOff(){
-	m_shooterWheel->Set(0);
+	m_shooterWheelLeft->Set(0);
+	m_shooterWheelRight->Set(0);
 	m_shooterState = false;
 }
 
@@ -53,7 +56,7 @@ void Shooter::SetGoalHeight(double val) {
 
 //||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 double Shooter::GetShooterSpeed() {
-	return m_shooterWheel->Get();
+	return m_shooterWheelLeft->Get();
 }
 
 double Shooter::GetShooterAngle() {

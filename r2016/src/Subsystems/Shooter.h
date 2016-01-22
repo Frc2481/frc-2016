@@ -10,7 +10,8 @@ class Shooter: public Subsystem
 private:
 	// It's desirable that everything possible under private except
 	// for methods that implement subsystem capabilities
-	CANTalon* m_shooterWheel;
+	CANTalon* m_shooterWheelLeft;
+	CANTalon* m_shooterWheelRight;
 	Encoder* m_shooterEncoder;
 	Servo* m_angAdjust;
 
