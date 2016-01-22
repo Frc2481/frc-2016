@@ -28,7 +28,7 @@ public:
 	}
 
 	void Interrupted(){
-
+		End();
 	}
 };
 
