@@ -6,6 +6,7 @@
  */
 
 #include <Subsystems/Intake.h>
+#include "RobotMap.h"
 
 Intake::Intake() : Subsystem("Intake") {
 	m_intakeMotor = new CANTalon(INTAKE_MOTOR);
