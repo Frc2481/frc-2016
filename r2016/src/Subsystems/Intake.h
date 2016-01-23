@@ -9,8 +9,9 @@
 #define SRC_SUBSYSTEMS_INTAKE_H_
 
 #include "WPILib.h"
+#include <SubsystemBase.h>
 
-class Intake : public Subsystem{
+class Intake : public SubsystemBase{
 private:
 	CANTalon* m_intakeMotor;
 	Solenoid* m_extender;
@@ -22,6 +23,7 @@ public:
 	void TurnOnFwd();
 	void TurnOnRev();
 	void TurnOff();
+	void Periodic();
 };
 
 #endif /* SRC_SUBSYSTEMS_INTAKE_H_ */

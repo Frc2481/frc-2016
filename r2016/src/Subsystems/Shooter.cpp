@@ -2,7 +2,7 @@
 #include "../RobotMap.h"
 
 Shooter::Shooter() :
-		Subsystem("Shooter")
+		SubsystemBase("Shooter")
 {
 	m_shooterWheelLeft = new CANTalon(SHOOTER_MOTOR_LEFT);
 	m_shooterWheelRight = new CANTalon(SHOOTER_MOTOR_RIGHT);
@@ -22,6 +22,19 @@ void Shooter::InitDefaultCommand()
 {
 	// Set the default command for a subsystem here.
 	//SetDefaultCommand(new MySpecialCommand());
+}
+
+void Shooter::Periodic() {
+	SmartDashboard::PutNumber("Left Shooter Motor", m_shooterWheelLeft->Get());
+	SmartDashboard::PutNumber("Right Shooter Motor", m_shooterWheelRight->Get());
+	SmartDashboard::PutNumber("Shooter Encoder", m_shooterEncoder->Get());
+	SmartDashboard::PutNumber("Shooter Angle Servo", m_angAdjust->Get());
+
+	SmartDashboard::PutNumber("Shooter Speed", m_shooterSpd);
+	SmartDashboard::PutNumber("Shooter Angle", m_shooterAng);
+	SmartDashboard::PutNumber("Shooter Distance", m_shooterDistance);
+	SmartDashboard::PutNumber("Shooter Height", m_shooterHeight);
+	SmartDashboard::PutBoolean("Shooter State", m_shooterState);
 }
 
 void Shooter::TurnOn() {

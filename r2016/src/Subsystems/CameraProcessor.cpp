@@ -7,17 +7,27 @@
 
 #include <Subsystems/CameraProcessor.h>
 #include <CMath>
+#include <SubsystemBase.h>
 
-CameraProcessor::CameraProcessor() : Subsystem("CameraProcessor") {
+CameraProcessor::CameraProcessor() : SubsystemBase("CameraProcessor") {
 	m_area = 0;
 	m_posx = 0;
 	m_posy = 0;
 	m_width = 0;
 	m_height = 0;
+	m_angle = 0;
 }
 
 CameraProcessor::~CameraProcessor() {
 	// TODO Auto-generated destructor stub
+}
+void CameraProcessor::Periodic() {
+	SmartDashboard::PutNumber("Target Area", m_area);
+	SmartDashboard::PutNumber("Target of X", m_posx);
+	SmartDashboard::PutNumber("Target of Y", m_posy);
+	SmartDashboard::PutNumber("Target Width", m_width);
+	SmartDashboard::PutNumber("Target Height", m_height);
+	SmartDashboard::PutNumber("Target Angel", m_angle);
 }
 
 bool CameraProcessor::isTargetAvailable(){
@@ -44,7 +54,7 @@ int CameraProcessor::getHeight(){
 	return m_height;
 }
 
-double CameraProcessor::calculate(){
+void CameraProcessor::calculate(){
 	m_table = NetworkTable::GetTable("GRIP/aGoalContours");
 	std::vector<double> areas = m_table->GetNumberArray("area", llvm::ArrayRef<double>());
 	std::vector<double> centerYs = m_table->GetNumberArray("centerY", llvm::ArrayRef<double>());

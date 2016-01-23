@@ -7,8 +7,9 @@
 
 #include <Subsystems/Intake.h>
 #include "RobotMap.h"
+#include <SubsystemBase.h>
 
-Intake::Intake() : Subsystem("Intake") {
+Intake::Intake() : SubsystemBase("Intake") {
 	m_intakeMotor = new CANTalon(INTAKE_MOTOR);
 	m_extender = new Solenoid(INTAKE_EXTENDER);
 }
@@ -16,7 +17,10 @@ Intake::Intake() : Subsystem("Intake") {
 Intake::~Intake() {
 	// TODO Auto-generated destructor stub
 }
-
+void Intake::Periodic(){
+	SmartDashboard::PutNumber("Intake Motor", m_intakeMotor->Get());
+	SmartDashboard::PutNumber("Intake Extender", m_extender->Get());
+}
 void Intake::Extend() {
 	m_extender->Set(true);
 }

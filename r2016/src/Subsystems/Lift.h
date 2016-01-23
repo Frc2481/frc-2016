@@ -2,8 +2,9 @@
 #define Lift_H
 
 #include "WPILib.h"
+#include <SubsystemBase.h>
 
-class Lift: public Subsystem
+class Lift: public SubsystemBase
 {
 private:
 	CANTalon* m_liftMotor;
@@ -19,6 +20,7 @@ public:
 	double GetLiftSpeed();
 
 	bool HasBall();
+	void Periodic();
 };
 
 #endif

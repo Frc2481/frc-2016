@@ -2,7 +2,7 @@
 #include "../RobotMap.h"
 
 Lift::Lift() :
-		Subsystem("Lift")
+		SubsystemBase("Lift")
 {
 	m_liftMotor = new CANTalon(LIFT_MOTOR);
 	m_ballSensor = new DigitalInput(LIFT_LIMIT_SWITCH);
@@ -21,6 +21,11 @@ double Lift::GetLiftSpeed() {
 
 bool Lift::HasBall() {
 	return m_ballSensor->Get();
+}
+
+void Lift::Periodic() {
+	SmartDashboard::PutNumber("Lift Speed", m_liftMotor->Get());
+	SmartDashboard::PutBoolean("Lift Ball Sensor", m_ballSensor->Get());
 }
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
