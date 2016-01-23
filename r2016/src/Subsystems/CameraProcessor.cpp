@@ -54,6 +54,10 @@ int CameraProcessor::getHeight(){
 	return m_height;
 }
 
+double CameraProcessor::getAngle(){
+	return m_angle;
+}
+
 void CameraProcessor::calculate(){
 	m_table = NetworkTable::GetTable("GRIP/aGoalContours");
 	std::vector<double> areas = m_table->GetNumberArray("area", llvm::ArrayRef<double>());

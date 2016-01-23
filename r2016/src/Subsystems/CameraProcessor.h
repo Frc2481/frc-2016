@@ -36,6 +36,7 @@ public:
 	double getArea();
 	int getWidth();
 	int getHeight();
+	double getAngle();
 	void calculate();
 	void Periodic();
 };
