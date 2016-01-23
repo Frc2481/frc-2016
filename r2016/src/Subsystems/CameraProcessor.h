@@ -10,10 +10,9 @@
 #include <iostream>
 #include "WPILib.h"
 #include "NetworkTables/NetworkTable.h"
+#include <SubsystemBase.h>
 
-#include <Commands/Subsystem.h>
-
-class CameraProcessor: public Subsystem {
+class CameraProcessor: public SubsystemBase {
 private:
 	const int k_resX = 640;
 	const int k_resY = 480;
@@ -37,7 +36,9 @@ public:
 	double getArea();
 	int getWidth();
 	int getHeight();
-	double calculate();
+	double getAngle();
+	void calculate();
+	void Periodic();
 };
 
 #endif /* SRC_SUBSYSTEMS_CAMERAPROCESSOR_H_ */

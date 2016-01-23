@@ -19,7 +19,8 @@ public:
 			m_angle = angle;
 		}
 		else {
-			m_angle = mCameraProcessor->calculate();
+			mCameraProcessor->calculate();
+			m_angle = mCameraProcessor->getAngle();
 		}
 		m_curError = 0;
 		m_clockwise = false;
