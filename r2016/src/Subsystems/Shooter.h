@@ -2,8 +2,9 @@
 #define Shooter_H
 
 #include "WPILib.h"
+#include <SubsystemBase.h>
 
-class Shooter: public Subsystem
+class Shooter: public SubsystemBase
 {
 private:
 	// It's desirable that everything possible under private except
@@ -27,6 +28,7 @@ private:
 public:
 	Shooter();
 	void InitDefaultCommand();
+	void Periodic();
 
 	void TurnOn();
 	void TurnOff();

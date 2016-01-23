@@ -8,8 +8,9 @@
 #include <Subsystems/DriveTrain.h>
 #include <Commands/TankDriveCommand.h>
 #include <RoboUtils.h>
+#include <SubsystemBase.h>
 
-DriveTrain::DriveTrain() : Subsystem("DriveTrain"){
+DriveTrain::DriveTrain() : SubsystemBase("DriveTrain"){
 	// TODO Auto-generated constructor stub
 	m_topLeft = new CANTalon(FL_MOTOR);
 	m_topLeft->ConfigNeutralMode(CANTalon::kNeutralMode_Brake);
@@ -35,13 +36,21 @@ DriveTrain::~DriveTrain() {
 	// TODO Auto-generated destructor stub
 }
 
-void DriveTrain::Tank(double rightSpeed, double leftSpeed) {
-	SmartDashboard::PutNumber("Gyro Value", m_imu->GetAngle());
-	SmartDashboard::PutNumber("FR Talon", m_topRight->GetOutputCurrent());
-	SmartDashboard::PutNumber("FL Talon", m_topLeft->GetOutputCurrent());
-	SmartDashboard::PutNumber("BR Talon", m_botRight->GetOutputCurrent());
-	SmartDashboard::PutNumber("BL Talon", m_botLeft->GetOutputCurrent());
+void DriveTrain::Periodic(){
+	SmartDashboard::PutNumber("Gyro Angle", m_imu->GetAngle());
+	SmartDashboard::PutNumber("Gyro Roll", m_imu->GetRoll());
+	SmartDashboard::PutNumber("Gyro Pitch", m_imu->GetPitch());
+	SmartDashboard::PutNumber("FR Talon Current", m_topRight->GetOutputCurrent());
+	SmartDashboard::PutNumber("FL Talon Current", m_topLeft->GetOutputCurrent());
+	SmartDashboard::PutNumber("BR Talon Current", m_botRight->GetOutputCurrent());
+	SmartDashboard::PutNumber("BL Talon Current", m_botLeft->GetOutputCurrent());
+	SmartDashboard::PutNumber("FR Talon Speed", m_topRight->Get());
+	SmartDashboard::PutNumber("FL Talon Speed", m_topLeft->Get());
+	SmartDashboard::PutNumber("BR Talon Speed", m_botRight->Get());
+	SmartDashboard::PutNumber("BL Talon Speed", m_botLeft->Get());
+}
 
+void DriveTrain::Tank(double rightSpeed, double leftSpeed) {
 	if (leftSpeed > .2 || leftSpeed < -.2){
 		m_topLeft->Set(leftSpeed);
 		m_botLeft->Set(leftSpeed);
@@ -61,12 +70,6 @@ void DriveTrain::Tank(double rightSpeed, double leftSpeed) {
 }
 
 void DriveTrain::TankRaw(double rightSpeed, double leftSpeed) {
-	SmartDashboard::PutNumber("Gyro Value", m_imu->GetAngle());
-	SmartDashboard::PutNumber("FR Talon", m_topRight->GetOutputCurrent());
-	SmartDashboard::PutNumber("FL Talon", m_topLeft->GetOutputCurrent());
-	SmartDashboard::PutNumber("BR Talon", m_botRight->GetOutputCurrent());
-	SmartDashboard::PutNumber("BL Talon", m_botLeft->GetOutputCurrent());
-
 	m_topLeft->Set(leftSpeed);
 	m_botLeft->Set(leftSpeed);
 

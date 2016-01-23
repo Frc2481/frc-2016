@@ -10,8 +10,9 @@
 #include "WPILib.h"
 #include "../IMU/AHRS.h"
 #include "RobotMap.h"
+#include <SubsystemBase.h>
 
-class DriveTrain : public Subsystem{
+class DriveTrain : public SubsystemBase{
 private:
 	CANTalon* m_topLeft;
 	CANTalon* m_topRight;
@@ -39,6 +40,7 @@ public:
 	double RotateToAngleCClock(double angle);
 	double GetAngle();
 	void InitDefaultCommand();
+	void Periodic();
 };
 
 #endif /* SRC_SUBSYSTEMS_DRIVETRAIN_H_ */
