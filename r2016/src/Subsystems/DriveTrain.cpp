@@ -133,6 +133,17 @@ double DriveTrain::GetAngle() {
 	return m_imu->GetAngle();
 }
 
+AHRS* DriveTrain::GetIMU(){
+	return m_imu;
+}
+
+void DriveTrain::SetBrake(bool brake) {
+	m_topLeft->ConfigNeutralMode(brake ? CANTalon::kNeutralMode_Brake : CANTalon::kNeutralMode_Coast);
+	m_topRight->ConfigNeutralMode(brake ? CANTalon::kNeutralMode_Brake : CANTalon::kNeutralMode_Coast);
+	m_botLeft->ConfigNeutralMode(brake ? CANTalon::kNeutralMode_Brake : CANTalon::kNeutralMode_Coast);
+	m_botRight->ConfigNeutralMode(brake ? CANTalon::kNeutralMode_Brake : CANTalon::kNeutralMode_Coast);
+}
+
 void DriveTrain::InitDefaultCommand() {
 	SetDefaultCommand(new TankDriveCommand());
 }
