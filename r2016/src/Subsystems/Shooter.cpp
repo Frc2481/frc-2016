@@ -10,6 +10,7 @@ Shooter::Shooter() :
 	m_shooterEncoder = new Encoder(SHOOTER_ENCODER);
 	*/
 	m_angAdjust = new Servo(SHOOTER_ANGLE_ADJUST);
+	m_shooterEncoder = new Encoder((uint32_t)SHOOTER_ENCODER_A, (uint32_t)SHOOTER_ENCODER_B);
 	m_kp = .020;
 	SmartDashboard::PutNumber("Kp", m_kp);
 	m_ki = .01;

@@ -9,6 +9,7 @@
 
 SubsystemBase::SubsystemBase(const std::string &name)
 	: Subsystem(name), Command(){
+	this->SetRunWhenDisabled(true);
 	this->Start();
 }
 

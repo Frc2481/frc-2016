@@ -394,6 +394,31 @@
       <property name="path[148]" value="/Users/collinstratton/Downloads/RealFullField/265.jpg"/>
       <property name="path[112]" value="/Users/collinstratton/Downloads/RealFullField/227.jpg"/>
     </grip:MultiImageFile>
+    <grip:MultiImageFile>
+      <property name="path[2]" value="C:\Users\FIRSTMentor\Desktop\RealFullField\RealFullField\4.jpg"/>
+      <property name="path[5]" value="C:\Users\FIRSTMentor\Desktop\RealFullField\RealFullField\7.jpg"/>
+      <property name="path[8]" value="C:\Users\FIRSTMentor\Desktop\RealFullField\RealFullField\11.jpg"/>
+      <property name="path[20]" value="C:\Users\FIRSTMentor\Desktop\RealFullField\RealFullField\23.jpg"/>
+      <property name="path[12]" value="C:\Users\FIRSTMentor\Desktop\RealFullField\RealFullField\15.jpg"/>
+      <property name="path[15]" value="C:\Users\FIRSTMentor\Desktop\RealFullField\RealFullField\18.jpg"/>
+      <property name="index" value="0"/>
+      <property name="path[18]" value="C:\Users\FIRSTMentor\Desktop\RealFullField\RealFullField\21.jpg"/>
+      <property name="path[0]" value="C:\Users\FIRSTMentor\Desktop\RealFullField\RealFullField\0.jpg"/>
+      <property name="path[3]" value="C:\Users\FIRSTMentor\Desktop\RealFullField\RealFullField\5.jpg"/>
+      <property name="path[6]" value="C:\Users\FIRSTMentor\Desktop\RealFullField\RealFullField\8.jpg"/>
+      <property name="path[9]" value="C:\Users\FIRSTMentor\Desktop\RealFullField\RealFullField\12.jpg"/>
+      <property name="path[10]" value="C:\Users\FIRSTMentor\Desktop\RealFullField\RealFullField\13.jpg"/>
+      <property name="path[13]" value="C:\Users\FIRSTMentor\Desktop\RealFullField\RealFullField\16.jpg"/>
+      <property name="path[16]" value="C:\Users\FIRSTMentor\Desktop\RealFullField\RealFullField\19.jpg"/>
+      <property name="path[19]" value="C:\Users\FIRSTMentor\Desktop\RealFullField\RealFullField\22.jpg"/>
+      <property name="numImages" value="21"/>
+      <property name="path[1]" value="C:\Users\FIRSTMentor\Desktop\RealFullField\RealFullField\3.jpg"/>
+      <property name="path[4]" value="C:\Users\FIRSTMentor\Desktop\RealFullField\RealFullField\6.jpg"/>
+      <property name="path[7]" value="C:\Users\FIRSTMentor\Desktop\RealFullField\RealFullField\9.jpg"/>
+      <property name="path[11]" value="C:\Users\FIRSTMentor\Desktop\RealFullField\RealFullField\14.jpg"/>
+      <property name="path[14]" value="C:\Users\FIRSTMentor\Desktop\RealFullField\RealFullField\17.jpg"/>
+      <property name="path[17]" value="C:\Users\FIRSTMentor\Desktop\RealFullField\RealFullField\20.jpg"/>
+    </grip:MultiImageFile>
   </sources>
   <steps>
     <grip:Step name="HSL Threshold">
@@ -501,8 +526,12 @@
   </steps>
   <connections>
     <grip:Connection>
-      <grip:Output source="0" socket="0" previewed="true"/>
-      <grip:Input step="0" socket="0"/>
+      <grip:Output step="4" socket="0" previewed="true"/>
+      <grip:Input step="5" socket="0"/>
+    </grip:Connection>
+    <grip:Connection>
+      <grip:Output step="2" socket="0" previewed="true"/>
+      <grip:Input step="3" socket="0"/>
     </grip:Connection>
     <grip:Connection>
       <grip:Output step="1" socket="0" previewed="true"/>
@@ -513,6 +542,10 @@
       <grip:Input step="1" socket="0"/>
     </grip:Connection>
     <grip:Connection>
+      <grip:Output source="1" socket="0" previewed="false"/>
+      <grip:Input step="0" socket="0"/>
+    </grip:Connection>
+    <grip:Connection>
       <grip:Output step="3" socket="0" previewed="true"/>
       <grip:Input step="4" socket="0"/>
     </grip:Connection>
@@ -520,18 +553,10 @@
       <grip:Output step="5" socket="0" previewed="true"/>
       <grip:Input step="6" socket="0"/>
     </grip:Connection>
-    <grip:Connection>
-      <grip:Output step="2" socket="0" previewed="true"/>
-      <grip:Input step="3" socket="0"/>
-    </grip:Connection>
-    <grip:Connection>
-      <grip:Output step="4" socket="0" previewed="true"/>
-      <grip:Input step="5" socket="0"/>
-    </grip:Connection>
   </connections>
   <settings>
-    <teamNumber>0</teamNumber>
-    <publishAddress></publishAddress>
+    <teamNumber>2481</teamNumber>
+    <publishAddress>172.22.11.2</publishAddress>
     <deployAddress></deployAddress>
   </settings>
 </grip:Pipeline>

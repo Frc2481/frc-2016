@@ -27,7 +27,7 @@ void CameraProcessor::Periodic() {
 	SmartDashboard::PutNumber("Target of Y", m_posy);
 	SmartDashboard::PutNumber("Target Width", m_width);
 	SmartDashboard::PutNumber("Target Height", m_height);
-	SmartDashboard::PutNumber("Target Angel", m_angle);
+	SmartDashboard::PutNumber("Target Angle", m_angle);
 }
 
 bool CameraProcessor::isTargetAvailable(){
@@ -66,6 +66,8 @@ void CameraProcessor::calculate(){
 	std::vector<double> widths = m_table->GetNumberArray("width", llvm::ArrayRef<double>());
 	std::vector<double> heights = m_table->GetNumberArray("height", llvm::ArrayRef<double>());
 	double angle = 0;
+	m_area = 0;
+	m_angle = 0;
 	if(areas.size() > 0){
 		for (unsigned int i = 0; i < areas.size(); i++) {
 			if(areas[i] > m_area) {
@@ -79,11 +81,11 @@ void CameraProcessor::calculate(){
 		m_posx = (m_posx - k_resX/2.0);
 		m_posy = (m_posy - k_resY/2.0);
 		double d = (k_tWidthIn*k_resX)/(2.0*m_width*tan(k_FOV*(3.1415965/180)/2.0));
-		double w_i = m_posx*(k_tWidthIn/m_width);
+		double w_i = m_posx*((double)k_tWidthIn/(double)m_width);
 		angle = atan(w_i/d)*180/3.14159265;
 		SmartDashboard::PutNumber("Target Angle", angle);
+		SmartDashboard::PutNumber("D",d);
+		SmartDashboard::PutNumber("W_I",w_i);
 		m_angle = angle;
 	}
-	//if we cant see the goal that means we are not facing the goal
-	m_angle = 180;
 }
