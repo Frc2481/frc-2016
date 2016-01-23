@@ -7,7 +7,9 @@
 
 #include <OI.h>
 
-OI::OI() {}
+OI::OI() {
+	driveStick = new Joystick(0);
+}
 
 OI::~OI() {
 	// TODO Auto-generated destructor stub
