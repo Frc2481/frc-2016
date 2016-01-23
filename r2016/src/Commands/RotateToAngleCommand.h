@@ -13,9 +13,14 @@ private:
 	bool m_clockwise;
 	int m_onTargetCounter;
 public:
-	RotateToAngleCommand(double angle){
+	RotateToAngleCommand(double angle, bool useCamera = false){
 		Requires(driveTrain.get());
-		m_angle = angle;
+		if (useCamera == false) {
+			m_angle = angle;
+		}
+		else {
+			m_angle = mCameraProcessor->calculate();
+		}
 		m_curError = 0;
 		m_clockwise = false;
 		m_onTargetCounter = 0;

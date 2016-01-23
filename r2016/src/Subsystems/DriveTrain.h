@@ -30,9 +30,11 @@ private:
 public:
 	DriveTrain();
 	virtual ~DriveTrain();
+	AHRS* GetIMU();
 	void Tank(double rightSpeed, double leftSpeed);
 	void TankRaw(double rightSpeed, double leftSpeed);
 	void StopMotors();
+	void SetBrake(bool brake);
 	double RotateToAngleClock(double angle);
 	double RotateToAngleCClock(double angle);
 	double GetAngle();
