@@ -12,7 +12,8 @@
 //Shooter
 #define SHOOTER_MOTOR_LEFT 5
 #define SHOOTER_MOTOR_RIGHT 6
-#define SHOOTER_ENCODER 0
+#define SHOOTER_ENCODER_A 0
+#define SHOOTER_ENCODER_B 0
 #define SHOOTER_ANGLE_ADJUST 0
 
 //Intake
