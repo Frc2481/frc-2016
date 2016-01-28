@@ -7,6 +7,7 @@
 
 #include <Subsystems/DriveTrain.h>
 #include <Commands/TankDriveCommand.h>
+#include <Commands/FPSDriveCommand.h>
 #include <RoboUtils.h>
 #include <SubsystemBase.h>
 
@@ -30,6 +31,10 @@ DriveTrain::DriveTrain() : SubsystemBase("DriveTrain"){
 	SmartDashboard::PutNumber("Kd", m_kd);
 	m_errorAccum = 0;
 	SmartDashboard::PutNumber("I Zone", 30);
+	m_accelBase = 0;
+	m_accelScale = 0;
+	SmartDashboard::PutNumber("Base Acceleration", m_accelBase);
+	SmartDashboard::PutNumber("Acceleration Scale", m_accelScale);
 }
 
 DriveTrain::~DriveTrain() {
@@ -51,6 +56,13 @@ void DriveTrain::Periodic(){
 }
 
 void DriveTrain::Tank(double rightSpeed, double leftSpeed) {
+	SmartDashboard::GetNumber("Base Acceleration", 0);
+	SmartDashboard::GetNumber("Acceleration Scale", 0);
+	m_acceleration = m_accelScale * fabs(rightSpeed - leftSpeed) + m_accelBase;
+	m_topLeft->SetVoltageRampRate(m_acceleration);
+	m_botLeft->SetVoltageRampRate(m_acceleration);
+	m_topRight->SetVoltageRampRate(m_acceleration);
+	m_botRight->SetVoltageRampRate(m_acceleration);
 	if (leftSpeed > .2 || leftSpeed < -.2){
 		m_topLeft->Set(leftSpeed);
 		m_botLeft->Set(leftSpeed);
@@ -148,5 +160,19 @@ void DriveTrain::SetBrake(bool brake) {
 }
 
 void DriveTrain::InitDefaultCommand() {
-	SetDefaultCommand(new TankDriveCommand());
+	//SetDefaultCommand(new TankDriveCommand());
+	SetDefaultCommand(new FPSDriveCommand());
+}
+
+void DriveTrain::FPSDrive(double driveSpeed, double turnSpeed) {
+	if (fabs(driveSpeed) < .2){
+		driveSpeed = 0;
+	}
+	if (fabs(turnSpeed) < .2){
+		turnSpeed = 0;
+	}
+	m_topLeft->Set(driveSpeed + turnSpeed);
+	m_topRight->Set(driveSpeed - turnSpeed);
+	m_botLeft->Set(driveSpeed + turnSpeed);
+	m_botRight->Set(driveSpeed - turnSpeed);
 }

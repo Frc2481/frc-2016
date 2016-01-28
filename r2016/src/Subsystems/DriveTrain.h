@@ -23,6 +23,9 @@ private:
 	AHRS* m_imu;
 	double m_kp, m_ki, m_kd;
 	double m_errorAccum;
+	double m_accelBase;
+	double m_accelScale;
+	double m_acceleration;
 //	enum Ports {
 //		m_Port
 //	};
@@ -32,6 +35,7 @@ public:
 	DriveTrain();
 	virtual ~DriveTrain();
 	AHRS* GetIMU();
+	void FPSDrive(double driveSpeed, double turnSpeed);
 	void Tank(double rightSpeed, double leftSpeed);
 	void TankRaw(double rightSpeed, double leftSpeed);
 	void StopMotors();
