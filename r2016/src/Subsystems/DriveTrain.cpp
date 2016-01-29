@@ -161,7 +161,7 @@ void DriveTrain::SetBrake(bool brake) {
 
 void DriveTrain::InitDefaultCommand() {
 	//SetDefaultCommand(new TankDriveCommand());
-	SetDefaultCommand(new FPSDriveCommand());
+	Subsystem::SetDefaultCommand(new FPSDriveCommand());
 }
 
 void DriveTrain::FPSDrive(double driveSpeed, double turnSpeed) {

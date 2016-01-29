@@ -7,15 +7,15 @@
 class FPSDriveCommand: public CommandBase
 {
 public:
-	FPSDriveCommand(){
+	FPSDriveCommand() : CommandBase("FPSDriveCommand"){
 		Requires(driveTrain.get());
 	}
-	void Initialize(){
-		double driveSpeed = oi->GetDriveStick()->GetRawAxis(XboxController::xbLeftYAxis);
+	void Initialize(){}
+	void Execute(){
 		double turnSpeed = oi->GetDriveStick()->GetRawAxis(XboxController::xbRightXAxis);
-		driveTrain->FPSDrive(driveSpeed, turnSpeed);
+		double driveSpeed = oi->GetDriveStick()->GetRawAxis(XboxController::xbLeftYAxis);
+		driveTrain->FPSDrive(turnSpeed * .5, driveSpeed * .75);
 	}
-	void Execute(){}
 	bool IsFinished(){
 		return false;
 	}
