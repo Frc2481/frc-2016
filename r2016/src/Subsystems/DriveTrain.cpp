@@ -21,23 +21,30 @@ DriveTrain::DriveTrain() : SubsystemBase("DriveTrain"){
 	m_botRight = new CANTalon(BR_MOTOR);
 	m_botRight->ConfigNeutralMode(CANTalon::kNeutralMode_Brake);
 	m_serialPort = new SerialPort(57600,SerialPort::kMXP);
-	m_imu = new AHRS(SerialPort::kMXP);
-	m_kp = .020;
-	SmartDashboard::PutNumber("Kp", m_kp);
-	m_ki = .01;
-	SmartDashboard::PutNumber("Ki", m_ki);
-	m_kd = 0;
-	SmartDashboard::PutNumber("Kd", m_kd);
-	m_errorAccum = 0;
-	SmartDashboard::PutNumber("I Zone", 30);
+	m_imu = new AHRS(SerialPort::kMXP, AHRS::kProcessedData, 50);
+	m_prevYaw = m_imu->GetYaw();
 }
 
 DriveTrain::~DriveTrain() {
 	// TODO Auto-generated destructor stub
 }
 
+double DriveTrain::CalcYaw() {
+	double curYaw = m_imu->GetYaw();
+	double yawRate = curYaw - m_prevYaw;
+	m_prevYaw = curYaw;
+	return yawRate;
+}
+
 void DriveTrain::Periodic(){
+	SmartDashboard::PutNumber("Yaw Rate", CalcYaw());
+	SmartDashboard::PutNumber("Fused Heading", m_imu->GetFusedHeading());
+	SmartDashboard::PutBoolean("Is Gyro Rotating", m_imu->IsRotating());
+	SmartDashboard::PutNumber("Raw Gyro X", m_imu->GetRawGyroX());
+	SmartDashboard::PutNumber("Raw Gyro Y", m_imu->GetRawGyroY());
+	SmartDashboard::PutNumber("Raw Gyro Z", m_imu->GetRawGyroZ());
 	SmartDashboard::PutNumber("Gyro Angle", m_imu->GetAngle());
+	SmartDashboard::PutNumber("Gyro Yaw", m_imu->GetYaw());
 	SmartDashboard::PutNumber("Gyro Roll", m_imu->GetRoll());
 	SmartDashboard::PutNumber("Gyro Pitch", m_imu->GetPitch());
 	SmartDashboard::PutNumber("FR Talon Current", m_topRight->GetOutputCurrent());
@@ -84,54 +91,6 @@ void DriveTrain::StopMotors(){
 	m_botRight->Set(0);
 }
 
-double DriveTrain::RotateToAngleClock(double angle) {
-	double curAngle = m_imu->GetAngle();
-	double error = RoboUtils::constrainDegNeg180To180(angle - curAngle);
-	SmartDashboard::PutNumber("Gyro Error", error);
-	m_kp = SmartDashboard::GetNumber("Kp", 0);
-	m_ki = SmartDashboard::GetNumber("Ki", 0) / 100;
-	m_kd = SmartDashboard::GetNumber("Kd", 0);
-	double P = m_kp * error;
-	SmartDashboard::PutNumber("P", P);
-	SmartDashboard::GetNumber("I Zone", 0);
-	if (fabs(error) > 10) {
-		m_errorAccum = 0;
-	}
-	else if (error > 0 && m_errorAccum < 0) {
-		m_errorAccum = 0;
-	}
-	else if (error < 0 && m_errorAccum > 0) {
-		m_errorAccum = 0;
-	}
-	else {
-		m_errorAccum += error;
-	}
-	double I = m_errorAccum * m_ki;
-	SmartDashboard::PutNumber("I", I);
-	double twist = (P + I);
-	SmartDashboard::PutNumber("Twist", twist);
-	TankRaw(-twist, twist);
-	return fabs(error);
-}
-
-double DriveTrain::RotateToAngleCClock(double angle) {
-//	double curAngle = m_imu->GetAngle();
-//	double error = angle - curAngle;
-//	SmartDashboard::PutNumber("Gyro Error", error);
-//	m_kp = SmartDashboard::GetNumber("Kp", 0);
-//	m_ki = SmartDashboard::GetNumber("Ki", 0);
-//	m_kd = SmartDashboard::GetNumber("Kd", 0);
-//	double P = m_kp * error;
-//	SmartDashboard::PutNumber("P", P);
-//	double I = (m_errorAccum + error) * m_ki;
-//	SmartDashboard::PutNumber("I", I);
-//	m_errorAccum += error;
-//	double twist = (P + I) * .2;
-//	SmartDashboard::PutNumber("Twist", twist);
-//	Tank(-twist, twist);
-//	return fabs(error);
-}
-
 double DriveTrain::GetAngle() {
 	return m_imu->GetAngle();
 }
@@ -148,5 +107,5 @@ void DriveTrain::SetBrake(bool brake) {
 }
 
 void DriveTrain::InitDefaultCommand() {
-	SetDefaultCommand(new TankDriveCommand());
+	Subsystem::SetDefaultCommand(new TankDriveCommand());
 }

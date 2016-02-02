@@ -10,11 +10,6 @@
 #include <SubsystemBase.h>
 
 CameraProcessor::CameraProcessor() : SubsystemBase("CameraProcessor") {
-	m_area = 0;
-	m_posx = 0;
-	m_posy = 0;
-	m_width = 0;
-	m_height = 0;
 	m_angle = 0;
 }
 
@@ -22,36 +17,10 @@ CameraProcessor::~CameraProcessor() {
 	// TODO Auto-generated destructor stub
 }
 void CameraProcessor::Periodic() {
-	SmartDashboard::PutNumber("Target Area", m_area);
-	SmartDashboard::PutNumber("Target of X", m_posx);
-	SmartDashboard::PutNumber("Target of Y", m_posy);
-	SmartDashboard::PutNumber("Target Width", m_width);
-	SmartDashboard::PutNumber("Target Height", m_height);
-	SmartDashboard::PutNumber("Target Angel", m_angle);
 }
 
 bool CameraProcessor::isTargetAvailable(){
-	return true;
-}
-
-int CameraProcessor::getTargetX(){
-	return m_posx;
-}
-
-int CameraProcessor::getTargetY(){
-	return m_posy;
-}
-
-double CameraProcessor::getArea(){
-	return m_area;
-}
-
-int CameraProcessor::getWidth(){
-	return m_width;
-}
-
-int CameraProcessor::getHeight(){
-	return m_height;
+	return m_targetVisible;
 }
 
 double CameraProcessor::getAngle(){
@@ -66,24 +35,39 @@ void CameraProcessor::calculate(){
 	std::vector<double> widths = m_table->GetNumberArray("width", llvm::ArrayRef<double>());
 	std::vector<double> heights = m_table->GetNumberArray("height", llvm::ArrayRef<double>());
 	double angle = 0;
+	double area = 0;
+	double posx = 0;
+	double posy = 0;
+	double width = 0;
+	double height = 0;
+	m_angle = 0;
 	if(areas.size() > 0){
 		for (unsigned int i = 0; i < areas.size(); i++) {
-			if(areas[i] > m_area) {
-				m_area = areas[i];
-				m_posx = centerXs[i];
-				m_posy = centerYs[i];
-				m_width = widths[i];
-				m_height = heights[i];
+			if(areas[i] > area) {
+				area = areas[i];
+				posx = centerXs[i];
+				posy = centerYs[i];
+				width = widths[i];
+				height = heights[i];
 			}
 		}
-		m_posx = (m_posx - k_resX/2.0);
-		m_posy = (m_posy - k_resY/2.0);
-		double d = (k_tWidthIn*k_resX)/(2.0*m_width*tan(k_FOV*(3.1415965/180)/2.0));
-		double w_i = m_posx*(k_tWidthIn/m_width);
+		posx = (posx - k_resX/2.0);
+		posy = (posy - k_resY/2.0);
+		double d = (k_tWidthIn*k_resX)/(2.0*width*tan(k_FOV*(3.1415965/180)/2.0));
+		double w_i = posx*((double)k_tWidthIn/(double)width);
 		angle = atan(w_i/d)*180/3.14159265;
 		SmartDashboard::PutNumber("Target Angle", angle);
+		SmartDashboard::PutNumber("D",d);
+		SmartDashboard::PutNumber("W_I",w_i);
+		SmartDashboard::PutNumber("Target Area", area);
+		SmartDashboard::PutNumber("Target of X", posx);
+		SmartDashboard::PutNumber("Target of Y", posy);
+		SmartDashboard::PutNumber("Target Width", width);
+		SmartDashboard::PutNumber("Target Height", height);
 		m_angle = angle;
+		m_targetVisible = true;
 	}
-	//if we cant see the goal that means we are not facing the goal
-	m_angle = 180;
+	else {
+		m_targetVisible = false;
+	}
 }

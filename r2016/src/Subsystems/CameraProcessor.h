@@ -7,7 +7,6 @@
 
 #ifndef SRC_SUBSYSTEMS_CAMERAPROCESSOR_H_
 #define SRC_SUBSYSTEMS_CAMERAPROCESSOR_H_
-#include <iostream>
 #include "WPILib.h"
 #include "NetworkTables/NetworkTable.h"
 #include <SubsystemBase.h>
@@ -16,14 +15,10 @@ class CameraProcessor: public SubsystemBase {
 private:
 	const int k_resX = 640;
 	const int k_resY = 480;
-	const int k_FOV = 60;
+	const int k_FOV = 47;
 	const int k_tWidthIn = 20;
 	const int k_tHeightIn = 12;
-	double m_area;
-	int m_posx;
-	int m_posy;
-	int m_width;
-	int m_height;
+	bool m_targetVisible;
 	double m_angle;
 	std::shared_ptr<NetworkTable> m_table;
 public:
@@ -31,11 +26,6 @@ public:
 	CameraProcessor();
 	virtual ~CameraProcessor();
 	bool isTargetAvailable();
-	int getTargetX();
-	int getTargetY();
-	double getArea();
-	int getWidth();
-	int getHeight();
 	double getAngle();
 	void calculate();
 	void Periodic();

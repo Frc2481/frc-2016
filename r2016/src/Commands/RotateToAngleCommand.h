@@ -2,53 +2,78 @@
 #define RotateToAngleCommand_H
 
 #include "../CommandBase.h"
+#include "RoboUtils.h"
 #include "WPILib.h"
 
-class RotateToAngleCommand: public CommandBase
+class RotateToAngleCommand: public PIDCommand
 {
 private:
 	double m_angle;
-	double m_curError;
-	double m_curAngle;
-	bool m_clockwise;
-	int m_onTargetCounter;
+	int m_onTarget;
 public:
-	RotateToAngleCommand(double angle, bool useCamera = false){
-		Requires(driveTrain.get());
+	RotateToAngleCommand(double angle, bool useCamera = false)
+			: PIDCommand("RotateToAngle", .020, .002, 0){
+
+		Requires(CommandBase::driveTrain.get());
+
 		if (useCamera == false) {
 			m_angle = angle;
 		}
 		else {
-			mCameraProcessor->calculate();
-			m_angle = mCameraProcessor->getAngle();
+			CommandBase::mCameraProcessor->calculate();
+			m_angle = CommandBase::mCameraProcessor->getAngle();
 		}
-		m_curError = 0;
-		m_clockwise = false;
-		m_onTargetCounter = 0;
+		m_onTarget = 0;
+		SetSetpoint(CommandBase::driveTrain->GetIMU()->GetAngle() + m_angle);
+		SmartDashboard::PutNumber("Rotation I Zone", 10);
+		SmartDashboard::PutNumber("DriveTrain Rotate I", .002);
+		SmartDashboard::PutNumber("DriveTrain Rotate P", .020);
 	}
-	void Initialize(){
 
+	double ReturnPIDInput(){
+		return RoboUtils::constrainDegNeg180To180(CommandBase::driveTrain->GetAngle());
+	}
+
+	void UsePIDOutput(double output){
+		output = std::min(1.0, std::max(-1.0, output));
+		CommandBase::driveTrain->TankRaw(-output, output);
+	}
+
+
+	void Initialize(){
+		GetPIDController()->Reset();
+		GetPIDController()->Enable();
+		m_onTarget = 0;
 	}
 
 	void Execute(){
-			m_curError = driveTrain->RotateToAngleClock(m_angle);
-			if (m_curError < 5) {
-				m_onTargetCounter++;
+			double curError = fabs(GetSetpoint()-GetPosition());
+			double P = SmartDashboard::GetNumber("DriveTrain Rotate P", 0);
+
+			std::shared_ptr<PIDController> pid = GetPIDController();
+			if (curError < SmartDashboard::GetNumber("Rotation I Zone", 10)) {
+				double I = SmartDashboard::GetNumber("DriveTrain Rotate I", 0);
+				pid->SetPID(P, I, pid->GetD());
 			}
 			else {
-				m_onTargetCounter = 0;
+				pid->SetPID(P, 0, pid->GetD());
+			}
+
+			if (curError < .5) {
+				m_onTarget++;
+			}
+			else {
+				m_onTarget = 0;
 			}
 	}
 
 	bool IsFinished(){
-		return m_onTargetCounter >= 100;
+		return m_onTarget >= 5;
 	}
 	void End(){
-		driveTrain->StopMotors();
+		SmartDashboard::PutNumber("Rotate Time", TimeSinceInitialized());
 	}
-	void Interrupted(){
-		End();
-	}
+	void Interrupted(){}
 };
 
 #endif
