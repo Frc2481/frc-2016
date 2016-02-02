@@ -21,12 +21,7 @@ private:
 	uint8_t m_update_rate_hz = 50;
 	SerialPort* m_serialPort;
 	AHRS* m_imu;
-	double m_kp, m_ki, m_kd;
-	double m_errorAccum;
-//	enum Ports {
-//		m_Port
-//	};
-	//PIDController* m_PIDGyro;
+	double m_prevYaw;
 
 public:
 	DriveTrain();
@@ -36,9 +31,8 @@ public:
 	void TankRaw(double rightSpeed, double leftSpeed);
 	void StopMotors();
 	void SetBrake(bool brake);
-	double RotateToAngleClock(double angle);
-	double RotateToAngleCClock(double angle);
 	double GetAngle();
+	double CalcYaw();
 	void InitDefaultCommand();
 	void Periodic();
 };
