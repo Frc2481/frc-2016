@@ -23,6 +23,11 @@ private:
 		autoChooser->AddObject("One Ball Auto", new OneBallAutoCommandGroup());
 		autoChooser->AddObject("Two Ball Auto", new TwoBallAutoCommandGroup());
 		SmartDashboard::PutData("Auto Chooser", autoChooser);
+
+		SmartDashboard::PutData("Rotate To Angle", (PIDCommand*)(new RotateToAngleCommand(0, true)));
+		SmartDashboard::PutData("TurnOnShooterCommand 2000", new TurnOnShooterCommand(2000));
+		SmartDashboard::PutData("TurnOnShooterCommand 5000", new TurnOnShooterCommand(5000));
+		SmartDashboard::PutData("TurnOffShooterCommand", new TurnOffShooterCommand());
 	}
 
 	void DisabledInit()
@@ -55,15 +60,11 @@ private:
 	void TeleopPeriodic()
 	{
 
+		SmartDashboard::PutData("Scheduler", Scheduler::GetInstance());
 		CommandBase::mCameraProcessor->calculate();
-		SmartDashboard::PutNumber("Area",CommandBase::mCameraProcessor->getArea());
 		Scheduler::GetInstance()->Run();
 
-		SmartDashboard::PutData("Rotate To Angle", new RotateToAngleCommand(45));
-		SmartDashboard::PutData("TurnOnShooterCommand", new TurnOnShooterCommand());
-		SmartDashboard::PutData("TurnOffShooterCommand", new TurnOffShooterCommand());
 		SmartDashboard::PutNumber("Lift Speed",CommandBase::lift->GetLiftSpeed());
-		SmartDashboard::PutNumber("Shooter Speed", CommandBase::shooter->GetShooterSpeed());
 		SmartDashboard::PutNumber("Desired Shooter Speed", CommandBase::shooter->GetDesiredSpeed());
 
 	}
