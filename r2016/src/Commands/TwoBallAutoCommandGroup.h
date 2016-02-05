@@ -16,13 +16,13 @@
 class TwoBallAutoCommandGroup: public CommandGroup
 {
 public:
-	TwoBallAutoCommandGroup(){
+	TwoBallAutoCommandGroup(): CommandGroup("TwoBallAuto"){
 		//First Traverse
 		AddParallel(new AutoDriveCommand(.4,.4,.5));
 		AddSequential(new LiftUpCommand());
 		AddSequential(new AutoTraverseCommand());
-		AddParallel(new RotateToAngleCommand(0, true));
-		AddSequential(new TurnOnShooterCommand());
+		AddParallel(new RotateToAngleFromCameraCommand());
+		AddSequential(new TurnOnShooterCommand(.5));
 		AddSequential(new FireBallCommand(.5));
 
 		//Second Traverse
@@ -39,8 +39,8 @@ public:
 		AddParallel(new AutoDriveCommand(.4,.4,.5));
 		AddSequential(new LiftUpCommand());
 		AddSequential(new AutoTraverseCommand());
-		AddParallel(new RotateToAngleCommand(0, true));
-		AddSequential(new TurnOnShooterCommand());
+		AddParallel(new RotateToAngleFromCameraCommand());
+		AddSequential(new TurnOnShooterCommand(.5));
 		AddSequential(new FireBallCommand(.5));
 	}
 };

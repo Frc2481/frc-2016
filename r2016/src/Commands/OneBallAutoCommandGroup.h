@@ -14,12 +14,12 @@
 class OneBallAutoCommandGroup: public CommandGroup
 {
 public:
-	OneBallAutoCommandGroup(){
+	OneBallAutoCommandGroup() : CommandGroup("OneBallAuto"){
 		AddParallel(new AutoDriveCommand(.4, .4, .5));
 		AddSequential(new LiftUpCommand());
 		AddSequential(new AutoTraverseCommand());
-		AddParallel(new TurnOnShooterCommand());
-		AddSequential(new RotateToAngleCommand(0, true));
+		AddParallel(new TurnOnShooterCommand(.5));
+		AddSequential(new RotateToAngleFromCameraCommand());
 		AddSequential(new FireBallCommand(.75));
 		AddSequential(new TurnOffShooterCommand());
 	}
