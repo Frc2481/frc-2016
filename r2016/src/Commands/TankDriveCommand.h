@@ -7,7 +7,7 @@
 class TankDriveCommand: public CommandBase
 {
 public:
-	TankDriveCommand(){
+	TankDriveCommand(): CommandBase("TankDrive"){
 		Requires(driveTrain.get());
 	}
 	void Initialize(){}
