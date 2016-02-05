@@ -8,14 +8,21 @@
 #include <Subsystems/CameraProcessor.h>
 #include <CMath>
 #include <SubsystemBase.h>
+#include "../RobotMap.h"
 
 CameraProcessor::CameraProcessor() : SubsystemBase("CameraProcessor") {
 	m_angle = 0;
+	m_cameraLight = new Solenoid(CAMERA_LIGHT);
 }
 
 CameraProcessor::~CameraProcessor() {
 	// TODO Auto-generated destructor stub
 }
+
+void CameraProcessor::SetLight(bool state) {
+	m_cameraLight->Set(state);
+}
+
 void CameraProcessor::Periodic() {
 }
 

@@ -29,4 +29,7 @@
 #define LIFT_UP_SPEED 0.5
 #define LIFT_DOWN_SPEED -0.5
 
+//Camera
+#define CAMERA_LIGHT 1
+
 #endif
