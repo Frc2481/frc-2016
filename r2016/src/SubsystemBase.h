@@ -15,7 +15,7 @@ class SubsystemBase : public Subsystem, public Command{
 public:
 	SubsystemBase(const std::string &name);
 	virtual ~SubsystemBase();
-	virtual void Periodic();
+	virtual void Periodic() = 0;
 	void Initialize() {}
 	void Execute();
 	bool IsFinished();
