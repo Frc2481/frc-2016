@@ -10,8 +10,9 @@ Shooter::Shooter() :
 	double kp = RoboPreferences::GetInstance()->GetDouble("Shooter kP", .7);
 	double ki = RoboPreferences::GetInstance()->GetDouble("Shooter kI", .00008);
 	double kd = RoboPreferences::GetInstance()->GetDouble("Shooter kD", 0);
+	double kf = RoboPreferences::GetInstance()->GetDouble("Shooter kF", 0);
 	m_shooterWheel->SetControlMode(CANTalon::kSpeed);
-	m_shooterWheel->SetPID(kp, ki, kd);
+	m_shooterWheel->SetPID(kp, ki, kd, kf);
 	m_shooterWheel->ConfigEncoderCodesPerRev(1024);
 	m_shooterWheel->SetFeedbackDevice(CANTalon::CtreMagEncoder_Relative);
 	m_shooterWheel->SetSensorDirection(true);
@@ -27,8 +28,9 @@ void Shooter::Periodic() {
 		double kp = RoboPreferences::GetInstance()->GetDouble("Shooter kP", .7);
 		double ki = RoboPreferences::GetInstance()->GetDouble("Shooter kI", .00008);
 		double kd = RoboPreferences::GetInstance()->GetDouble("Shooter kD", 0);
+		double kf = RoboPreferences::GetInstance()->GetDouble("Shooter kF", 0);
 
-		m_shooterWheel->SetPID(kp, ki, kd);
+		m_shooterWheel->SetPID(kp, ki, kd, kf);
 	}
 
 	SmartDashboard::PutNumber("Shooter Motor", m_shooterWheel->GetSpeed());
