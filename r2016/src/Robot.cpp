@@ -4,6 +4,7 @@
 #include "Commands/RotateToAngleCommand.h"
 #include "Commands/TurnOnShooterCommand.h"
 #include "Commands/TurnOffShooterCommand.h"
+#include "Commands/TurnLightRingOnCommand.h"
 #include "Commands/OneBallAutoCommandGroup.h"
 #include "Commands/TwoBallAutoCommandGroup.h"
 #include "CommandBase.h"
@@ -24,10 +25,12 @@ private:
 		autoChooser->AddObject("Two Ball Auto", new TwoBallAutoCommandGroup());
 		SmartDashboard::PutData("Auto Chooser", autoChooser);
 
-		SmartDashboard::PutData("Rotate To Angle", (PIDCommand*)(new RotateToAngleCommand(0, true)));
-		SmartDashboard::PutData("TurnOnShooterCommand 2000", new TurnOnShooterCommand(2000));
+		SmartDashboard::PutData("Rotate To Angle", (PIDCommand*)(new RotateToAngleCommand(0)));
+		SmartDashboard::PutData("Rotate To Angle With Camera", new RotateToAngleFromCameraCommand());
+		SmartDashboard::PutData("TurnOnShooterCommand Run", new TurnOnShooterCommand());
 		SmartDashboard::PutData("TurnOnShooterCommand 5000", new TurnOnShooterCommand(5000));
 		SmartDashboard::PutData("TurnOffShooterCommand", new TurnOffShooterCommand());
+		SmartDashboard::PutData("Turn Light Ring On", new TurnLightRingOnCommand());
 	}
 
 	void DisabledInit()
