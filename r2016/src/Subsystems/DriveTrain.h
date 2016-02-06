@@ -14,10 +14,10 @@
 
 class DriveTrain : public SubsystemBase{
 private:
-	CANTalon* m_topLeft;
-	CANTalon* m_topRight;
-	CANTalon* m_botLeft;
-	CANTalon* m_botRight;
+	CANTalon* m_leftMaster;
+	CANTalon* m_rightMaster;
+	CANTalon* m_leftSlave;
+	CANTalon* m_rightSlave;
 	uint8_t m_update_rate_hz = 50;
 	SerialPort* m_serialPort;
 	AHRS* m_imu;
