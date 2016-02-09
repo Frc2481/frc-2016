@@ -12,8 +12,6 @@
 
 //Shooter
 #define SHOOTER_MOTOR 5
-#define SHOOTER_ENCODER_A 0
-#define SHOOTER_ENCODER_B 0
 #define SHOOTER_ANGLE_ADJUST 0
 
 //Intake
@@ -22,7 +20,6 @@
 #define INTAKE_FWD_SPD 1
 #define INTAKE_REV_SPD -1
 
-
 //Lift
 #define LIFT_MOTOR 7
 #define LIFT_LIMIT_SWITCH 0
@@ -30,6 +27,8 @@
 #define LIFT_UP_SPEED 0.5
 #define LIFT_DOWN_SPEED -0.5
 
+//Kicker
+#define KICKER 3
 //Camera
 #define CAMERA_LIGHT 1
 

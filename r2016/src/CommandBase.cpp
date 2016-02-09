@@ -7,6 +7,7 @@ std::unique_ptr<DriveTrain> CommandBase::driveTrain;
 std::unique_ptr<Intake> CommandBase::intake;
 std::unique_ptr<Lift> CommandBase::lift;
 std::unique_ptr<Shooter> CommandBase::shooter;
+std::unique_ptr<Kicker> CommandBase::kicker;
 std::unique_ptr<OI> CommandBase::oi;
 
 CommandBase::CommandBase(char const *name) :
@@ -29,5 +30,6 @@ void CommandBase::init()
 	intake.reset(new Intake());
 	lift.reset(new Lift());
 	shooter.reset(new Shooter());
+	kicker.reset(new Kicker());
 	oi.reset(new OI());
 }
