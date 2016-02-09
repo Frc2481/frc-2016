@@ -17,6 +17,11 @@ Intake::Intake() : SubsystemBase("Intake") {
 Intake::~Intake() {
 	// TODO Auto-generated destructor stub
 }
+
+bool Intake::IsExtended() {
+	return m_extender->Get();
+}
+
 void Intake::Periodic(){
 	SmartDashboard::PutNumber("Intake Motor", m_intakeMotor->Get());
 	SmartDashboard::PutNumber("Intake Extender", m_extender->Get());

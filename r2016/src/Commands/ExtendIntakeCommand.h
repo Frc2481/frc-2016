@@ -11,8 +11,10 @@ public:
 		Requires(intake.get());
 	}
 	void Initialize(){
-		intake->Extend();
-		intake->TurnOnFwd();
+		if (!kicker->IsExtended()) {
+			intake->TurnOnFwd();
+			intake->Extend();
+		}
 	}
 	void Execute(){}
 	bool IsFinished(){

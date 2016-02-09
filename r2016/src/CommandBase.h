@@ -10,6 +10,7 @@
 #include "Subsystems/CameraProcessor.h"
 #include "Subsystems/Lift.h"
 #include "Subsystems/Shooter.h"
+#include "Subsystems/Kicker.h"
 
 /**
  * The base for all commands. All atomic commands should subclass CommandBase.
@@ -29,6 +30,7 @@ public:
 	static std::unique_ptr<Intake> intake;
 	static std::unique_ptr<Lift> lift;
 	static std::unique_ptr<Shooter> shooter;
+	static std::unique_ptr<Kicker> kicker;
 	static std::unique_ptr<OI> oi;
 };
 

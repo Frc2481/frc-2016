@@ -7,18 +7,20 @@
 class FireBallCommand: public CommandBase
 {
 public:
-	FireBallCommand(double timeout): CommandBase("FireBallCommand"){
-		SetTimeout(timeout);
+	FireBallCommand(): CommandBase("FireBallCommand"){
+		SetTimeout(1);
 	}
-	void Initialize(){}
-	void Execute(){
-		lift->SetLiftSpeed(LIFT_UP_SPEED);
+	void Initialize(){
+		if (!intake->IsExtended()) {
+			kicker->Extend();
+		}
 	}
+	void Execute(){}
 	bool IsFinished(){
 		return IsTimedOut();
 	}
 	void End(){
-		lift->SetLiftSpeed(0);
+		kicker->Retract();
 	}
 	void Interrupted(){
 		End();

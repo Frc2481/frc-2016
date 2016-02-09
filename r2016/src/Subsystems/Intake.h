@@ -23,6 +23,7 @@ public:
 	void TurnOnFwd();
 	void TurnOnRev();
 	void TurnOff();
+	bool IsExtended();
 	void Periodic();
 };
 
