@@ -8,22 +8,34 @@
 #ifndef SRC_OI_H_
 #define SRC_OI_H_
 #include "WPILib.h"
-//#include "Joystick.h"
 #include "XboxController.h"
-//#include "CommandBase.h"
-//#include "ControllerMap.h"
-//#include "Joystick2.h"
+#include "Components/AnalogJoystickButton.h"
 
 class OI {
 private:
 	Joystick* driveStick;
+	Joystick* operatorStick;
+	Joystick* debugStick;
 
-	//Button* intakeOut;
-	//Button* intakeIn;
+	//Driver Buttons
+	AnalogJoystickButton* intakeOut;
+	AnalogJoystickButton* intakeIn;
+	Button* rotateToAngleCam;
+
+	//Operator Buttons
+	AnalogJoystickButton* fireBall;
+	Button* turnOnShooter;
+	Button* turnOffShooter;
+
+	//Debug Buttons
+	Button* rotateToAngleNoCam;
+
 public:
 	OI();
 	virtual ~OI();
 	Joystick* GetDriveStick();
+	Joystick* GetOperatorStick();
+	Joystick* GetDebugStick();
 };
 
 #endif /* SRC_OI_H_ */
