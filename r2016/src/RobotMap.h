@@ -8,6 +8,7 @@
 #define FR_MOTOR 1
 #define BL_MOTOR 2
 #define BR_MOTOR 3
+#define DRIVETRAIN_SHIFTER 2
 
 //Shooter
 #define SHOOTER_MOTOR 5

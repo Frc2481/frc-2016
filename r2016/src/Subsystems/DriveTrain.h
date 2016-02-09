@@ -14,14 +14,18 @@
 
 class DriveTrain : public SubsystemBase{
 private:
+	const int kDistancePID = 0;
+	const int kSpeedPID = 1;
 	CANTalon* m_leftMaster;
 	CANTalon* m_rightMaster;
 	CANTalon* m_leftSlave;
 	CANTalon* m_rightSlave;
+	Solenoid* m_shifter;
 	uint8_t m_update_rate_hz = 50;
 	SerialPort* m_serialPort;
 	AHRS* m_imu;
 	double m_prevYaw;
+	double m_setPoint;
 
 public:
 	DriveTrain();
@@ -31,8 +35,14 @@ public:
 	void TankRaw(double rightSpeed, double leftSpeed);
 	void StopMotors();
 	void SetBrake(bool brake);
+	void SetShifter(bool state);
+	void SetSetpoint(double setpoint);
+	void SetToVoltageMode();
+	void SetToDistanceMode();
+	void SetToSpeedMode();
 	double GetAngle();
 	double CalcYaw();
+	bool IsAtSetpoint();
 	void InitDefaultCommand();
 	void Periodic();
 };
