@@ -97,6 +97,17 @@ bool DriveTrain::IsAtSetpoint() {
 	return fabs(m_leftMaster->GetClosedLoopError()) < .5 && fabs(m_rightMaster->GetClosedLoopError()) < .5;
 }
 
+void DriveTrain::FPSDrive(double spd, double rotate) {
+	if (spd > .2 || rotate > .2) {
+		m_leftMaster->Set(spd - rotate);
+		m_rightMaster->Set(spd + rotate);
+	}
+	else {
+		m_leftMaster->Set(0);
+		m_rightMaster->Set(0);
+	}
+}
+
 void DriveTrain::Periodic(){
 	SmartDashboard::PutNumber("Yaw Rate", CalcYaw());
 	SmartDashboard::PutNumber("Fused Heading", m_imu->GetFusedHeading());
@@ -127,18 +138,18 @@ void DriveTrain::Periodic(){
 }
 
 void DriveTrain::Tank(double rightSpeed, double leftSpeed) {
-	if (leftSpeed > .2 || leftSpeed < -.2){
+//	if (leftSpeed > .2 || leftSpeed < -.2){
 		m_leftMaster->Set(leftSpeed);
-	}
-	else {
-		m_leftMaster->Set(0);
-	}
-	if (rightSpeed > .2 || rightSpeed < -.2){
+//	}
+//	else {
+//		m_leftMaster->Set(0);
+//	}
+//	if (rightSpeed > .2 || rightSpeed < -.2){
 		m_rightMaster->Set(-(rightSpeed));
-	}
-	else {
-		m_rightMaster->Set(0);
-	}
+//	}
+//	else {
+//		m_rightMaster->Set(0);
+//	}
 }
 
 void DriveTrain::TankRaw(double rightSpeed, double leftSpeed) {

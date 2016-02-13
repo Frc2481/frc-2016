@@ -10,6 +10,7 @@ private:
 	bool m_shiftState;
 public:
 	ShiftDriveTrainCommand(bool state) : CommandBase("ShiftDriveTrainCommand"){
+		Requires(driveTrain.get());
 		m_shiftState = state;
 	}
 	void Initialize(){

@@ -8,6 +8,8 @@ class Shooter: public SubsystemBase
 {
 private:
 	CANTalon* m_shooterWheel;
+	Solenoid* m_shooterAdjuster;
+	bool m_highPosition;
 	double m_shooterDistance;
 
 public:
@@ -24,6 +26,10 @@ public:
 	double GetGoalDistance();
 
 	bool IsOn();
+
+	void SetHighPosition();
+	void SetLowPosition();
+	bool GetPosition();
 };
 
 #endif

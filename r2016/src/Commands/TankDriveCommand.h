@@ -12,8 +12,8 @@ public:
 	}
 	void Initialize(){}
 	void Execute(){
-		double left = oi->GetDriveStick()->GetRawAxis(XboxController::xbRightYAxis);
-		double right = oi->GetDriveStick()->GetRawAxis(XboxController::xbLeftYAxis);
+		double left = oi->GetDriveStick()->GetRawAxis(XboxController::xbRightYAxis, true);
+		double right = oi->GetDriveStick()->GetRawAxis(XboxController::xbLeftYAxis, true);
 		driveTrain->Tank(right, left);
 	}
 	bool IsFinished(){

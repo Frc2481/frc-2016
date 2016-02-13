@@ -10,22 +10,26 @@
 #include "WPILib.h"
 #include "XboxController.h"
 #include "Components/AnalogJoystickButton.h"
+#include "Components/Joystick2481.h"
 
 class OI {
 private:
-	Joystick* driveStick;
+	Joystick2481* driveStick;
 	Joystick* operatorStick;
 	Joystick* debugStick;
 
 	//Driver Buttons
-	AnalogJoystickButton* intakeOut;
-	AnalogJoystickButton* intakeIn;
+	AnalogJoystickButton* intakeButton;
+	Button* intakeRevButton;
 	Button* rotateToAngleCam;
+	Button* driveTrainShift;
 
 	//Operator Buttons
 	AnalogJoystickButton* fireBall;
 	Button* turnOnShooter;
 	Button* turnOffShooter;
+	Button* manualIntakeButton;
+	Button* changeShooterAngle;
 
 	//Debug Buttons
 	Button* rotateToAngleNoCam;
@@ -33,7 +37,7 @@ private:
 public:
 	OI();
 	virtual ~OI();
-	Joystick* GetDriveStick();
+	Joystick2481* GetDriveStick();
 	Joystick* GetOperatorStick();
 	Joystick* GetDebugStick();
 };

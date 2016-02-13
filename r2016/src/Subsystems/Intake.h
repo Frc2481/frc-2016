@@ -18,12 +18,11 @@ private:
 public:
 	Intake();
 	virtual ~Intake();
-	void Extend();
-	void Retract();
-	void TurnOnFwd();
-	void TurnOnRev();
+	void Lower();
+	void Raise();
+	void SetSpeed(double spd);
 	void TurnOff();
-	bool IsExtended();
+	bool IsLowered();
 	void Periodic();
 };
 
