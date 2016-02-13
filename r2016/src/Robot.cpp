@@ -6,11 +6,11 @@
 #include "Commands/TurnOffShooterCommand.h"
 #include "Commands/TurnLightRingOnCommand.h"
 #include "Commands/TraverseChevalFrieseCommandGroup.h"
-#include "Commands/TraverseDrawbridgeCommand.h"
+#include "Commands/TraverseDrawbridgeCommandGroup.h"
 #include "Commands/TraverseMoatCommandGroup.h"
 #include "Commands/TraverseRampartsCommandGroup.h"
-#include "Commands/TraversePortCommand.h"
-#include "Commands/TraversePortcullisCommand.h"
+#include "Commands/TraversePortCommandGroup.h"
+#include "Commands/TraversePortcullisCommandGroup.h"
 #include "Commands/TraverseTerrainCommandGroup.h"
 #include "Commands/TraverseWallCommandGroup.h"
 #include "Commands/OneBallAutoCommandGroup.h"
@@ -34,7 +34,7 @@ private:
 
 		m_defenseChooser = new SendableChooser();
 		//Group A
-		m_defenseChooser->AddObject("Portcullis", new TraversePortcullisCommand());
+		m_defenseChooser->AddObject("Portcullis", new TraversePortcullisCommandGroup());
 		m_defenseChooser->AddObject("Cheval de Friese", new TraverseChevalFrieseCommandGroup());
 
 		//Group B
@@ -42,8 +42,8 @@ private:
 		m_defenseChooser->AddObject("Ramparts", new TraverseRampartsCommandGroup());
 
 		//Group C
-		m_defenseChooser->AddObject("Drawbridge", new TraverseDrawbridgeCommand());
-		m_defenseChooser->AddObject("Sally Port", new TraversePortCommand());
+		m_defenseChooser->AddObject("Drawbridge", new TraverseDrawbridgeCommandGroup());
+		m_defenseChooser->AddObject("Sally Port", new TraversePortCommandGroup());
 
 		//Group D
 		m_defenseChooser->AddObject("Rock Wall", new TraverseWallCommandGroup());
