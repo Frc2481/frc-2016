@@ -7,7 +7,7 @@
 class TurnLightRingOnCommand: public CommandBase
 {
 public:
-	TurnLightRingOnCommand(){}
+	TurnLightRingOnCommand() : CommandBase("TurnLightRingOnCommand"){}
 	void Initialize(){
 		mCameraProcessor->SetLight(true);
 	}

@@ -18,28 +18,25 @@ Intake::~Intake() {
 	// TODO Auto-generated destructor stub
 }
 
-bool Intake::IsExtended() {
+bool Intake::IsLowered() {
 	return m_extender->Get();
 }
 
 void Intake::Periodic(){
 	SmartDashboard::PutNumber("Intake Motor", m_intakeMotor->Get());
+	SmartDashboard::PutNumber("Intake Output Current", m_intakeMotor->GetOutputCurrent());
 	SmartDashboard::PutNumber("Intake Extender", m_extender->Get());
 }
-void Intake::Extend() {
+void Intake::Lower() {
 	m_extender->Set(true);
 }
 
-void Intake::Retract() {
+void Intake::Raise() {
 	m_extender->Set(false);
 }
 
-void Intake::TurnOnFwd() {
-	m_intakeMotor->Set(INTAKE_FWD_SPD);
-}
-
-void Intake::TurnOnRev() {
-	m_intakeMotor->Set(INTAKE_REV_SPD);
+void Intake::SetSpeed(double spd) {
+	m_intakeMotor->Set(spd);
 }
 
 void Intake::TurnOff() {

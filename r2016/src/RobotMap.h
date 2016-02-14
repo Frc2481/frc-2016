@@ -16,9 +16,9 @@
 
 //Intake
 #define INTAKE_MOTOR 4
-#define INTAKE_EXTENDER 0
-#define INTAKE_FWD_SPD 1
-#define INTAKE_REV_SPD -1
+#define INTAKE_EXTENDER 1
+#define INTAKE_FWD_SPD .75
+#define INTAKE_REV_SPD -.75
 
 //Lift
 #define LIFT_MOTOR 7
@@ -28,8 +28,8 @@
 #define LIFT_DOWN_SPEED -0.5
 
 //Kicker
-#define KICKER 3
+#define KICKER 6
 //Camera
-#define CAMERA_LIGHT 1
+#define CAMERA_LIGHT 8
 
 #endif

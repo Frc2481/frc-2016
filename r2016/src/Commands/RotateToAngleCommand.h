@@ -36,7 +36,7 @@ public:
 		GetPIDController()->Enable();
 		m_onTarget = 0;
 
-		double setpoint = CommandBase::driveTrain->GetIMU()->GetAngle() + m_angle;
+		double setpoint = m_angle;
 		setpoint = RoboUtils::constrainDegNeg180To180(setpoint);
 		SetSetpoint(setpoint);
 	}
@@ -79,7 +79,10 @@ public:
 	void Initialize(){
 		double scale = 19.9 / 15.45; //TODO: Figure out why the camera or gyro angle is wrong.
 		m_angle = CommandBase::mCameraProcessor->getAngle() * scale;
+		m_angle += CommandBase::driveTrain->GetIMU()->GetAngle();
 		RotateToAngleCommand::Initialize();
 	}
 };
+
+
 #endif

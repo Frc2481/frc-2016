@@ -7,14 +7,17 @@
 class Kicker: public SubsystemBase
 {
 private:
-	Solenoid* m_kicker;
+	CANTalon* m_kicker;
+	bool m_isExtended;
 public:
 	Kicker();
 	void InitDefaultCommand();
 	void Extend();
 	void Retract();
+	void Stop();
 	bool IsExtended();
 	void Periodic();
+	double GetCurrentDraw();
 };
 
 #endif

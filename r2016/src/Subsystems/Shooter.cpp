@@ -6,6 +6,7 @@ Shooter::Shooter() :
 		SubsystemBase("Shooter")
 {
 	m_shooterWheel = new CANTalon(SHOOTER_MOTOR);
+	m_shooterAdjuster = new Solenoid(SHOOTER_ANGLE_ADJUST);
 	SmartDashboard::PutBoolean("Shooter Tuning", false);
 	double kp = RoboPreferences::GetInstance()->GetDouble("Shooter kP", .7);
 	double ki = RoboPreferences::GetInstance()->GetDouble("Shooter kI", .00008);
@@ -38,6 +39,7 @@ void Shooter::Periodic() {
 	SmartDashboard::PutNumber("Shooter Error", m_shooterWheel->GetClosedLoopError());
 	SmartDashboard::PutNumber("Shooter Setpoint", m_shooterWheel->GetSetpoint());
 	SmartDashboard::PutNumber("Shooter Distance", m_shooterDistance);
+	SmartDashboard::PutBoolean("Shooter High Position", m_highPosition);
 }
 
 void Shooter::TurnOff(){
@@ -67,4 +69,18 @@ bool Shooter::IsOn() {
 
 double Shooter::GetDesiredSpeed() {
 	return m_shooterWheel->GetSetpoint();
+}
+
+void Shooter::SetHighPosition() {
+	m_shooterAdjuster->Set(true);
+	m_highPosition = true;
+}
+
+void Shooter::SetLowPosition() {
+	m_shooterAdjuster->Set(false);
+	m_highPosition = false;
+}
+
+bool Shooter::GetPosition() {
+	return m_highPosition;
 }

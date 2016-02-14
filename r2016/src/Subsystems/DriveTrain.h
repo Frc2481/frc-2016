@@ -44,6 +44,7 @@ public:
 	double CalcYaw();
 	bool IsAtSetpoint();
 	void InitDefaultCommand();
+	void FPSDrive(double spd, double rotate);
 	void Periodic();
 };
 
