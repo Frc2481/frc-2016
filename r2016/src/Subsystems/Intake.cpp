@@ -22,6 +22,10 @@ bool Intake::IsLowered() {
 	return m_extender->Get();
 }
 
+double Intake::GetIntakeCurrent() {
+	return m_intakeMotor->GetOutputCurrent();
+}
+
 void Intake::Periodic(){
 	SmartDashboard::PutNumber("Intake Motor", m_intakeMotor->Get());
 	SmartDashboard::PutNumber("Intake Output Current", m_intakeMotor->GetOutputCurrent());
