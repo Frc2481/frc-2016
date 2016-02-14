@@ -22,6 +22,7 @@ public:
 	void Raise();
 	void SetSpeed(double spd);
 	void TurnOff();
+	double GetIntakeCurrent();
 	bool IsLowered();
 	void Periodic();
 };

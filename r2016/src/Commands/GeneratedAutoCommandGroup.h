@@ -2,7 +2,7 @@
 #define GeneratedAutoCommandGroup_H
 
 #include "Commands/BringIntakeUpCommandGroup.h"
-#include "Commands/IntakeBallCommandGroup.h"
+#include "Commands/AcquireBallCommandGroup.h"
 #include "Commands/FireBallCommandGroup.h"
 #include "Commands/CommandGroup.h"
 #include "Commands/RotateFPSCommand.h"
@@ -33,11 +33,10 @@ public:
 			AddSequential(traverseCommand);
 			AddSequential(new RotateToAngleCommand(180));
 			AddSequential(new RotateFPSCommand(position));
-			AddParallel(new IntakeBallCommandGroup());
+			AddParallel(new AcquireBallCommandGroup());
 			AddSequential(new DriveDistanceCommand(500));
 			AddSequential(new WaitCommand(.25));
-			AddParallel(new DriveDistanceCommand(-500));
-			AddSequential(new BringIntakeUpCommandGroup());
+			AddSequential(new DriveDistanceCommand(-500));
 			AddSequential(new RotateToAngleCommand(0));
 			AddSequential(new RotateFPSCommand(position));
 			AddSequential(new RotateToAngleCommand(0));
