@@ -5,13 +5,13 @@
  *      Author: Team2481
  */
 
-#include "Commands/IntakeBallCommandGroup.h"
-#include "Commands/BringIntakeUpCommandGroup.h"
+#include "Commands/AcquireBallCommandGroup.h"
 #include "Commands/ToggleShooterPositionCommand.h"
 #include "Commands/TurnIntakeOnRevCommand.h"
 #include <OI.h>
 #include <ControllerMap.h>
 #include "Commands/FireBallCommandGroup.h"
+#include "Commands/WaitForBallTestCommandGroup.h"
 #include "Commands/TurnOnShooterCommand.h"
 #include "Commands/TurnOffShooterCommand.h"
 #include "Commands/RotateToAngleCommand.h"
@@ -24,8 +24,7 @@ OI::OI() {
 	debugStick = new Joystick(2);
 
 	intakeButton = new INTAKE_BUTTON;
-	intakeButton->WhenPressed(new IntakeBallCommandGroup());
-	intakeButton->WhenReleased(new BringIntakeUpCommandGroup());
+	intakeButton->WhenPressed(new AcquireBallCommandGroup());
 
 	turnOnShooter = new TURN_SHOOTER_ON_BUTTON;
 	turnOnShooter->WhenPressed(new TurnOnShooterCommand());
@@ -55,6 +54,9 @@ OI::OI() {
 
 	changeShooterAngle = new TOGGLE_SHOOTER_ANGLE_BUTTON;
 	changeShooterAngle->WhenPressed(new ToggleShooterPositionCommand());
+
+	waitForBallTest = new TEST_INTAKE_WAIT_BUTTON;
+	waitForBallTest->WhenPressed(new WaitForBallTestCommandGroup());
 }
 
 OI::~OI() {

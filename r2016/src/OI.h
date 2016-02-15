@@ -33,6 +33,7 @@ private:
 
 	//Debug Buttons
 	Button* rotateToAngleNoCam;
+	Button* waitForBallTest;
 
 public:
 	OI();

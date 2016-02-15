@@ -6,6 +6,7 @@
 #include "Commands/WaitCommand.h"
 #include "Commands/WaitForBallCommand.h"
 #include "Commands/BringIntakeUpCommandGroup.h"
+#include "Commands/AutoDriveCommand.h"
 #include "WPILib.h"
 
 class AcquireBallCommandGroup: public CommandGroup
@@ -13,8 +14,10 @@ class AcquireBallCommandGroup: public CommandGroup
 public:
 	AcquireBallCommandGroup() : CommandGroup("AcquireBallCommandGroup"){
 		AddParallel(new IntakeBallCommandGroup());
-		AddSequential(new WaitCommand(.75));
+		AddParallel(new WaitCommand(.75));
+		AddSequential(new AutoDriveCommand(.5, .5));
 		AddSequential(new WaitForBallCommand());
+		AddSequential(new AutoDriveCommand(0, 0, .11));
 		AddSequential(new BringIntakeUpCommandGroup());
 	}
 };
