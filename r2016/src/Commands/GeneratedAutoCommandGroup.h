@@ -34,13 +34,12 @@ public:
 			AddSequential(new RotateToAngleCommand(180));
 			AddSequential(new RotateFPSCommand(position));
 			AddParallel(new AcquireBallCommandGroup());
-			AddSequential(new DriveDistanceCommand(500));
 			AddSequential(new WaitCommand(.25));
 			AddSequential(new DriveDistanceCommand(-500));
 			AddSequential(new RotateToAngleCommand(0));
 			AddSequential(new RotateFPSCommand(position));
 			AddSequential(new RotateToAngleCommand(0));
-			AddSequential(new AutoDriveCommand(0,0));
+			AddSequential(new AutoDriveCommand(0,0,.11));
 		}
 	}
 };

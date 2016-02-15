@@ -13,12 +13,12 @@
 #include "Commands/TraversePortcullisCommandGroup.h"
 #include "Commands/TraverseTerrainCommandGroup.h"
 #include "Commands/TraverseWallCommandGroup.h"
-#include "Commands/OneBallAutoCommandGroup.h"
-#include "Commands/TwoBallAutoCommandGroup.h"
 #include "Commands/GeneratedAutoCommandGroup.h"
 #include "Commands/FireBallCommandGroup.h"
 #include "Commands/ExtendKickerCommand.h"
 #include "Commands/RetractKickerCommand.h"
+#include "Commands/WaitForBallTestCommandGroup.h"
+#include "Commands/DriveDistanceCommand.h"
 #include "CommandBase.h"
 
 class Robot: public IterativeRobot
@@ -65,6 +65,8 @@ private:
 		SmartDashboard::PutData("FireBallCommand", new FireBallCommandGroup());
 		SmartDashboard::PutData("ExtendKickerCommand", new ExtendKickerCommand());
 		SmartDashboard::PutData("RetractKickerCommand", new RetractKickerCommand());
+		SmartDashboard::PutData("WaitForBallCommandGroup", new WaitForBallTestCommandGroup());
+		SmartDashboard::PutData("DriveDistanceCommand", new DriveDistanceCommand(500));
 	}
 
 	void DisabledInit()
