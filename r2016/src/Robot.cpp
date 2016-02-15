@@ -18,6 +18,7 @@
 #include "Commands/ExtendKickerCommand.h"
 #include "Commands/RetractKickerCommand.h"
 #include "Commands/WaitForBallTestCommandGroup.h"
+#include "Commands/DriveDistanceCommand.h"
 #include "CommandBase.h"
 
 class Robot: public IterativeRobot
@@ -65,6 +66,7 @@ private:
 		SmartDashboard::PutData("ExtendKickerCommand", new ExtendKickerCommand());
 		SmartDashboard::PutData("RetractKickerCommand", new RetractKickerCommand());
 		SmartDashboard::PutData("WaitForBallCommandGroup", new WaitForBallTestCommandGroup());
+		SmartDashboard::PutData("DriveDistanceCommand", new DriveDistanceCommand(500));
 	}
 
 	void DisabledInit()
