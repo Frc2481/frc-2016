@@ -26,6 +26,7 @@ public:
 	double GetGoalDistance();
 
 	bool IsOn();
+	bool IsOnTarget();
 
 	void SetHighPosition();
 	void SetLowPosition();

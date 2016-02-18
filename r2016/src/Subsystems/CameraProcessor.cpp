@@ -24,6 +24,7 @@ void CameraProcessor::SetLight(bool state) {
 }
 
 void CameraProcessor::Periodic() {
+	calculate();
 }
 
 bool CameraProcessor::isTargetAvailable(){
