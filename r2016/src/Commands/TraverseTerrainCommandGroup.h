@@ -9,9 +9,7 @@ class TraverseTerrainCommandGroup: public CommandGroup
 {
 public:
 	TraverseTerrainCommandGroup() : CommandGroup("TraverseTerrainCommandGroup"){
-		AddSequential(new AutoDriveCommand(.3, .3, .3));
-		AddSequential(new AutoDriveCommand(.5, .5, .3));
-		AddSequential(new AutoDriveCommand(.25, .25, .3));
+		AddSequential(new AutoDriveCommand(.5,.5,2.5));
 	}
 };
 

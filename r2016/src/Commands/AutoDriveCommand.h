@@ -24,7 +24,7 @@ public:
 	}
 	void Initialize(){}
 	void Execute(){
-		driveTrain->Tank(m_right, m_left);
+		driveTrain->Tank(-m_right, -m_left);
 	}
 	bool IsFinished(){
 		return IsTimedOut() || !m_timeoutSet;

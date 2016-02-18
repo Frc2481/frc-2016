@@ -8,20 +8,28 @@ class DriveDistanceCommand: public CommandBase
 {
 private:
 	double m_distance;
+	double m_offset;
 public:
 	DriveDistanceCommand(double distance) : CommandBase("DriveDistanceCommand"){
-		m_distance = distance;
+		Requires(driveTrain.get());
+		m_distance = -distance;
+//		driveTrain->ZeroEncoders();
 	}
 	void Initialize(){
-		driveTrain->SetToDistanceMode();
-		driveTrain->SetSetpoint(m_distance);
+		m_offset = driveTrain->GetEncoderPos();
+		driveTrain->Tank(-.5,-.5);
+
+//		driveTrain->SetToDistanceMode();
+//		driveTrain->SetSetpoint(m_distance);
 	}
 	void Execute(){}
 	bool IsFinished(){
-		return driveTrain->IsAtSetpoint();
+		return driveTrain->GetEncoderPos() < m_distance + m_offset;
 	}
 	void End(){
 		driveTrain->SetToVoltageMode();
+		driveTrain->StopMotors();
+//		driveTrain->ZeroEncoders();
 	}
 	void Interrupted(){
 		End();

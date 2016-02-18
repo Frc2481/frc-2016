@@ -8,7 +8,7 @@ class TraverseMoatCommandGroup: public CommandGroup
 {
 public:
 	TraverseMoatCommandGroup() : CommandGroup("TraverseMoatCommandGroup"){
-		AddSequential(new AutoDriveCommand(.4, .4, .7));
+		AddSequential(new AutoDriveCommand(.7,.7,3));
 	}
 };
 

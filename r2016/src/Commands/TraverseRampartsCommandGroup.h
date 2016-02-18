@@ -9,11 +9,15 @@ class TraverseRampartsCommandGroup: public CommandGroup
 {
 public:
 	TraverseRampartsCommandGroup() : CommandGroup("TraverseRampartsCommandGroup"){
-		AddSequential(new AutoDriveCommand(.3, .3, .25));
-		AddSequential(new AutoDriveCommand(.45, .3, .25));
-		AddSequential(new AutoDriveCommand(.3, .3, .25));
-		AddSequential(new AutoDriveCommand(.3, .45, .25));
-		AddSequential(new AutoDriveCommand(.2, .2, .11));
+		AddSequential(new AutoDriveCommand(SmartDashboard::GetNumber("TraverseRamparts Forward Slow", .3),
+				SmartDashboard::GetNumber("TraverseRamparts Forward Slow", .3),
+				SmartDashboard::GetNumber("TraverseRamparts 1 Time", .75)));
+		AddSequential(new AutoDriveCommand(SmartDashboard::GetNumber("TraverseRamparts Forward Fast", .5),
+				SmartDashboard::GetNumber("TraverseRamparts Mid Rotate", .7),
+				SmartDashboard::GetNumber("TraverseRamparts 2 Time", .5)));
+		AddSequential(new AutoDriveCommand(SmartDashboard::GetNumber("TraverseRamparts Forward Fast", .5),
+				SmartDashboard::GetNumber("TraverseRamparts Forward Fast", .5),
+				SmartDashboard::GetNumber("TraverseRamparts 3 Time", 3)));
 	}
 };
 

@@ -11,14 +11,16 @@ protected:
 	double m_angle;
 	int m_onTarget;
 public:
-	RotateToAngleCommand(double angle)
-			: PIDCommand("RotateToAngle", .020, .002, 0){
+	RotateToAngleCommand(double angle, int position = 0)
+			: PIDCommand("RotateToAngle", .050, .004, 0){
 		Requires(CommandBase::driveTrain.get());
-		m_angle = angle;
+		double angleArray[6] = {angle, angle, 30, 0, -15, -30};
+		m_angle = angleArray[position];
 		m_onTarget = 0;
 		SmartDashboard::PutNumber("Rotation I Zone", 10);
-		SmartDashboard::PutNumber("DriveTrain Rotate I", .002);
-		SmartDashboard::PutNumber("DriveTrain Rotate P", .020);
+		SmartDashboard::PutNumber("DriveTrain Rotate I", .004);
+		SmartDashboard::PutNumber("DriveTrain Rotate P", .050);
+		SmartDashboard::PutNumber("Rotation Ontarget Time", 5);
 	}
 
 	double ReturnPIDInput(){
@@ -63,7 +65,7 @@ public:
 	}
 
 	bool IsFinished(){
-		return m_onTarget >= 5;
+		return m_onTarget >= SmartDashboard::GetNumber("Rotation Ontarget Time", 5);
 	}
 	void End(){
 		SmartDashboard::PutNumber("Rotate Time", TimeSinceInitialized());
@@ -74,12 +76,13 @@ public:
 class RotateToAngleFromCameraCommand : public RotateToAngleCommand {
 public:
 	RotateToAngleFromCameraCommand() : RotateToAngleCommand(0) {
+		SmartDashboard::PutNumber("Camera Offset", -6);
 	}
 
 	void Initialize(){
 		double scale = 19.9 / 15.45; //TODO: Figure out why the camera or gyro angle is wrong.
 		m_angle = CommandBase::mCameraProcessor->getAngle() * scale;
-		m_angle += CommandBase::driveTrain->GetIMU()->GetAngle();
+		m_angle += CommandBase::driveTrain->GetIMU()->GetAngle() - SmartDashboard::GetNumber("Camera Offset", -6);
 		RotateToAngleCommand::Initialize();
 	}
 };
