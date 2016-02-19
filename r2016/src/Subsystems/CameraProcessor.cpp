@@ -24,6 +24,7 @@ void CameraProcessor::SetLight(bool state) {
 }
 
 void CameraProcessor::Periodic() {
+	calculate();
 }
 
 bool CameraProcessor::isTargetAvailable(){
@@ -48,7 +49,13 @@ void CameraProcessor::calculate(){
 	double width = 0;
 	double height = 0;
 	m_angle = 0;
-	if(areas.size() > 0){
+	//All of the size checks are needed to prevent a crash if GRIP is in the middle of removing a target while
+	//we are grabbing the table.
+	if(areas.size() > 0 &&
+			areas.size() == centerYs.size() &&
+			areas.size() == centerXs.size() &&
+			areas.size() == widths.size() &&
+			areas.size() == heights.size()){
 		for (unsigned int i = 0; i < areas.size(); i++) {
 			if(areas[i] > area) {
 				area = areas[i];
