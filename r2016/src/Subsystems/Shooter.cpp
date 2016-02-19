@@ -6,12 +6,13 @@ Shooter::Shooter() :
 		SubsystemBase("Shooter")
 {
 	m_shooterWheel = new CANTalon(SHOOTER_MOTOR);
+	m_shooterWheel->SetClosedLoopOutputDirection(true);
 	m_shooterAdjuster = new Solenoid(SHOOTER_ANGLE_ADJUST);
 	SmartDashboard::PutBoolean("Shooter Tuning", false);
-	double kp = RoboPreferences::GetInstance()->GetDouble("Shooter kP", .7);
-	double ki = RoboPreferences::GetInstance()->GetDouble("Shooter kI", .00008);
-	double kd = RoboPreferences::GetInstance()->GetDouble("Shooter kD", 0);
-	double kf = RoboPreferences::GetInstance()->GetDouble("Shooter kF", 0);
+	double kp = RoboPreferences::GetInstance()->GetDouble("Shooter_kP", .7);
+	double ki = RoboPreferences::GetInstance()->GetDouble("Shooter_kI", .00008);
+	double kd = RoboPreferences::GetInstance()->GetDouble("Shooter_kD", 0);
+	double kf = RoboPreferences::GetInstance()->GetDouble("Shooter_kF", 0);
 	m_shooterWheel->SetControlMode(CANTalon::kSpeed);
 	m_shooterWheel->SetPID(kp, ki, kd, kf);
 	m_shooterWheel->ConfigEncoderCodesPerRev(1024);
@@ -26,10 +27,10 @@ void Shooter::InitDefaultCommand()
 void Shooter::Periodic() {
 	bool tuning = SmartDashboard::GetBoolean("Shooter Tuning", false);
 	if (tuning){
-		double kp = RoboPreferences::GetInstance()->GetDouble("Shooter kP", .7);
-		double ki = RoboPreferences::GetInstance()->GetDouble("Shooter kI", .00008);
-		double kd = RoboPreferences::GetInstance()->GetDouble("Shooter kD", 0);
-		double kf = RoboPreferences::GetInstance()->GetDouble("Shooter kF", 0);
+		double kp = RoboPreferences::GetInstance()->GetDouble("Shooter_kP", .7);
+		double ki = RoboPreferences::GetInstance()->GetDouble("Shooter_kI", .00008);
+		double kd = RoboPreferences::GetInstance()->GetDouble("Shooter_kD", 0);
+		double kf = RoboPreferences::GetInstance()->GetDouble("Shooter_kF", 0);
 
 		m_shooterWheel->SetPID(kp, ki, kd, kf);
 	}
@@ -79,6 +80,10 @@ void Shooter::SetHighPosition() {
 void Shooter::SetLowPosition() {
 	m_shooterAdjuster->Set(false);
 	m_highPosition = false;
+}
+
+bool Shooter::IsOnTarget() {
+	return m_shooterWheel->GetSpeed() > m_shooterWheel->GetSetpoint();
 }
 
 bool Shooter::GetPosition() {

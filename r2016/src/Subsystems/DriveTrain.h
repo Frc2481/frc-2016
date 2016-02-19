@@ -26,6 +26,7 @@ private:
 	AHRS* m_imu;
 	double m_prevYaw;
 	double m_setPoint;
+	double m_gyroOffset;
 
 public:
 	DriveTrain();
@@ -40,9 +41,14 @@ public:
 	void SetToVoltageMode();
 	void SetToDistanceMode();
 	void SetToSpeedMode();
+	void ZeroEncoders();
+	double GetEncoderPos();
 	double GetAngle();
+	double GetRoll();
 	double CalcYaw();
+	double GetPitch();
 	bool IsAtSetpoint();
+	void ZeroGyro();
 	void InitDefaultCommand();
 	void FPSDrive(double spd, double rotate);
 	void Periodic();

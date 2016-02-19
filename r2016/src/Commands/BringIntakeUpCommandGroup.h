@@ -10,7 +10,7 @@ class BringIntakeUpCommandGroup: public CommandGroup
 {
 public:
 	BringIntakeUpCommandGroup() : CommandGroup("BringIntakeUpCommandGroup"){
-		AddParallel(new RaiseIntakeCommand());
+		AddSequential(new RaiseIntakeCommand());
 		AddSequential(new StopIntakeCommand());
 	}
 };

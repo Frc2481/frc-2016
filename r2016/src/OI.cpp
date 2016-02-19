@@ -24,7 +24,8 @@ OI::OI() {
 	debugStick = new Joystick(2);
 
 	intakeButton = new INTAKE_BUTTON;
-	intakeButton->WhenPressed(new AcquireBallCommandGroup());
+	intakeButton->WhenPressed(new IntakeBallCommandGroup());
+	intakeButton->WhenReleased(new BringIntakeUpCommandGroup());
 
 	turnOnShooter = new TURN_SHOOTER_ON_BUTTON;
 	turnOnShooter->WhenPressed(new TurnOnShooterCommand());
@@ -39,7 +40,7 @@ OI::OI() {
 	intakeRevButton->WhileHeld(new TurnIntakeOnRevCommand());
 
 	rotateToAngleCam = new CAMERA_ROTATE_BUTTON;
-	rotateToAngleCam->WhileHeld(new RotateToAngleFromCameraCommand());
+	rotateToAngleCam->WhenPressed(new RotateToAngleFromCameraCommand());
 
 	driveTrainShift = new DRIVE_TRAIN_SHIFT_BUTTON;
 	driveTrainShift->WhenPressed(new ShiftDriveTrainCommand(true));

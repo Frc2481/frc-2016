@@ -29,25 +29,27 @@ DriveTrain::DriveTrain() : SubsystemBase("DriveTrain"){
 	m_rightSlave->SetControlMode(CANTalon::kFollower);
 	m_rightSlave->Set(FR_MOTOR);
 
-	double dp = RoboPreferences::GetInstance()->GetDouble("DriveTrain Distance P", 0);
-	double di = RoboPreferences::GetInstance()->GetDouble("DriveTrain Distance I", 0);
-	double dd = RoboPreferences::GetInstance()->GetDouble("DriveTrain Distance D", 0);
+	double dp = RoboPreferences::GetInstance()->GetDouble("DriveTrain_Distance_P", 0);
+	double di = RoboPreferences::GetInstance()->GetDouble("DriveTrain_Distance_I", 0);
+	double dd = RoboPreferences::GetInstance()->GetDouble("DriveTrain_Distance_D", 0);
 
-	double sp = RoboPreferences::GetInstance()->GetDouble("DriveTrain Speed P", 0);
-	double si = RoboPreferences::GetInstance()->GetDouble("DriveTrain Speed I", 0);
-	double sd = RoboPreferences::GetInstance()->GetDouble("DriveTrain Speed D", 0);
+	double sp = RoboPreferences::GetInstance()->GetDouble("DriveTrain_Speed_P", 0);
+	double si = RoboPreferences::GetInstance()->GetDouble("DriveTrain_Speed_I", 0);
+	double sd = RoboPreferences::GetInstance()->GetDouble("DriveTrain_Speed_D", 0);
 
 	m_leftMaster->SelectProfileSlot(kDistancePID);
 	m_leftMaster->SetPID(dp, di, dd);
 	m_leftMaster->SelectProfileSlot(kSpeedPID);
 	m_leftMaster->SetPID(sp, si, sd);
 	m_leftMaster->ConfigEncoderCodesPerRev(128);
+	m_leftMaster->SetFeedbackDevice(CANTalon::QuadEncoder);
 
 	m_rightMaster->SelectProfileSlot(kDistancePID);
 	m_rightMaster->SetPID(dp, di, dd);
 	m_rightMaster->SelectProfileSlot(kSpeedPID);
 	m_rightMaster->SetPID(sp, si, sd);
 	m_rightMaster->ConfigEncoderCodesPerRev(128);
+	m_rightMaster->SetFeedbackDevice(CANTalon::QuadEncoder);
 
 	m_shifter = new Solenoid(DRIVETRAIN_SHIFTER);
 
@@ -68,33 +70,54 @@ double DriveTrain::CalcYaw() {
 }
 
 void DriveTrain::SetSetpoint(double setpoint) {
+	m_rightMaster->SetEncPosition(0);
+	m_leftMaster->SetEncPosition(0);
 	m_leftMaster->SetSetpoint(setpoint);
 	m_rightMaster->SetSetpoint(setpoint);
 }
 
 void DriveTrain::SetToVoltageMode() {
-	m_leftMaster->SetControlMode(CANTalon::kVoltage);
-	m_rightMaster->SetControlMode(CANTalon::kVoltage);
+	m_leftMaster->SetControlMode(CANTalon::kPercentVbus);
+	m_rightMaster->SetControlMode(CANTalon::kPercentVbus);
 }
 
 void DriveTrain::SetToDistanceMode() {
-	m_leftMaster->SetControlMode(CANTalon::kPosition);
+	double dp = RoboPreferences::GetInstance()->GetDouble("DriveTrain_Distance_P", 0);
+	double di = RoboPreferences::GetInstance()->GetDouble("DriveTrain_Distance_I", 0);
+	double dd = RoboPreferences::GetInstance()->GetDouble("DriveTrain_Distance_D", 0);
+
+	//m_leftMaster->SetControlMode(CANTalon::kPosition);
 	m_rightMaster->SetControlMode(CANTalon::kPosition);
 
-	m_leftMaster->SelectProfileSlot(kDistancePID);
+	//m_leftMaster->SelectProfileSlot(kDistancePID);
+	//m_leftMaster->SetPID(dp, di, dd);
+
 	m_rightMaster->SelectProfileSlot(kDistancePID);
+	m_rightMaster->SetPID(dp, di, dd);
+
 }
 
 void DriveTrain::SetToSpeedMode() {
+	double sp = RoboPreferences::GetInstance()->GetDouble("DriveTrain_Speed_P", 0);
+	double si = RoboPreferences::GetInstance()->GetDouble("DriveTrain_Speed_I", 0);
+	double sd = RoboPreferences::GetInstance()->GetDouble("DriveTrain_Speed_D", 0);
+
 	m_leftMaster->SetControlMode(CANTalon::kSpeed);
 	m_rightMaster->SetControlMode(CANTalon::kSpeed);
 
 	m_leftMaster->SelectProfileSlot(kSpeedPID);
+	m_leftMaster->SetPID(sp, si, sd);
+
 	m_rightMaster->SelectProfileSlot(kSpeedPID);
+	m_rightMaster->SetPID(sp, si, sd);
+}
+
+void DriveTrain::ZeroEncoders(){
+	m_rightMaster->SetEncPosition(0);
 }
 
 bool DriveTrain::IsAtSetpoint() {
-	return fabs(m_leftMaster->GetClosedLoopError()) < .5 && fabs(m_rightMaster->GetClosedLoopError()) < .5;
+	return /*fabs(m_leftMaster->GetClosedLoopError()) < .5 &&*/ fabs(m_rightMaster->GetClosedLoopError()) < .5;
 }
 
 void DriveTrain::FPSDrive(double spd, double rotate) {
@@ -106,6 +129,22 @@ void DriveTrain::FPSDrive(double spd, double rotate) {
 		m_leftMaster->Set(0);
 		m_rightMaster->Set(0);
 	}
+}
+
+double DriveTrain::GetEncoderPos() {
+	return m_rightMaster->GetEncPosition();
+}
+
+double DriveTrain::GetRoll() {
+	return m_imu->GetRoll();
+}
+
+void DriveTrain::ZeroGyro() {
+	m_gyroOffset = m_imu->GetAngle();
+}
+
+double DriveTrain::GetPitch() {
+	return m_imu->GetPitch();
 }
 
 void DriveTrain::Periodic(){
@@ -163,7 +202,7 @@ void DriveTrain::StopMotors(){
 }
 
 double DriveTrain::GetAngle() {
-	return m_imu->GetAngle();
+	return m_imu->GetAngle() - m_gyroOffset;
 }
 
 AHRS* DriveTrain::GetIMU(){

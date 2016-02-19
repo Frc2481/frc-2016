@@ -13,9 +13,11 @@ class TraverseChevalFrieseCommandGroup: public CommandGroup
 public:
 	TraverseChevalFrieseCommandGroup() : CommandGroup("TraverseChevalFrieseCommandGroup"){
 		AddSequential(new LowerIntakeCommand());
-		AddSequential(new DriveDistanceCommand(500));
-		AddParallel(new RaiseIntakeCommand());
-		AddSequential(new AutoDriveCommand(0,0));
+		AddSequential(new WaitCommand(1));
+		AddSequential(new DriveDistanceCommand(5000));
+		AddSequential(new RaiseIntakeCommand());
+		AddSequential(new DriveDistanceCommand(7500));
+		AddSequential(new WaitCommand(1));
 	}
 };
 

@@ -3,15 +3,18 @@
 
 #include "Commands/CommandGroup.h"
 #include "Commands/AutoDriveCommand.h"
+#include "Commands/DriveUntilLevelCommand.h"
 #include "WPILib.h"
 
 class TraverseWallCommandGroup: public CommandGroup
 {
 public:
 	TraverseWallCommandGroup() : CommandGroup("TraverseWallCommandGroup"){
-		AddSequential(new AutoDriveCommand(.25, .25, .5));
-		AddSequential(new AutoDriveCommand(.6, .6, .25));
-		AddSequential(new AutoDriveCommand(.25, .25, .5));
+		AddSequential(new AutoDriveCommand(.4, .4, .1));
+		AddSequential(new AutoDriveCommand(.8, .8, 1));
+		AddParallel(new AutoDriveCommand(.3, .3));
+		AddSequential(new DriveUntilLevelCommand());
+		AddSequential(new AutoDriveCommand(0,0));
 	}
 };
 

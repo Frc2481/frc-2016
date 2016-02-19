@@ -3,17 +3,16 @@
 
 #include "Commands/CommandGroup.h"
 #include "Commands/AutoDriveCommand.h"
+#include "Commands/DriveUntilLevelCommand.h"
 #include "WPILib.h"
 
 class TraverseRampartsCommandGroup: public CommandGroup
 {
 public:
 	TraverseRampartsCommandGroup() : CommandGroup("TraverseRampartsCommandGroup"){
-		AddSequential(new AutoDriveCommand(.3, .3, .25));
-		AddSequential(new AutoDriveCommand(.45, .3, .25));
-		AddSequential(new AutoDriveCommand(.3, .3, .25));
-		AddSequential(new AutoDriveCommand(.3, .45, .25));
-		AddSequential(new AutoDriveCommand(.2, .2, .11));
+		AddSequential(new AutoDriveCommand(.5,.6,2));
+		AddParallel(new AutoDriveCommand(.6,.6));
+		AddSequential(new DriveUntilLevelCommand());
 	}
 };
 
