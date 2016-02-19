@@ -30,6 +30,6 @@
 //Kicker
 #define KICKER 6
 //Camera
-#define CAMERA_LIGHT 8
+#define CAMERA_LIGHT 4
 
 #endif

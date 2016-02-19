@@ -39,7 +39,7 @@ OI::OI() {
 	intakeRevButton->WhileHeld(new TurnIntakeOnRevCommand());
 
 	rotateToAngleCam = new CAMERA_ROTATE_BUTTON;
-	rotateToAngleCam->WhileHeld(new RotateToAngleFromCameraCommand());
+	rotateToAngleCam->WhenPressed(new RotateToAngleFromCameraCommand());
 
 	driveTrainShift = new DRIVE_TRAIN_SHIFT_BUTTON;
 	driveTrainShift->WhenPressed(new ShiftDriveTrainCommand(true));
