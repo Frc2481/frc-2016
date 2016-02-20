@@ -56,6 +56,8 @@ DriveTrain::DriveTrain() : SubsystemBase("DriveTrain"){
 	m_serialPort = new SerialPort(57600,SerialPort::kMXP);
 	m_imu = new AHRS(SerialPort::kMXP, AHRS::kProcessedData, 50);
 	m_prevYaw = m_imu->GetYaw();
+
+	m_gyroOffset = 0;
 }
 
 DriveTrain::~DriveTrain() {

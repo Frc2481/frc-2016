@@ -74,7 +74,7 @@ private:
 		SmartDashboard::PutData("ExtendKickerCommand", new ExtendKickerCommand());
 		SmartDashboard::PutData("RetractKickerCommand", new RetractKickerCommand());
 		SmartDashboard::PutData("WaitForBallCommandGroup", new WaitForBallTestCommandGroup());
-		SmartDashboard::PutData("DriveDistanceCommand", new DriveDistanceCommand(7800));
+		SmartDashboard::PutData("DriveDistanceCommand", new DriveDistanceCommand(.5,.5,7800));
 		SmartDashboard::PutData("Zero Gyro Command", new ZeroGyroCommand());
 
 		SmartDashboard::PutNumber("RoughTerrainSpeed",.5);

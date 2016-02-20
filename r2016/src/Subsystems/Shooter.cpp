@@ -5,6 +5,7 @@
 Shooter::Shooter() :
 		SubsystemBase("Shooter")
 {
+	m_shooterDistance = 0;
 	m_shooterWheel = new CANTalon(SHOOTER_MOTOR);
 	m_shooterWheel->SetClosedLoopOutputDirection(true);
 	m_shooterAdjuster = new Solenoid(SHOOTER_ANGLE_ADJUST);

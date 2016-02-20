@@ -12,7 +12,7 @@ public:
 	TraverseWallCommandGroup() : CommandGroup("TraverseWallCommandGroup"){
 		AddSequential(new AutoDriveCommand(.4, .4, .1));
 		AddSequential(new AutoDriveCommand(.8, .8, 1));
-		AddParallel(new AutoDriveCommand(.3, .3));
+		AddParallel(new AutoDriveCommand(.5, .5));
 		AddSequential(new DriveUntilLevelCommand());
 		AddSequential(new AutoDriveCommand(0,0));
 	}

@@ -17,6 +17,9 @@ public:
 		if (fabs(driveTrain->GetRoll()) <= 2) {
 			m_onTargetCounter++;
 		}
+		else{
+			m_onTargetCounter = 0;
+		}
 	}
 	bool IsFinished(){
 		return m_onTargetCounter >= 10;

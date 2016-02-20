@@ -27,7 +27,7 @@ public:
 			AddSequential(new ZeroGyroCommand());
 			AddParallel(new TurnLightRingOnCommand());
 			AddParallel(new TurnOnShooterCommand());
-			AddSequential(new DriveDistanceCommand(13100));
+			AddSequential(new DriveDistanceCommand(1,1,13100));
 //			AddSequential(new AutoDriveCommand(.5,.5,1));
 			AddSequential(traverseCommand);
 			AddSequential(new RotateToAngleCommand(angleArray[position]));    //disabling for middle pos
@@ -39,7 +39,7 @@ public:
 			AddSequential(new RotateToAngleCommand(180));
 //			AddSequential(new Auto180TurnCommandGroup());
 //			AddSequential(new WaitCommand(.2));
-			AddSequential(new DriveDistanceCommand(1000));
+			AddSequential(new DriveDistanceCommand(1,1,13100));
 			AddSequential(traverseCommand);
 			AddSequential(new IntakeBallCommandGroup());
 			AddSequential(new AutoDriveCommand(.3,.3));

@@ -59,10 +59,10 @@ void CameraProcessor::calculate(){
 		for (unsigned int i = 0; i < areas.size(); i++) {
 			if(areas[i] > area) {
 				area = areas[i];
-				posx = centerXs[i];
-				posy = centerYs[i];
-				width = widths[i];
-				height = heights[i];
+				posx = centerYs[i];		//These are flipped because the camera is sideways
+				posy = centerXs[i];
+				width = heights[i];
+				height = widths[i];
 			}
 		}
 		posx = (posx - k_resX/2.0);
@@ -78,7 +78,7 @@ void CameraProcessor::calculate(){
 		SmartDashboard::PutNumber("Target of Y", posy);
 		SmartDashboard::PutNumber("Target Width", width);
 		SmartDashboard::PutNumber("Target Height", height);
-		m_angle = angle;
+		m_angle = -angle;
 		m_targetVisible = true;
 	}
 	else {

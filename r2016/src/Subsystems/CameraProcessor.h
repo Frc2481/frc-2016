@@ -13,8 +13,8 @@
 
 class CameraProcessor: public SubsystemBase {
 private:
-	const int k_resX = 640;
-	const int k_resY = 480;
+	const int k_resX = 480;
+	const int k_resY = 640;
 	const int k_FOV = 37.4;
 	const int k_tWidthIn = 20;
 	const int k_tHeightIn = 12;

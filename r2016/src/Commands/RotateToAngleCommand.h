@@ -39,6 +39,7 @@ public:
 
 		double setpoint = m_angle;
 		setpoint = RoboUtils::constrainDegNeg180To180(setpoint);
+		printf("final constrained angle = %f\n", setpoint);
 		SetSetpoint(setpoint);
 	}
 
@@ -79,9 +80,14 @@ public:
 	}
 
 	void Initialize(){
-		double scale = 19.9 / 15.45; //TODO: Figure out why the camera or gyro angle is wrong.
-		m_angle = CommandBase::mCameraProcessor->getAngle() * scale;
-		m_angle += CommandBase::driveTrain->GetIMU()->GetAngle() - SmartDashboard::GetNumber("Camera Offset", -7);
+		double scale = 27.6 / 19.49; //TODO: Figure out why the camera or gyro angle is wrong.
+		printf("raw relative angle = %f\n", CommandBase::mCameraProcessor->getAngle());
+		m_angle = CommandBase::mCameraProcessor->getAngle() - SmartDashboard::GetNumber("Camera Offset", -7);
+		m_angle *= scale;
+		printf("scaled relative angle = %f\n", m_angle);
+		m_angle += CommandBase::driveTrain->GetIMU()->GetAngle();
+		printf("current driveTrain angle = %f\n", CommandBase::driveTrain->GetIMU()->GetAngle());
+		printf("absolute angle with offset = %f\n", m_angle);
 		RotateToAngleCommand::Initialize();
 	}
 };
