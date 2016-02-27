@@ -12,12 +12,12 @@ protected:
 	int m_onTarget;
 public:
 	RotateToAngleCommand(double angle)
-			: PIDCommand("RotateToAngle", .050, .004, 0){
+			: PIDCommand("RotateToAngle", .050, .007, 0){
 		Requires(CommandBase::driveTrain.get());
 		m_angle = angle;
 		m_onTarget = 0;
 		SmartDashboard::PutNumber("Rotation I Zone", 10);
-		SmartDashboard::PutNumber("DriveTrain Rotate I", .004);
+		SmartDashboard::PutNumber("DriveTrain Rotate I", .007);
 		SmartDashboard::PutNumber("DriveTrain Rotate P", .050);
 		SmartDashboard::PutNumber("Rotation Ontarget Time", 5);
 	}
@@ -44,8 +44,8 @@ public:
 	}
 
 	void Execute(){
-		double curError = fabs(GetSetpoint ()-GetPosition());
-		SmartDashboard::PutNumber("Rotate Angle", curError);
+		double curError = fabs(GetSetpoint()-GetPosition());
+		SmartDashboard::PutNumber("Rotation Error", curError);
 		double P = SmartDashboard::GetNumber("DriveTrain Rotate P", 0);
 
 		std::shared_ptr<PIDController> pid = GetPIDController();
@@ -56,7 +56,7 @@ public:
 		else {
 			pid->SetPID(P, 0, pid->GetD());
 		}
-		if (curError < .5) {
+		if (curError < .25) {
 			m_onTarget++;
 		}
 		else {
@@ -76,16 +76,19 @@ public:
 class RotateToAngleFromCameraCommand : public RotateToAngleCommand {
 public:
 	RotateToAngleFromCameraCommand() : RotateToAngleCommand(0) {
-		SmartDashboard::PutNumber("Camera Offset", -7);
+		SmartDashboard::PutNumber("Camera Offset", -12.5);
 	}
 
 	void Initialize(){
-		double scale = 27.6 / 19.49; //TODO: Figure out why the camera or gyro angle is wrong.
+		double scale = 30.37 / 14.19; //TODO: Figure out why the camera or gyro angle is wrong.
+
 		printf("raw relative angle = %f\n", CommandBase::mCameraProcessor->getAngle());
-		m_angle = CommandBase::mCameraProcessor->getAngle() - SmartDashboard::GetNumber("Camera Offset", -7);
+		m_angle = CommandBase::mCameraProcessor->getAngle() - SmartDashboard::GetNumber("Camera Offset", -12.5);
 		m_angle *= scale;
+
 		printf("scaled relative angle = %f\n", m_angle);
 		m_angle += CommandBase::driveTrain->GetIMU()->GetAngle();
+
 		printf("current driveTrain angle = %f\n", CommandBase::driveTrain->GetIMU()->GetAngle());
 		printf("absolute angle with offset = %f\n", m_angle);
 		RotateToAngleCommand::Initialize();

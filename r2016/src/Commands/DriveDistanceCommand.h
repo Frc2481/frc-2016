@@ -16,15 +16,17 @@ public:
 		Requires(driveTrain.get());
 		m_rightSpeed = rightSpeed;
 		m_leftSpeed = leftSpeed;
-		m_distance = -distance;
+		m_distance = distance;
+		m_offset = 0;
 	}
 	void Initialize(){
 		m_offset = driveTrain->GetEncoderPos();
-		driveTrain->Tank(-m_rightSpeed,-m_leftSpeed);
+		driveTrain->TankRaw(-m_rightSpeed,-m_leftSpeed);
 	}
 	void Execute(){}
 	bool IsFinished(){
-		return driveTrain->GetEncoderPos() < m_distance + m_offset;
+		SmartDashboard::PutNumber("Offset Encoder Pos", driveTrain->GetEncoderPos() - m_offset);
+		return driveTrain->GetEncoderPos() > m_distance + m_offset;
 	}
 	void End(){
 		driveTrain->SetToVoltageMode();

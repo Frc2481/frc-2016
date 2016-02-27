@@ -24,6 +24,8 @@ public:
 	CommandBase();
 	static void init();
 
+	static std::shared_ptr<NetworkTable> logTable;
+
 	// Create a single static instance of all of your subsystems
 	static std::unique_ptr<CameraProcessor> mCameraProcessor;
 	static std::unique_ptr<DriveTrain> driveTrain;

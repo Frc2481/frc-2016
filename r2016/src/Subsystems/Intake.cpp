@@ -8,6 +8,7 @@
 #include <Subsystems/Intake.h>
 #include "RobotMap.h"
 #include <SubsystemBase.h>
+#include "CommandBase.h"
 
 Intake::Intake() : SubsystemBase("Intake") {
 	m_intakeMotor = new CANTalon(INTAKE_MOTOR);
@@ -27,9 +28,9 @@ double Intake::GetIntakeCurrent() {
 }
 
 void Intake::Periodic(){
-	SmartDashboard::PutNumber("Intake Motor", m_intakeMotor->Get());
-	SmartDashboard::PutNumber("Intake Output Current", m_intakeMotor->GetOutputCurrent());
-	SmartDashboard::PutNumber("Intake Extender", m_extender->Get());
+	CommandBase::logTable->PutNumber("Intake Motor", m_intakeMotor->Get());
+	CommandBase::logTable->PutNumber("Intake Output Current", m_intakeMotor->GetOutputCurrent());
+	CommandBase::logTable->PutNumber("Intake Extender", m_extender->Get());
 }
 void Intake::Lower() {
 	m_extender->Set(true);

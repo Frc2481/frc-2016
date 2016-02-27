@@ -4,6 +4,8 @@
 #include "Commands/CommandGroup.h"
 #include "Commands/AutoDriveCommand.h"
 #include "Commands/WaitForBallCommand.h"
+#include "Commands/IntakeBallCommandGroup.h"
+#include "Commands/BringIntakeUpCommandGroup.h"
 #include "WPILib.h"
 
 class WaitForBallTestCommandGroup: public CommandGroup

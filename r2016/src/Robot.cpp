@@ -20,6 +20,9 @@
 #include "Commands/WaitForBallTestCommandGroup.h"
 #include "Commands/DriveDistanceCommand.h"
 #include "Commands/ZeroGyroCommand.h"
+#include "Commands/RotateServoCommand.h"
+#include "Commands/AutoBlockOneCommandGroup.h"
+#include "Commands/AutoBlockTwoCommandGroup.h"
 #include "CommandBase.h"
 
 class Robot: public IterativeRobot
@@ -28,10 +31,13 @@ private:
 	std::unique_ptr<Command> autonomousCommand;
 	SendableChooser* m_defenseChooser;
 	SendableChooser* m_posChooser;
+	Compressor* m_compressor;
 
 	void RobotInit()
 	{
 		CommandBase::init();
+
+		m_compressor = new Compressor();
 
 		m_defenseChooser = new SendableChooser();
 		//Group A
@@ -76,6 +82,9 @@ private:
 		SmartDashboard::PutData("WaitForBallCommandGroup", new WaitForBallTestCommandGroup());
 		SmartDashboard::PutData("DriveDistanceCommand", new DriveDistanceCommand(.5,.5,7800));
 		SmartDashboard::PutData("Zero Gyro Command", new ZeroGyroCommand());
+		SmartDashboard::PutData("CamServoRotateCommand", new RotateServoCommand());
+		SmartDashboard::PutData("AutoBlockOneCommand", new AutoBlockOneCommandGroup());
+		SmartDashboard::PutData("AutoBlockTwoCommand", new AutoBlockTwoCommandGroup());
 
 		SmartDashboard::PutNumber("RoughTerrainSpeed",.5);
 		SmartDashboard::PutNumber("RoughTerrainTime",1);
@@ -146,6 +155,8 @@ private:
 	{
 		if (autonomousCommand != NULL)
 			autonomousCommand->Cancel();
+
+		//m_compressor->Stop();
 	}
 
 	void TeleopPeriodic()

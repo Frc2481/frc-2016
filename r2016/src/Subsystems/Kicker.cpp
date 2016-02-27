@@ -1,5 +1,6 @@
 #include "Kicker.h"
 #include "../RobotMap.h"
+#include "../CommandBase.h"
 
 Kicker::Kicker() : SubsystemBase("Kicker")
 {
@@ -30,8 +31,8 @@ bool Kicker::IsExtended() {
 }
 
 void Kicker::Periodic() {
-	SmartDashboard::PutNumber("Kicker Output Current", m_kicker->GetOutputCurrent());
-	SmartDashboard::PutNumber("Kicker Speed", m_kicker->GetSpeed());
+	CommandBase::logTable->PutNumber("Kicker Output Current", m_kicker->GetOutputCurrent());
+	CommandBase::logTable->PutNumber("Kicker Speed", m_kicker->GetSpeed());
 }
 
 double Kicker::GetCurrentDraw() {

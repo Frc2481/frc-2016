@@ -11,7 +11,7 @@ class TraverseRampartsCommandGroup: public CommandGroup
 public:
 	TraverseRampartsCommandGroup() : CommandGroup("TraverseRampartsCommandGroup"){
 		AddSequential(new AutoDriveCommand(.5,.6,2));
-		AddParallel(new AutoDriveCommand(.6,.6));
+		AddParallel(new AutoDriveCommand(.5,.5));
 		AddSequential(new DriveUntilLevelCommand());
 	}
 };

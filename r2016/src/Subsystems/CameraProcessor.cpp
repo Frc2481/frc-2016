@@ -11,8 +11,10 @@
 #include "../RobotMap.h"
 
 CameraProcessor::CameraProcessor() : SubsystemBase("CameraProcessor") {
+	m_cameraServo = new Servo(1);
 	m_angle = 0;
 	m_cameraLight = new Solenoid(CAMERA_LIGHT);
+	m_cameraServo->SetSpeed(1);
 }
 
 CameraProcessor::~CameraProcessor() {
@@ -25,6 +27,7 @@ void CameraProcessor::SetLight(bool state) {
 
 void CameraProcessor::Periodic() {
 	calculate();
+	SmartDashboard::PutNumber("Current Camera Pos", GetServoPosition());
 }
 
 bool CameraProcessor::isTargetAvailable(){
@@ -52,23 +55,23 @@ void CameraProcessor::calculate(){
 	//All of the size checks are needed to prevent a crash if GRIP is in the middle of removing a target while
 	//we are grabbing the table.
 	if(areas.size() > 0 &&
-			areas.size() == centerYs.size() &&
 			areas.size() == centerXs.size() &&
+			areas.size() == centerYs.size() &&
 			areas.size() == widths.size() &&
 			areas.size() == heights.size()){
 		for (unsigned int i = 0; i < areas.size(); i++) {
 			if(areas[i] > area) {
 				area = areas[i];
-				posx = centerYs[i];		//These are flipped because the camera is sideways
-				posy = centerXs[i];
-				width = heights[i];
-				height = widths[i];
+				posx = centerXs[i];
+				posy = centerYs[i];
+				width = widths[i];
+				height = heights[i];
 			}
 		}
 		posx = (posx - k_resX/2.0);
 		posy = (posy - k_resY/2.0);
 		double d = (k_tWidthIn*k_resX)/(2.0*width*tan(k_FOV*(3.1415965/180)/2.0));
-		double w_i = posx*((double)k_tWidthIn/(double)width);
+		double w_i = posx*((double)k_tWidthIn/(double)width) - (k_CameraOffsetIn);
 		angle = atan(w_i/d)*180/3.14159265;
 		SmartDashboard::PutNumber("Target Angle", angle);
 		SmartDashboard::PutNumber("D",d);
@@ -78,10 +81,23 @@ void CameraProcessor::calculate(){
 		SmartDashboard::PutNumber("Target of Y", posy);
 		SmartDashboard::PutNumber("Target Width", width);
 		SmartDashboard::PutNumber("Target Height", height);
-		m_angle = -angle;
+
+		//FIXME: Need to take servo angle into account properly.
+		m_angle = angle + m_servoAngle;
+
+		m_angle = angle;
 		m_targetVisible = true;
 	}
 	else {
 		m_targetVisible = false;
 	}
+}
+
+void CameraProcessor::SetServoPosition(double angle) {
+	m_cameraServo->SetAngle(angle);
+	m_servoAngle = angle - 150;
+}
+
+double CameraProcessor::GetServoPosition() {
+	return m_cameraServo->GetAngle();
 }

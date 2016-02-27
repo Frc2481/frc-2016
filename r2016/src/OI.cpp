@@ -16,11 +16,12 @@
 #include "Commands/TurnOffShooterCommand.h"
 #include "Commands/RotateToAngleCommand.h"
 #include "Commands/ShiftDriveTrainCommand.h"
-#include "commands/ToggleIntakeCommand.h"
+#include "Commands/ToggleIntakeCommand.h"
+#include "Commands/TraversePortcullisCommandGroup.h"
 
 OI::OI() {
 	driveStick = new Joystick2481(0);
-	operatorStick = new Joystick(1);
+	operatorStick = new Joystick2481(1);
 	debugStick = new Joystick(2);
 
 	intakeButton = new INTAKE_BUTTON;
@@ -58,6 +59,9 @@ OI::OI() {
 
 	waitForBallTest = new TEST_INTAKE_WAIT_BUTTON;
 	waitForBallTest->WhenPressed(new WaitForBallTestCommandGroup());
+
+	portcullisTraverse = new PORTCULLIS_BUTTON;
+	portcullisTraverse->WhenPressed(new TraversePortcullisCommandGroup());
 }
 
 OI::~OI() {
@@ -68,7 +72,7 @@ Joystick2481* OI::GetDriveStick() {
 	return driveStick;
 }
 
-Joystick* OI::GetOperatorStick() {
+Joystick2481* OI::GetOperatorStick() {
 	return operatorStick;
 }
 

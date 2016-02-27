@@ -15,7 +15,7 @@
 class OI {
 private:
 	Joystick2481* driveStick;
-	Joystick* operatorStick;
+	Joystick2481* operatorStick;
 	Joystick* debugStick;
 
 	//Driver Buttons
@@ -23,6 +23,7 @@ private:
 	Button* intakeRevButton;
 	Button* rotateToAngleCam;
 	Button* driveTrainShift;
+	Button* portcullisTraverse;
 
 	//Operator Buttons
 	AnalogJoystickButton* fireBall;
@@ -39,7 +40,7 @@ public:
 	OI();
 	virtual ~OI();
 	Joystick2481* GetDriveStick();
-	Joystick* GetOperatorStick();
+	Joystick2481* GetOperatorStick();
 	Joystick* GetDebugStick();
 };
 

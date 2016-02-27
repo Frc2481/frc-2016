@@ -2,6 +2,8 @@
 #include "Commands/Scheduler.h"
 
 // Initialize a single static instance of all of your subsystems to NULL
+std::shared_ptr<NetworkTable> CommandBase::logTable;
+
 std::unique_ptr<CameraProcessor> CommandBase::mCameraProcessor;
 std::unique_ptr<DriveTrain> CommandBase::driveTrain;
 std::unique_ptr<Intake> CommandBase::intake;
@@ -25,6 +27,8 @@ void CommandBase::init()
 {
 	// Create a single static instance of all of your subsystems. The following
 	// line should be repeated for each subsystem in the project.
+	logTable = NetworkTable::GetTable("2481/log_table");
+
 	mCameraProcessor.reset(new CameraProcessor());
 	driveTrain.reset(new DriveTrain());
 	intake.reset(new Intake());
