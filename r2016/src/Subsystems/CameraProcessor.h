@@ -18,8 +18,9 @@ private:
 	const int k_FOV = 37.4;
 	const int k_tWidthIn = 20;
 	const int k_tHeightIn = 12;
-	const double k_xOffset = 11.0;
-	const double k_yOffset = 8.5;
+	const double k_xOffset = -11.0;
+	const double k_yOffset = -8.5;
+	const double k_OffsetAngle = 1;
 	bool m_targetVisible;
 	bool m_onTarget;
 	double m_angle;

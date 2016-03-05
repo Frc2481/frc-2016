@@ -71,32 +71,42 @@ void CameraProcessor::calculate(){
 		//refer to Drawing Github Wiki "Camera Processor"
 		posx = (posx - k_resX/2.0);		//X position of target from center of Camera in pixels
 		posy = (posy - k_resY/2.0);		//Y position of target from center of Camera in pixels
-		double camDistToTargetHyp = (k_tWidthIn*k_resX)/(2.0 * width * tan(k_FOV*(M_PI/180)/2.0));		//hypotenuse distance from camera to Target in inches (Dc)
+
+		double camDistToTargetY = (k_tWidthIn*k_resX)/(2.0 * width * tan(k_FOV*(M_PI/180)/2.0));		//hypotenuse distance from camera to Target in inches (Dc)
 		double camDistToTargetX = posx*((double)k_tWidthIn/(double)width);	//Camera's distance to the Target on the X-axis (Parallel to target)(Wc)
-		if(fabs(camDistToTargetHyp) > fabs(camDistToTargetX)){
-			double camDistToTargetY = sqrt(pow(camDistToTargetHyp,2) - pow(camDistToTargetX,2));	//Camera's distance to the Target on the Y-axis (perpendicular to target)(Dr)
-//			double robotDistToTargetX = camDistToTargetX + k_xOffset;		//Robot's distance to the Target on the X-axis (Wr)
-			double robotDistToTargetX = camDistToTargetX - k_xOffset;		//Robot's distance to the Target on the X-axis (Wr)
-			double robotDistToTargetY = camDistToTargetY - k_yOffset;		//Robot's distance to the Target on the Y-axis (Lr)
-			angle = atan2(robotDistToTargetY,robotDistToTargetX) * 180/M_PI;		//angle from X-axis of Robot
-//			angle = atan2(robotDistToTargetX,robotDistToTargetY) * 180/3.14159265;		//angle from X-axis of Robot
-			angle = 90 - angle;
+		double camDistToTargetHyp = sqrt(pow(camDistToTargetY,2) + pow(camDistToTargetX,2));	//Camera's distance to the Target on the Y-axis (perpendicular to target)(Dr)
+		double camera_angle = atan2(camDistToTargetY,camDistToTargetX) * (180/M_PI);
 
-			SmartDashboard::PutNumber("Camera Area", area);
-			SmartDashboard::PutNumber("Camera Width", width);
-			SmartDashboard::PutNumber("Camera Height", height);
-			SmartDashboard::PutNumber("Camera PosX", posx);
-			SmartDashboard::PutNumber("Camera PosY", posy);
-			SmartDashboard::PutNumber("Camera Dist to Target Hyp",camDistToTargetHyp);
-			SmartDashboard::PutNumber("Camera Dist To Target X",camDistToTargetX);
-			SmartDashboard::PutNumber("Camera Dist To Target Y",camDistToTargetY);
-			SmartDashboard::PutNumber("Robot  Dist To Target X",robotDistToTargetX);
-			SmartDashboard::PutNumber("Robot  Dist To Target Y",robotDistToTargetY);
-			SmartDashboard::PutNumber("Target Angle (relative)", angle);
 
-			m_angle = angle;
-			m_targetVisible = true;
-		}
+		double angle_actual = k_OffsetAngle + camera_angle;
+		double camDistToTargetY_actual = (camDistToTargetHyp * cos(angle_actual * M_PI/180));
+		double camDistToTargetX_actual = (camDistToTargetHyp * sin(angle_actual * M_PI/180));
+		double camDistToTargetHyp_actual = sqrt(pow(camDistToTargetY_actual,2) + pow(camDistToTargetX_actual,2));
+
+//		double robotDistToTargetX = camDistToTargetX + k_xOffset;		//Robot's distance to the Target on the X-axis (Wr)
+
+//		angle = atan2(robotDistToTargetX,robotDistToTargetY) * 180/3.14159265;		//angle from X-axis of Robot
+		double robotDistToTargetX_actual = camDistToTargetX_actual + k_xOffset;
+		double robotDistToTargetY_actual = camDistToTargetY_actual + k_yOffset;
+		//double robotDistToTargetX = camDistToTargetX - k_xOffset;		//Robot's distance to the Target on the X-axis (Wr)
+		//double robotDistToTargetY = camDistToTargetY - k_yOffset;		//Robot's distance to the Target on the Y-axis (Lr)
+		angle = atan2(robotDistToTargetY_actual,robotDistToTargetX_actual) * (180/M_PI);		//angle from X-axis of Robot
+//		angle = 90 - angle;
+
+		SmartDashboard::PutNumber("Camera Area", area);
+		SmartDashboard::PutNumber("Camera Width", width);
+		SmartDashboard::PutNumber("Camera Height", height);
+		SmartDashboard::PutNumber("Camera PosX", posx);
+		SmartDashboard::PutNumber("Camera PosY", posy);
+		SmartDashboard::PutNumber("Camera Dist to Target Hyp",camDistToTargetHyp_actual);
+		SmartDashboard::PutNumber("Camera Dist To Target X",camDistToTargetX_actual);
+		SmartDashboard::PutNumber("Camera Dist To Target Y",camDistToTargetY_actual);
+		SmartDashboard::PutNumber("Robot  Dist To Target X",robotDistToTargetX_actual);
+		SmartDashboard::PutNumber("Robot  Dist To Target Y",robotDistToTargetY_actual);
+		SmartDashboard::PutNumber("Target Angle (relative)", angle);
+
+		m_angle = angle;
+		m_targetVisible = true;
 	}
 	if(-CAMERA_TOLERANCE < m_angle && m_angle < CAMERA_TOLERANCE){
 			SmartDashboard::PutBoolean("Gyro on Target", m_targetVisible);
