@@ -91,7 +91,7 @@ public:
 
 			printf("raw relative angle = %f\n", CommandBase::mCameraProcessor->getAngle());
 			m_angle = CommandBase::mCameraProcessor->getAngle();
-			m_angle *= scale;
+			//m_angle *= scale;
 
 			printf("scaled relative angle = %f\n", m_angle);
 			m_angle += CommandBase::driveTrain->GetIMU()->GetAngle();
