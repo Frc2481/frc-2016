@@ -15,7 +15,7 @@ public:
 		AddSequential(new ZeroGyroCommand());
 		AddParallel(new TurnLightRingOnCommand());
 		AddParallel(new TurnOnShooterCommand());
-		AddSequential(new DriveDistanceCommand(.7,.7,650));
+		AddSequential(new DriveDistanceCommand(.7,.7,13100));
 	}
 };
 
