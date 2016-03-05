@@ -6,6 +6,7 @@
  */
 
 #include "SerialIO.h"
+#include "CommandBase.h"
 
 static const double IO_TIMEOUT_SECONDS = 1.0;
 
@@ -149,7 +150,7 @@ void SerialIO::Run() {
         serial_port->Flush();
         port_reset_count++;
         #ifdef SERIALIO_DASHBOARD_DEBUG
-        SmartDashboard::PutNumber("navX Port Resets", (double)port_reset_count);
+        CommandBase::logTable->PutNumber("navX Port Resets", (double)port_reset_count);
         #endif
         last_stream_command_sent_timestamp = Timer::GetFPGATimestamp();
     } catch (std::exception ex) {
@@ -212,7 +213,7 @@ void SerialIO::Run() {
                         i++;
                         discarded_bytes_count++;
                         #ifdef SERIALIO_DASHBOARD_DEBUG
-                            SmartDashboard::PutNumber("navX Discarded Bytes", (double)discarded_bytes_count);
+                            CommandBase::logTable->PutNumber("navX Discarded Bytes", (double)discarded_bytes_count);
                         #endif
                         continue;
                     } else {
@@ -240,7 +241,7 @@ void SerialIO::Run() {
                                     bytes_remaining--;
                                     partial_binary_packet_count++;
                                     #ifdef SERIALIO_DASHBOARD_DEBUG
-                                        SmartDashboard::PutNumber("navX Partial Binary Packets", (double)partial_binary_packet_count);
+                                        CommandBase::logTable->PutNumber("navX Partial Binary Packets", (double)partial_binary_packet_count);
                                     #endif
                                     continue;
                                 }
@@ -256,7 +257,7 @@ void SerialIO::Run() {
                         updates_in_last_second++;
                         if ((last_valid_packet_time - last_second_start_time ) > 1.0 ) {
                             #ifdef SERIALIO_DASHBOARD_DEBUG
-                                SmartDashboard::PutNumber("navX Updates Per Sec", (double)updates_in_last_second);
+                                CommandBase::logTable->PutNumber("navX Updates Per Sec", (double)updates_in_last_second);
                             #endif
                             updates_in_last_second = 0;
                             last_second_start_time = last_valid_packet_time;
@@ -273,7 +274,7 @@ void SerialIO::Run() {
                             i += packet_length;
                             stream_response_receive_count++;
                             #ifdef SERIALIO_DASHBOARD_DEBUG
-                                SmartDashboard::PutNumber("navX Stream Responses", (double)stream_response_receive_count);
+                                CommandBase::logTable->PutNumber("navX Stream Responses", (double)stream_response_receive_count);
                             #endif
                         }
                         else {
@@ -283,7 +284,7 @@ void SerialIO::Run() {
                                 // Confirmation of integration control
                                 integration_response_receive_count++;
                                 #ifdef SERIALIO_DASHBOARD_DEBUG
-                                    SmartDashboard::PutNumber("navX Integration Control Response Count", integration_response_receive_count);
+                                    CommandBase::logTable->PutNumber("navX Integration Control Response Count", integration_response_receive_count);
                                 #endif
                                 i += packet_length;
                             } else {
@@ -327,7 +328,7 @@ void SerialIO::Run() {
                                                 i += pkt_len;
                                                 discarded_bytes_count += pkt_len;
                                                 #ifdef SERIALIO_DASHBOARD_DEBUG
-                                                    SmartDashboard::PutNumber("navX Discarded Bytes", (double)discarded_bytes_count);
+                                                    CommandBase::logTable->PutNumber("navX Discarded Bytes", (double)discarded_bytes_count);
                                                 #endif
                                             } else {
                                                 /* This is the initial portion of a partial binary packet. */
@@ -349,7 +350,7 @@ void SerialIO::Run() {
                                                         discarded_bytes_count++;
                                                     }
                                                     #ifdef SERIALIO_DASHBOARD_DEBUG
-                                                        SmartDashboard::PutNumber("navX Discarded Bytes", (double)discarded_bytes_count);
+                                                        CommandBase::logTable->PutNumber("navX Discarded Bytes", (double)discarded_bytes_count);
                                                     #endif
                                                     break;
                                                 }
@@ -407,7 +408,7 @@ void SerialIO::Run() {
                     serial_port->Reset();
                     port_reset_count++;
                     #ifdef SERIALIO_DASHBOARD_DEBUG
-                        SmartDashboard::PutNumber("navX Port Resets", (double)port_reset_count);
+                        CommandBase::logTable->PutNumber("navX Port Resets", (double)port_reset_count);
                     #endif
                 }
 
@@ -461,8 +462,8 @@ void SerialIO::Run() {
             stream_response_received = false;
             timeout_count++;
             #ifdef SERIALIO_DASHBOARD_DEBUG
-                SmartDashboard::PutNumber("navX Serial Port Timeout / Buffer Overrun", (double)timeout_count);
-                SmartDashboard::PutString("navX Last Exception", ex.what());
+                CommandBase::logTable->PutNumber("navX Serial Port Timeout / Buffer Overrun", (double)timeout_count);
+                CommandBase::logTable->PutString("navX Last Exception", ex.what());
             #endif
             ResetSerialPort();
         }

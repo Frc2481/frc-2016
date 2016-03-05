@@ -20,9 +20,11 @@
 #include "Commands/WaitForBallTestCommandGroup.h"
 #include "Commands/DriveDistanceCommand.h"
 #include "Commands/ZeroGyroCommand.h"
-#include "Commands/RotateServoCommand.h"
 #include "Commands/AutoBlockOneCommandGroup.h"
 #include "Commands/AutoBlockTwoCommandGroup.h"
+#include "Commands/TraversePortcullisCommandGroup.h"
+#include "Commands/ToggleGameOverCommand.h"
+#include "Commands/CameraCorrectCommand.h"
 #include "CommandBase.h"
 
 class Robot: public IterativeRobot
@@ -33,11 +35,16 @@ private:
 	SendableChooser* m_posChooser;
 	Compressor* m_compressor;
 
+	bool m_GAMEOVER;
+
 	void RobotInit()
 	{
 		CommandBase::init();
 
+		SmartDashboard::PutBoolean("GAMEOVER", false);
+
 		m_compressor = new Compressor();
+		m_compressor->SetClosedLoopControl(true);
 
 		m_defenseChooser = new SendableChooser();
 		//Group A
@@ -82,9 +89,10 @@ private:
 		SmartDashboard::PutData("WaitForBallCommandGroup", new WaitForBallTestCommandGroup());
 		SmartDashboard::PutData("DriveDistanceCommand", new DriveDistanceCommand(.5,.5,7800));
 		SmartDashboard::PutData("Zero Gyro Command", new ZeroGyroCommand());
-		SmartDashboard::PutData("CamServoRotateCommand", new RotateServoCommand());
 		SmartDashboard::PutData("AutoBlockOneCommand", new AutoBlockOneCommandGroup());
 		SmartDashboard::PutData("AutoBlockTwoCommand", new AutoBlockTwoCommandGroup());
+		SmartDashboard::PutData("Rotate180Command", new Rotate180Command());
+		SmartDashboard::PutData("Camera Correct", new CameraCorrectCommand());
 
 		SmartDashboard::PutNumber("RoughTerrainSpeed",.5);
 		SmartDashboard::PutNumber("RoughTerrainTime",1);
@@ -92,6 +100,9 @@ private:
 		SmartDashboard::PutData("TraverseChevalFrieseCommandGroup", new TraverseChevalFrieseCommandGroup());
 		SmartDashboard::PutData("TraverseTerrainCommandGroup", new TraverseTerrainCommandGroup());
 		SmartDashboard::PutData("TraverseRampartsCommandGroup", new TraverseRampartsCommandGroup());
+		SmartDashboard::PutData("TraversePortcullisCommandGroup", new TraversePortcullisCommandGroup());
+
+		SmartDashboard::PutData("Toggle GameOver", new ToggleGameOverCommand());
 
 		SmartDashboard::PutNumber("TraverseRamparts 1 Time", .75);
 		SmartDashboard::PutNumber("TraverseRamparts 2 Time", .5);
@@ -100,6 +111,12 @@ private:
 		SmartDashboard::PutNumber("TraverseRamparts Forward Slow", .3);
 		SmartDashboard::PutNumber("TraverseRamparts Mid Rotate", .7);
 		SmartDashboard::PutNumber("TraverseRamparts Forward Fast", .5);
+
+		SmartDashboard::PutBoolean("Gyro on Target", false);
+
+		SmartDashboard::PutBoolean("Shooter on Target", false);
+		SmartDashboard::PutNumber("Camera Offset", -6.1);
+		SmartDashboard::PutNumber("Camera Scale", 1.4);
 	}
 
 	void DisabledInit()
@@ -109,6 +126,9 @@ private:
 	void DisabledPeriodic()
 	{
 		Scheduler::GetInstance()->Run();
+		if(DriverStation::GetInstance().IsFMSAttached() && DriverStation::GetInstance().GetMatchTime() >= 150){
+			SmartDashboard::PutBoolean("GAMEOVER", true);
+		}
 	}
 
 	void AutonomousInit()
@@ -165,8 +185,6 @@ private:
 		SmartDashboard::PutData("Scheduler", Scheduler::GetInstance());
 //		CommandBase::mCameraProcessor->calculate();
 		Scheduler::GetInstance()->Run();
-
-		SmartDashboard::PutNumber("Lift Speed",CommandBase::lift->GetLiftSpeed());
 		SmartDashboard::PutNumber("Desired Shooter Speed", CommandBase::shooter->GetDesiredSpeed());
 
 	}

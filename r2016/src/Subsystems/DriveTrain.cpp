@@ -41,14 +41,14 @@ DriveTrain::DriveTrain() : SubsystemBase("DriveTrain"){
 	m_rightMaster->SetPID(dp, di, dd);
 	m_rightMaster->SelectProfileSlot(kSpeedPID);
 	m_rightMaster->SetPID(sp, si, sd);
-	m_rightMaster->ConfigEncoderCodesPerRev(64);
+	m_rightMaster->ConfigEncoderCodesPerRev(128);
 	m_rightMaster->SetFeedbackDevice(CANTalon::QuadEncoder);
 
 	m_leftMaster->SelectProfileSlot(kDistancePID);
 	m_leftMaster->SetPID(dp, di, dd);
 	m_leftMaster->SelectProfileSlot(kSpeedPID);
 	m_leftMaster->SetPID(sp, si, sd);
-	m_leftMaster->ConfigEncoderCodesPerRev(64);
+	m_leftMaster->ConfigEncoderCodesPerRev(128);
 	m_leftMaster->SetFeedbackDevice(CANTalon::QuadEncoder);
 
 	m_shifter = new Solenoid(DRIVETRAIN_SHIFTER);
@@ -138,7 +138,9 @@ void DriveTrain::FPSDrive(double spd, double rotate) {
 }
 
 double DriveTrain::GetEncoderPos() {
-	return m_rightMaster->GetEncPosition();
+
+	//TODO: switch to RightMaster for Competition Robot
+	return m_leftMaster->GetEncPosition();
 //	if(m_leftMaster->GetEncPosition() != m_prevEncPositionLeft){
 //		return m_leftMaster->GetEncPosition();
 //	}

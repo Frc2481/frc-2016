@@ -18,6 +18,7 @@
 #include "Commands/ShiftDriveTrainCommand.h"
 #include "Commands/ToggleIntakeCommand.h"
 #include "Commands/TraversePortcullisCommandGroup.h"
+#include "Commands/UnClogCommandGroup.h"
 
 OI::OI() {
 	driveStick = new Joystick2481(0);
@@ -38,7 +39,8 @@ OI::OI() {
 	manualIntakeButton->WhenPressed(new ToggleIntakeCommand());
 
 	intakeRevButton = new INTAKE_REVERSE_BUTTON;
-	intakeRevButton->WhileHeld(new TurnIntakeOnRevCommand());
+	intakeRevButton->WhenPressed(new TurnIntakeOnRevCommand());
+	intakeRevButton->WhenReleased(new StopIntakeCommand());
 
 	rotateToAngleCam = new CAMERA_ROTATE_BUTTON;
 	rotateToAngleCam->WhenPressed(new RotateToAngleFromCameraCommand());
@@ -62,6 +64,9 @@ OI::OI() {
 
 	portcullisTraverse = new PORTCULLIS_BUTTON;
 	portcullisTraverse->WhenPressed(new TraversePortcullisCommandGroup());
+
+	shooterRevButton = new REVERSE_SHOOTER_BUTTON;
+	shooterRevButton->WhenPressed(new UnClogCommandGroup());
 }
 
 OI::~OI() {

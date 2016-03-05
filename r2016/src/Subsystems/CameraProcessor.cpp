@@ -7,14 +7,14 @@
 
 #include <Subsystems/CameraProcessor.h>
 #include <CMath>
+#include <math.h>
 #include <SubsystemBase.h>
 #include "../RobotMap.h"
 
 CameraProcessor::CameraProcessor() : SubsystemBase("CameraProcessor") {
-	m_cameraServo = new Servo(1);
 	m_angle = 0;
 	m_cameraLight = new Solenoid(CAMERA_LIGHT);
-	m_cameraServo->SetSpeed(1);
+	m_onTarget = false;
 }
 
 CameraProcessor::~CameraProcessor() {
@@ -27,7 +27,6 @@ void CameraProcessor::SetLight(bool state) {
 
 void CameraProcessor::Periodic() {
 	calculate();
-	SmartDashboard::PutNumber("Current Camera Pos", GetServoPosition());
 }
 
 bool CameraProcessor::isTargetAvailable(){
@@ -51,6 +50,7 @@ void CameraProcessor::calculate(){
 	double posy = 0;
 	double width = 0;
 	double height = 0;
+	m_targetVisible = false;
 	m_angle = 0;
 	//All of the size checks are needed to prevent a crash if GRIP is in the middle of removing a target while
 	//we are grabbing the table.
@@ -60,7 +60,7 @@ void CameraProcessor::calculate(){
 			areas.size() == widths.size() &&
 			areas.size() == heights.size()){
 		for (unsigned int i = 0; i < areas.size(); i++) {
-			if(areas[i] > area) {
+			if(widths[i] > width) {
 				area = areas[i];
 				posx = centerXs[i];
 				posy = centerYs[i];
@@ -68,36 +68,46 @@ void CameraProcessor::calculate(){
 				height = heights[i];
 			}
 		}
-		posx = (posx - k_resX/2.0);
-		posy = (posy - k_resY/2.0);
-		double d = (k_tWidthIn*k_resX)/(2.0*width*tan(k_FOV*(3.1415965/180)/2.0));
-		double w_i = posx*((double)k_tWidthIn/(double)width) - (k_CameraOffsetIn);
-		angle = atan(w_i/d)*180/3.14159265;
-		SmartDashboard::PutNumber("Target Angle", angle);
-		SmartDashboard::PutNumber("D",d);
-		SmartDashboard::PutNumber("W_I",w_i);
-		SmartDashboard::PutNumber("Target Area", area);
-		SmartDashboard::PutNumber("Target of X", posx);
-		SmartDashboard::PutNumber("Target of Y", posy);
-		SmartDashboard::PutNumber("Target Width", width);
-		SmartDashboard::PutNumber("Target Height", height);
+		//refer to Drawing Github Wiki "Camera Processor"
+		posx = (posx - k_resX/2.0);		//X position of target from center of Camera in pixels
+		posy = (posy - k_resY/2.0);		//Y position of target from center of Camera in pixels
+		double camDistToTargetHyp = (k_tWidthIn*k_resX)/(2.0 * width * tan(k_FOV*(M_PI/180)/2.0));		//hypotenuse distance from camera to Target in inches (Dc)
+		double camDistToTargetX = posx*((double)k_tWidthIn/(double)width);	//Camera's distance to the Target on the X-axis (Parallel to target)(Wc)
+		if(fabs(camDistToTargetHyp) > fabs(camDistToTargetX)){
+			double camDistToTargetY = sqrt(pow(camDistToTargetHyp,2) - pow(camDistToTargetX,2));	//Camera's distance to the Target on the Y-axis (perpendicular to target)(Dr)
+//			double robotDistToTargetX = camDistToTargetX + k_xOffset;		//Robot's distance to the Target on the X-axis (Wr)
+			double robotDistToTargetX = camDistToTargetX - k_xOffset;		//Robot's distance to the Target on the X-axis (Wr)
+			double robotDistToTargetY = camDistToTargetY - k_yOffset;		//Robot's distance to the Target on the Y-axis (Lr)
+			angle = atan2(robotDistToTargetY,robotDistToTargetX) * 180/M_PI;		//angle from X-axis of Robot
+//			angle = atan2(robotDistToTargetX,robotDistToTargetY) * 180/3.14159265;		//angle from X-axis of Robot
+			angle = 90 - angle;
 
-		//FIXME: Need to take servo angle into account properly.
-		m_angle = angle + m_servoAngle;
+			SmartDashboard::PutNumber("Camera Area", area);
+			SmartDashboard::PutNumber("Camera Width", width);
+			SmartDashboard::PutNumber("Camera Height", height);
+			SmartDashboard::PutNumber("Camera PosX", posx);
+			SmartDashboard::PutNumber("Camera PosY", posy);
+			SmartDashboard::PutNumber("Camera Dist to Target Hyp",camDistToTargetHyp);
+			SmartDashboard::PutNumber("Camera Dist To Target X",camDistToTargetX);
+			SmartDashboard::PutNumber("Camera Dist To Target Y",camDistToTargetY);
+			SmartDashboard::PutNumber("Robot  Dist To Target X",robotDistToTargetX);
+			SmartDashboard::PutNumber("Robot  Dist To Target Y",robotDistToTargetY);
+			SmartDashboard::PutNumber("Target Angle (relative)", angle);
 
-		m_angle = angle;
-		m_targetVisible = true;
+			m_angle = angle;
+			m_targetVisible = true;
+		}
 	}
-	else {
-		m_targetVisible = false;
-	}
+	if(-CAMERA_TOLERANCE < m_angle && m_angle < CAMERA_TOLERANCE){
+			SmartDashboard::PutBoolean("Gyro on Target", m_targetVisible);
+			m_onTarget = m_targetVisible;
+		}
+		else{
+			SmartDashboard::PutBoolean("Gyro on Target", false);
+			m_onTarget = false;
+		}
 }
 
-void CameraProcessor::SetServoPosition(double angle) {
-	m_cameraServo->SetAngle(angle);
-	m_servoAngle = angle - 150;
-}
-
-double CameraProcessor::GetServoPosition() {
-	return m_cameraServo->GetAngle();
+bool CameraProcessor::isOnTarget() {
+	return m_onTarget;
 }

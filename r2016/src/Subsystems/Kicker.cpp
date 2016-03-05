@@ -32,6 +32,7 @@ bool Kicker::IsExtended() {
 
 void Kicker::Periodic() {
 	CommandBase::logTable->PutNumber("Kicker Output Current", m_kicker->GetOutputCurrent());
+	SmartDashboard::PutNumber("Kicker Output Current", m_kicker->GetOutputCurrent());
 	CommandBase::logTable->PutNumber("Kicker Speed", m_kicker->GetSpeed());
 }
 

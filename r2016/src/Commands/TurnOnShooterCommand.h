@@ -10,7 +10,7 @@ private:
 	double m_spd;
 public:
 	TurnOnShooterCommand(double spd = -1) : CommandBase("TurnOnShooterCommand"){
-		Requires(CommandBase::shooter.get());
+		Requires(shooter.get());
 		SmartDashboard::PutNumber("Shooter Speed", 3000);
 		m_spd = spd;
 	}

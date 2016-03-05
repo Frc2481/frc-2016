@@ -42,6 +42,8 @@ void Shooter::Periodic() {
 	SmartDashboard::PutNumber("Shooter Setpoint", m_shooterWheel->GetSetpoint());
 	SmartDashboard::PutNumber("Shooter Distance", m_shooterDistance);
 	SmartDashboard::PutBoolean("Shooter High Position", m_highPosition);
+	SmartDashboard::PutBoolean("Shooter on Target", IsOnTarget());
+	SmartDashboard::PutNumber("Shooter Current", m_shooterWheel->GetOutputCurrent());
 }
 
 void Shooter::TurnOff(){
@@ -84,7 +86,7 @@ void Shooter::SetLowPosition() {
 }
 
 bool Shooter::IsOnTarget() {
-	return m_shooterWheel->GetSpeed() > m_shooterWheel->GetSetpoint();
+	return m_shooterWheel->GetSpeed() > 1000 && m_shooterWheel->GetSpeed() > m_shooterWheel->GetSetpoint();
 }
 
 bool Shooter::GetPosition() {

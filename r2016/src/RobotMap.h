@@ -29,7 +29,9 @@
 
 //Kicker
 #define KICKER 6
+
 //Camera
 #define CAMERA_LIGHT 4
+#define CAMERA_TOLERANCE .5
 
 #endif
