@@ -24,7 +24,6 @@
 #include "Commands/AutoBlockTwoCommandGroup.h"
 #include "Commands/TraversePortcullisCommandGroup.h"
 #include "Commands/ToggleGameOverCommand.h"
-#include "Commands/CameraCorrectCommand.h"
 #include "CommandBase.h"
 
 class Robot: public IterativeRobot
@@ -92,7 +91,6 @@ private:
 		SmartDashboard::PutData("AutoBlockOneCommand", new AutoBlockOneCommandGroup());
 		SmartDashboard::PutData("AutoBlockTwoCommand", new AutoBlockTwoCommandGroup());
 		SmartDashboard::PutData("Rotate180Command", new Rotate180Command());
-		SmartDashboard::PutData("Camera Correct", new CameraCorrectCommand());
 
 		SmartDashboard::PutNumber("RoughTerrainSpeed",.5);
 		SmartDashboard::PutNumber("RoughTerrainTime",1);
