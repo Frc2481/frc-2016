@@ -43,9 +43,9 @@ void CameraProcessor::Periodic() {
 		}
 		else{
 			SmartDashboard::PutBoolean("Vision", true);
-
 		}
 	}
+	SmartDashboard::PutNumber("Camera Offset Angle", m_OffsetAngle);
 }
 
 bool CameraProcessor::isTargetAvailable(){
