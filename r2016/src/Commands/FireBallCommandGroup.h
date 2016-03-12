@@ -5,14 +5,16 @@
 #include "Commands/ExtendKickerCommand.h"
 #include "Commands/RetractKickerCommand.h"
 #include "Commands/WaitCommand.h"
-#include "Commands/ShooterOnTargetCommand.h"
+#include "Commands/CancelIfShooterNotOnTargetCommand.h"
 #include "WPILib.h"
 
 class FireBallCommandGroup: public CommandGroup
 {
 public:
-	FireBallCommandGroup() : CommandGroup("FireBallCommandGroup"){
-		AddSequential(new ShooterOnTargetCommand());
+	FireBallCommandGroup(bool waitForOnTarget = false) : CommandGroup("FireBallCommandGroup"){
+		if (waitForOnTarget) {
+			AddSequential(new CancelIfShooterNotOnTargetCommand());
+		}
 		AddSequential(new ExtendKickerCommand());
 		AddSequential(new WaitCommand(.2));
 		AddSequential(new RetractKickerCommand());

@@ -55,7 +55,7 @@ OI::OI() {
 	rotateToAngleNoCam->WhileHeld(new RotateToAngleCommand(90));
 
 	fireBall = new FIRE_BALL_BUTTON;
-	fireBall->WhenPressed(new FireBallCommandGroup());
+	fireBall->WhenPressed(new FireBallCommandGroup(true));
 
 	changeShooterAngle = new TOGGLE_SHOOTER_ANGLE_BUTTON;
 	changeShooterAngle->WhenPressed(new ToggleShooterPositionCommand());
