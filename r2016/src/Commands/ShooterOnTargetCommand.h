@@ -8,7 +8,11 @@ class ShooterOnTargetCommand: public CommandBase
 {
 public:
 	ShooterOnTargetCommand(){}
-	void Initialize(){}
+	void Initialize(){
+		if(!shooter->IsOnTarget() && Command::GetGroup()){
+			Command::GetGroup()->Cancel();
+		}
+	}
 	void Execute(){}
 	bool IsFinished(){
 		return shooter->IsOnTarget();

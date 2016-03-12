@@ -12,7 +12,7 @@ class FireBallCommandGroup: public CommandGroup
 {
 public:
 	FireBallCommandGroup() : CommandGroup("FireBallCommandGroup"){
-		//AddSequential(new ShooterOnTargetCommand());
+		AddSequential(new ShooterOnTargetCommand());
 		AddSequential(new ExtendKickerCommand());
 		AddSequential(new WaitCommand(.2));
 		AddSequential(new RetractKickerCommand());
