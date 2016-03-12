@@ -38,7 +38,7 @@ void CameraProcessor::Periodic() {
 	else {
 		m_owlMissingCounter++;
 		if (m_owlMissingCounter >= 50){
-			SmartDashboard::PutNumber("Vision", false);
+			SmartDashboard::PutBoolean("Vision", false);
 		}
 		else{
 			SmartDashboard::PutNumber("Vision", true);
@@ -133,11 +133,11 @@ void CameraProcessor::calculate(){
 		m_targetVisible = true;
 	}
 	if(-CAMERA_TOLERANCE < m_angle && m_angle < CAMERA_TOLERANCE){
-			SmartDashboard::PutBoolean("Gyro on Target", m_targetVisible);
+			SmartDashboard::PutBoolean("Camera on Target", m_targetVisible);
 			m_onTarget = m_targetVisible;
 		}
 		else{
-			SmartDashboard::PutBoolean("Gyro on Target", false);
+			SmartDashboard::PutBoolean("Camera on Target", false);
 			m_onTarget = false;
 		}
 }
