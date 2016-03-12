@@ -12,6 +12,7 @@ class AutoBlockTwoCommandGroup: public CommandGroup
 {
 public:
 	AutoBlockTwoCommandGroup() : CommandGroup("AutoBlockTwoCommandGroup"){
+		AddSequential(new WaitCommand(.5));
 		AddSequential(new RotateToAngleFromCameraCommand());
 		AddSequential(new ShooterOnTargetCommand());
 		AddSequential(new FireBallCommandGroup());

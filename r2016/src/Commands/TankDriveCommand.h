@@ -12,10 +12,10 @@ public:
 	}
 	void Initialize(){}
 	void Execute(){
-		double left = oi->GetDriveStick()->GetRawAxis(XboxController::xbRightYAxis, true) +
-				(oi->GetOperatorStick()->GetRawAxis(XboxController::xbRightYAxis, true) / 3);
-		double right = oi->GetDriveStick()->GetRawAxis(XboxController::xbLeftYAxis, true) +
+		double left = oi->GetDriveStick()->GetRawAxis(XboxController::xbLeftYAxis, true) +
 				(oi->GetOperatorStick()->GetRawAxis(XboxController::xbLeftYAxis, true) / 3);
+		double right = oi->GetDriveStick()->GetRawAxis(XboxController::xbRightYAxis, true) +
+				(oi->GetOperatorStick()->GetRawAxis(XboxController::xbRightYAxis, true) / 3);
 		driveTrain->Tank(right, left);
 	}
 	bool IsFinished(){

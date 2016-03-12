@@ -52,6 +52,7 @@ public:
 	void ZeroGyro();
 	void InitDefaultCommand();
 	void FPSDrive(double spd, double rotate);
+	double GetOutputCurrent();
 	void Periodic();
 };
 

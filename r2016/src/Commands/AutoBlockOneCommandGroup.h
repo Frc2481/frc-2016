@@ -14,8 +14,9 @@ public:
 	AutoBlockOneCommandGroup() : CommandGroup("AutoBlockOneCommandGroup"){
 		AddSequential(new ZeroGyroCommand());
 		AddParallel(new TurnLightRingOnCommand());
+		AddSequential(new DriveDistanceCommand(.35,.35,1000));
+		AddSequential(new DriveDistanceCommand(1,1,9000));
 		AddParallel(new TurnOnShooterCommand());
-		AddSequential(new DriveDistanceCommand(.7,.7,13100));
 	}
 };
 

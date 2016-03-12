@@ -28,9 +28,9 @@ double Intake::GetIntakeCurrent() {
 }
 
 void Intake::Periodic(){
-	CommandBase::logTable->PutNumber("Intake Motor", m_intakeMotor->Get());
-	CommandBase::logTable->PutNumber("Intake Output Current", m_intakeMotor->GetOutputCurrent());
-	CommandBase::logTable->PutNumber("Intake Extender", m_extender->Get());
+	SmartDashboard::PutNumber("Intake Motor", m_intakeMotor->Get());
+	SmartDashboard::PutNumber("Intake Output Current", m_intakeMotor->GetOutputCurrent());
+	SmartDashboard::PutNumber("Intake Extender", m_extender->Get());
 }
 void Intake::Lower() {
 	m_extender->Set(true);

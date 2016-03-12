@@ -58,6 +58,8 @@ DriveTrain::DriveTrain() : SubsystemBase("DriveTrain"){
 	m_prevYaw = m_imu->GetYaw();
 
 	m_gyroOffset = 0;
+
+	SmartDashboard::PutBoolean("DriveTrain Tuning", false);
 }
 
 DriveTrain::~DriveTrain() {
@@ -165,34 +167,44 @@ double DriveTrain::GetPitch() {
 }
 
 void DriveTrain::Periodic(){
-	SmartDashboard::PutNumber("Yaw Rate", CalcYaw());
-	SmartDashboard::PutNumber("Fused Heading", m_imu->GetFusedHeading());
-	SmartDashboard::PutBoolean("Is Gyro Rotating", m_imu->IsRotating());
-	SmartDashboard::PutNumber("Raw Gyro X", m_imu->GetRawGyroX());
-	SmartDashboard::PutNumber("Raw Gyro Y", m_imu->GetRawGyroY());
-	SmartDashboard::PutNumber("Raw Gyro Z", m_imu->GetRawGyroZ());
-	SmartDashboard::PutNumber("Gyro Angle", m_imu->GetAngle());
-	SmartDashboard::PutNumber("Gyro Yaw", m_imu->GetYaw());
-	SmartDashboard::PutNumber("Gyro Roll", m_imu->GetRoll());
-	SmartDashboard::PutNumber("Gyro Pitch", m_imu->GetPitch());
-	SmartDashboard::PutNumber("RM Talon Current", m_rightMaster->GetOutputCurrent());
-	SmartDashboard::PutNumber("LM Talon Current", m_leftMaster->GetOutputCurrent());
-	CommandBase::logTable->PutNumber("FR Talon Current", m_leftMaster->GetOutputCurrent());
-	CommandBase::logTable->PutNumber("FL Talon Current", m_rightMaster->GetOutputCurrent());
-	CommandBase::logTable->PutNumber("BR Talon Current", m_rightSlave->GetOutputCurrent());
-	CommandBase::logTable->PutNumber("BL Talon Current", m_leftSlave->GetOutputCurrent());
-	CommandBase::logTable->PutNumber("FR Talon Speed", m_leftMaster->Get());
-	CommandBase::logTable->PutNumber("FL Talon Speed", m_rightMaster->Get());
-	CommandBase::logTable->PutNumber("BR Talon Speed", m_rightSlave->Get());
-	CommandBase::logTable->PutNumber("BL Talon Speed", m_leftSlave->Get());
+	if (SmartDashboard::GetBoolean("DriveTrain Tuning", false)){
+		SmartDashboard::PutNumber("Yaw Rate", CalcYaw());
+		SmartDashboard::PutNumber("Fused Heading", m_imu->GetFusedHeading());
+		SmartDashboard::PutBoolean("Is Gyro Rotating", m_imu->IsRotating());
+		SmartDashboard::PutNumber("Gyro Angle", m_imu->GetAngle());
+		SmartDashboard::PutNumber("Gyro Yaw", m_imu->GetYaw());
+		SmartDashboard::PutNumber("Gyro Roll", m_imu->GetRoll());
+		SmartDashboard::PutNumber("Gyro Pitch", m_imu->GetPitch());
+		SmartDashboard::PutNumber("RM Talon Current", m_rightMaster->GetOutputCurrent());
+		SmartDashboard::PutNumber("LM Talon Current", m_leftMaster->GetOutputCurrent());
 
-	CommandBase::logTable->PutNumber("Right Master Enc Vel", m_rightMaster->GetEncVel());
+		CommandBase::logTable->PutNumber("FR Talon Speed", m_leftMaster->Get());
+		CommandBase::logTable->PutNumber("FL Talon Speed", m_rightMaster->Get());
+		CommandBase::logTable->PutNumber("BR Talon Speed", m_rightSlave->Get());
+		CommandBase::logTable->PutNumber("BL Talon Speed", m_leftSlave->Get());
+
+		CommandBase::logTable->PutNumber("Right Master Enc Vel", m_rightMaster->GetEncVel());
+		CommandBase::logTable->PutNumber("Right Master Speed", m_rightMaster->GetSpeed());
+
+		CommandBase::logTable->PutNumber("Left Master Enc Vel", m_leftMaster->GetEncVel());
+		CommandBase::logTable->PutNumber("Left Master Speed", m_leftMaster->GetSpeed());
+
+		SmartDashboard::PutNumber("BR Talon Speed", m_rightSlave->Get());
+		SmartDashboard::PutNumber("BL Talon Speed", m_leftSlave->Get());
+
+		SmartDashboard::PutNumber("FR Talon Speed", m_leftMaster->Get());
+		SmartDashboard::PutNumber("FL Talon Speed", m_rightMaster->Get());
+	}
+	SmartDashboard::PutBoolean("DriveTrain Level", fabs(m_imu->GetPitch()) < 2 && fabs(m_imu->GetRoll()) < 2);
+
+	SmartDashboard::PutNumber("FR Talon Current", m_leftMaster->GetOutputCurrent());
+	SmartDashboard::PutNumber("FL Talon Current", m_rightMaster->GetOutputCurrent());
+	SmartDashboard::PutNumber("BR Talon Current", m_rightSlave->GetOutputCurrent());
+	SmartDashboard::PutNumber("BL Talon Current", m_leftSlave->GetOutputCurrent());
+
 	SmartDashboard::PutNumber("Right Master Enc Pos", m_rightMaster->GetEncPosition());
-	CommandBase::logTable->PutNumber("Right Master Speed", m_rightMaster->GetSpeed());
 
-	CommandBase::logTable->PutNumber("Left Master Enc Vel", m_leftMaster->GetEncVel());
 	SmartDashboard::PutNumber("Left Master Enc Pos", m_leftMaster->GetEncPosition());
-	CommandBase::logTable->PutNumber("Left Master Speed", m_leftMaster->GetSpeed());
 
 	m_prevEncPositionLeft = m_leftMaster->GetEncPosition();
 	m_prevEncPositionRight = m_rightMaster->GetEncPosition();
@@ -200,13 +212,13 @@ void DriveTrain::Periodic(){
 
 void DriveTrain::Tank(double rightSpeed, double leftSpeed) {
 //	if (leftSpeed > .2 || leftSpeed < -.2){
-		m_rightMaster->Set(leftSpeed);
+		m_rightMaster->Set(rightSpeed);
 //	}
 //	else {
 //		m_leftMaster->Set(0);
 //	}
 //	if (rightSpeed > .2 || rightSpeed < -.2){
-		m_leftMaster->Set(-(rightSpeed));
+		m_leftMaster->Set(-leftSpeed);
 //	}
 //	else {
 //		m_rightMaster->Set(0);
@@ -214,8 +226,8 @@ void DriveTrain::Tank(double rightSpeed, double leftSpeed) {
 }
 
 void DriveTrain::TankRaw(double rightSpeed, double leftSpeed) {
-	m_rightMaster->Set(leftSpeed);
-	m_leftMaster->Set(-(rightSpeed));
+	m_rightMaster->Set(rightSpeed);
+	m_leftMaster->Set(-(leftSpeed));
 }
 
 void DriveTrain::StopMotors(){
@@ -244,4 +256,10 @@ void DriveTrain::InitDefaultCommand() {
 
 void DriveTrain::SetShifter(bool state) {
 	m_shifter->Set(state);
+}
+
+double DriveTrain::GetOutputCurrent() {
+	double avgCurrent = fabs(m_rightMaster->GetOutputCurrent()) + fabs(m_leftMaster->GetOutputCurrent());
+	avgCurrent /= 2;
+	return avgCurrent;
 }

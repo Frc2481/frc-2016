@@ -19,6 +19,7 @@
 #include "Commands/ToggleIntakeCommand.h"
 #include "Commands/TraversePortcullisCommandGroup.h"
 #include "Commands/UnClogCommandGroup.h"
+#include "Commands/StopDriveCommand.h"
 
 OI::OI() {
 	driveStick = new Joystick2481(0);
@@ -67,6 +68,9 @@ OI::OI() {
 
 	shooterRevButton = new REVERSE_SHOOTER_BUTTON;
 	shooterRevButton->WhenPressed(new UnClogCommandGroup());
+
+	stopSpinButton = new STOP_SPIN_BUTTON;
+	stopSpinButton->WhenPressed(new StopDriveCommand());
 }
 
 OI::~OI() {

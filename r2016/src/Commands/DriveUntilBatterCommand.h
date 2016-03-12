@@ -1,22 +1,22 @@
-#ifndef DriveUntilLevelCommand_H
-#define DriveUntilLevelCommand_H
+#ifndef DriveUntilBatterCommand_H
+#define DriveUntilBatterCommand_H
 
 #include "../CommandBase.h"
 #include "WPILib.h"
 
-class DriveUntilLevelCommand: public CommandBase
+class DriveUntilBatterCommand: public CommandBase
 {
 private:
 	int m_onTargetCounter;
 public:
-	DriveUntilLevelCommand() : CommandBase("DriveUntilLevelCommand"){
+	DriveUntilBatterCommand() : CommandBase("DriveUntilBatterCommand"){
 		m_onTargetCounter = 0;
 	}
 	void Initialize(){
 		m_onTargetCounter = 0;
 	}
 	void Execute(){
-		if (fabs(driveTrain->GetPitch()) <= 2) {
+		if (fabs(driveTrain->GetPitch()) > 3){
 			m_onTargetCounter++;
 		}
 		else{
@@ -24,9 +24,11 @@ public:
 		}
 	}
 	bool IsFinished(){
-		return m_onTargetCounter >= 5;
+		return m_onTargetCounter >= 3;
 	}
-	void End(){}
+	void End(){
+		driveTrain->StopMotors();
+	}
 	void Interrupted(){}
 };
 

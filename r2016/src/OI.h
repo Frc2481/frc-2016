@@ -24,6 +24,7 @@ private:
 	Button* rotateToAngleCam;
 	Button* driveTrainShift;
 	Button* portcullisTraverse;
+	Button* stopSpinButton;
 
 	//Operator Buttons
 	AnalogJoystickButton* fireBall;

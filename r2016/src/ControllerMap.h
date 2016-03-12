@@ -18,6 +18,7 @@
 #define DRIVE_TRAIN_SHIFT_BUTTON JoystickButton(driveStick, XboxController::xbLeftBumper)
 #define INTAKE_REVERSE_BUTTON JoystickButton(driveStick, XboxController::xbBButton)
 #define PORTCULLIS_BUTTON JoystickButton(driveStick, XboxController::xbXButton)
+#define STOP_SPIN_BUTTON JoystickButton(driveStick, XboxController::xbBackButton)
 
 //Operator Stick
 #define TURN_SHOOTER_ON_BUTTON JoystickButton(operatorStick, XboxController::xbRightBumper)

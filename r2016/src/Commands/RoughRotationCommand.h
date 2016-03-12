@@ -15,6 +15,7 @@ public:
 		m_onTarget = false;
 	}
 	void Initialize(){
+		RoboUtils::constrainDeg0To360(m_angle);
 		if (driveTrain->GetAngle() > m_angle){
 			driveTrain->TankRaw(.7,-.7);
 		}

@@ -11,7 +11,7 @@ public:
 	void Initialize(){}
 	void Execute(){}
 	bool IsFinished(){
-		return intake->GetIntakeCurrent() > 15;
+		return intake->GetIntakeCurrent() > 7;
 	}
 	void End(){}
 	void Interrupted(){}

@@ -1,3 +1,4 @@
+
 #ifndef TraverseMoatCommandGroup_H
 #define TraverseMoatCommandGroup_H
 
@@ -9,8 +10,8 @@ class TraverseMoatCommandGroup: public CommandGroup
 {
 public:
 	TraverseMoatCommandGroup() : CommandGroup("TraverseMoatCommandGroup"){
-		AddSequential(new AutoDriveCommand(.7,.7,2));
-		AddParallel(new AutoDriveCommand(.7,.7));
+		AddSequential(new AutoDriveCommand(1,1,2));
+		AddSequential(new AutoDriveCommand(.5,.5));
 		AddSequential(new DriveUntilLevelCommand());
 	}
 };

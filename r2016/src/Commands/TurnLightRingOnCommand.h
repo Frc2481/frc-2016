@@ -13,14 +13,10 @@ public:
 	}
 	void Execute(){}
 	bool IsFinished(){
-		return false;
+		return true; //return false;
 	}
-	void End(){
-		mCameraProcessor->SetLight(false);
-	}
-	void Interrupted(){
-		End();
-	}
+	void End(){}
+	void Interrupted(){}
 };
 
 #endif

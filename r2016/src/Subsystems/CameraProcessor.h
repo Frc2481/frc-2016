@@ -20,10 +20,12 @@ private:
 	const int k_tHeightIn = 12;
 	const double k_xOffset = -11.0;
 	const double k_yOffset = -8.5;
-	const double k_OffsetAngle = 1;
+	const double k_OffsetAngle = .5;
 	bool m_targetVisible;
 	bool m_onTarget;
 	double m_angle;
+	int m_prevOwlCounter;
+	int m_owlMissingCounter;
 	std::shared_ptr<NetworkTable> m_table;
 	Solenoid* m_cameraLight;
 public:

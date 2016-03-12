@@ -15,6 +15,8 @@ CameraProcessor::CameraProcessor() : SubsystemBase("CameraProcessor") {
 	m_angle = 0;
 	m_cameraLight = new Solenoid(CAMERA_LIGHT);
 	m_onTarget = false;
+	m_prevOwlCounter = 0;
+	SmartDashboard::PutBoolean("Camera Tuning", false);
 }
 
 CameraProcessor::~CameraProcessor() {
@@ -27,6 +29,22 @@ void CameraProcessor::SetLight(bool state) {
 
 void CameraProcessor::Periodic() {
 	calculate();
+	m_table = NetworkTable::GetTable("GRIP/aGoalContours");
+	double owlCounter = m_table->GetNumber("OwlCounter");
+	if (owlCounter != m_prevOwlCounter){
+		m_prevOwlCounter = owlCounter;
+		m_owlMissingCounter = 0;
+	}
+	else {
+		m_owlMissingCounter++;
+		if (m_owlMissingCounter >= 50){
+			SmartDashboard::PutNumber("Vision", false);
+		}
+		else{
+			SmartDashboard::PutNumber("Vision", true);
+
+		}
+	}
 }
 
 bool CameraProcessor::isTargetAvailable(){
@@ -76,6 +94,7 @@ void CameraProcessor::calculate(){
 		double camDistToTargetX = posx*((double)k_tWidthIn/(double)width);	//Camera's distance to the Target on the X-axis (Parallel to target)(Wc)
 		double camDistToTargetHyp = sqrt(pow(camDistToTargetY,2) + pow(camDistToTargetX,2));	//Camera's distance to the Target on the Y-axis (perpendicular to target)(Dr)
 		double camera_angle = atan2(camDistToTargetY,camDistToTargetX) * (180/M_PI);
+		camera_angle = 90 - camera_angle;
 
 
 		double angle_actual = k_OffsetAngle + camera_angle;
@@ -91,18 +110,22 @@ void CameraProcessor::calculate(){
 		//double robotDistToTargetX = camDistToTargetX - k_xOffset;		//Robot's distance to the Target on the X-axis (Wr)
 		//double robotDistToTargetY = camDistToTargetY - k_yOffset;		//Robot's distance to the Target on the Y-axis (Lr)
 		angle = atan2(robotDistToTargetY_actual,robotDistToTargetX_actual) * (180/M_PI);		//angle from X-axis of Robot
-//		angle = 90 - angle;
+		angle = 90 - angle;
 
-		SmartDashboard::PutNumber("Camera Area", area);
-		SmartDashboard::PutNumber("Camera Width", width);
-		SmartDashboard::PutNumber("Camera Height", height);
-		SmartDashboard::PutNumber("Camera PosX", posx);
-		SmartDashboard::PutNumber("Camera PosY", posy);
-		SmartDashboard::PutNumber("Camera Dist to Target Hyp",camDistToTargetHyp_actual);
-		SmartDashboard::PutNumber("Camera Dist To Target X",camDistToTargetX_actual);
-		SmartDashboard::PutNumber("Camera Dist To Target Y",camDistToTargetY_actual);
-		SmartDashboard::PutNumber("Robot  Dist To Target X",robotDistToTargetX_actual);
-		SmartDashboard::PutNumber("Robot  Dist To Target Y",robotDistToTargetY_actual);
+		bool tuning = SmartDashboard::GetBoolean("Camera Tuning", false);
+		if (tuning) {
+			SmartDashboard::PutNumber("Camera Area", area);
+			SmartDashboard::PutNumber("Camera Width", width);
+			SmartDashboard::PutNumber("Camera Height", height);
+			SmartDashboard::PutNumber("Camera PosX", posx);
+			SmartDashboard::PutNumber("Camera PosY", posy);
+			SmartDashboard::PutNumber("Camera Angle Actual", angle_actual);
+			SmartDashboard::PutNumber("Camera Dist to Target Hyp",camDistToTargetHyp_actual);
+			SmartDashboard::PutNumber("Camera Dist To Target X",camDistToTargetX_actual);
+			SmartDashboard::PutNumber("Camera Dist To Target Y",camDistToTargetY_actual);
+			SmartDashboard::PutNumber("Robot  Dist To Target X",robotDistToTargetX_actual);
+			SmartDashboard::PutNumber("Robot  Dist To Target Y",robotDistToTargetY_actual);
+		}
 		SmartDashboard::PutNumber("Target Angle (relative)", angle);
 
 		m_angle = angle;

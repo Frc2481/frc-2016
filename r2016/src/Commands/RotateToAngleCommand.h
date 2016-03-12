@@ -9,6 +9,7 @@ class RotateToAngleCommand: public PIDCommand
 {
 protected:
 	double m_angle;
+	double m_onTargetTolerance;
 	bool m_skip;
 	int m_onTarget;
 public:
@@ -17,10 +18,11 @@ public:
 		Requires(CommandBase::driveTrain.get());
 		m_angle = angle;
 		m_onTarget = 0;
-		SmartDashboard::PutNumber("Rotation I Zone", 10);
+		m_onTargetTolerance = 1;
+		SmartDashboard::PutNumber("Rotation I Zone", 4);
 		SmartDashboard::PutNumber("DriveTrain Rotate D", 0);
-		SmartDashboard::PutNumber("DriveTrain Rotate I", .007);
-		SmartDashboard::PutNumber("DriveTrain Rotate P", .050);
+		SmartDashboard::PutNumber("DriveTrain Rotate I", .025);
+		SmartDashboard::PutNumber("DriveTrain Rotate P", .04);
 		SmartDashboard::PutNumber("Rotation Ontarget Time", 5);
 	}
 
@@ -28,9 +30,9 @@ public:
 		return constrain(CommandBase::driveTrain->GetAngle());
 	}
 
-	void UsePIDOutput(double output){
+	virtual void UsePIDOutput(double output){
 		output = std::min(1.0, std::max(-1.0, output));
-		CommandBase::driveTrain->TankRaw(-output, output);
+		CommandBase::driveTrain->TankRaw(output, -output);
 	}
 
 	virtual double constrain(double angle) {
@@ -61,7 +63,7 @@ public:
 		else {
 			pid->SetPID(P, 0, D);
 		}
-		if (curError < .25) {
+		if (curError < m_onTargetTolerance) {
 			m_onTarget++;
 		}
 		else {
@@ -86,17 +88,18 @@ public:
 
 	void Initialize(){
 		m_skip = false;
+		m_onTargetTolerance = .25;
 		if(CommandBase::mCameraProcessor->isTargetAvailable()){
-			double scale = SmartDashboard::GetNumber("Camera Scale", 1.4); //30.37 / 14.19; //TODO: Figure out why the camera or gyro angle is wrong.
+			double scale = SmartDashboard::GetNumber("Camera Scale", 1.35275); //30.37 / 14.19; //TODO: Figure out why the camera or gyro angle is wrong.
 
 			printf("raw relative angle = %f\n", CommandBase::mCameraProcessor->getAngle());
 			m_angle = CommandBase::mCameraProcessor->getAngle();
-			//m_angle *= scale;
+			m_angle *= scale;
 
 			printf("scaled relative angle = %f\n", m_angle);
-			m_angle += CommandBase::driveTrain->GetIMU()->GetAngle();
+			m_angle += CommandBase::driveTrain->GetAngle();
 
-			printf("current driveTrain angle = %f\n", CommandBase::driveTrain->GetIMU()->GetAngle());
+			printf("current driveTrain angle = %f\n", CommandBase::driveTrain->GetAngle());
 			printf("absolute angle with offset = %f\n", m_angle);
 			RotateToAngleCommand::Initialize();
 		} else {
@@ -106,11 +109,20 @@ public:
 };
 
 class Rotate180Command : public RotateToAngleCommand {
+private:
+	double m_radiusScale;
+
 public:
-	Rotate180Command() : RotateToAngleCommand(180){}
+	Rotate180Command(double radiusScale=1) : RotateToAngleCommand(180), m_radiusScale(radiusScale){
+	}
 
 	double constrain(double angle) {
 		return RoboUtils::constrainDeg0To360(angle);
+	}
+
+	void UsePIDOutput(double output){
+		output = std::min(1.0, std::max(-1.0, output));
+		CommandBase::driveTrain->TankRaw(output, -output * m_radiusScale);
 	}
 };
 

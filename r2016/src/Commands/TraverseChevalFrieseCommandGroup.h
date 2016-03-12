@@ -6,6 +6,7 @@
 #include "Commands/CommandGroup.h"
 #include "Commands/DriveDistanceCommand.h"
 #include "Commands/AutoDriveCommand.h"
+#include "Commands/DriveUntilLevelCommand.h"
 #include "WPILib.h"
 
 class TraverseChevalFrieseCommandGroup: public CommandGroup
@@ -13,10 +14,12 @@ class TraverseChevalFrieseCommandGroup: public CommandGroup
 public:
 	TraverseChevalFrieseCommandGroup() : CommandGroup("TraverseChevalFrieseCommandGroup"){
 		AddSequential(new LowerIntakeCommand());
-		AddSequential(new WaitCommand(1));
-		AddSequential(new DriveDistanceCommand(.5,.5,500));
+		AddSequential(new WaitCommand(2));
+		AddSequential(new DriveDistanceCommand(.8,.8,7000));
 		AddSequential(new RaiseIntakeCommand());
-		AddSequential(new DriveDistanceCommand(.5,.5,500));
+		AddSequential(new AutoDriveCommand(.8,.8));
+		AddSequential(new DriveUntilLevelCommand());
+		AddSequential(new AutoDriveCommand(.8,.8,.25));
 		AddSequential(new WaitCommand(1));
 	}
 };
