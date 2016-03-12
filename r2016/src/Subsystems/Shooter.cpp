@@ -11,15 +11,17 @@ Shooter::Shooter() :
 	m_shooterWheel->SetClosedLoopOutputDirection(true);
 	m_shooterAdjuster = new Solenoid(SHOOTER_ANGLE_ADJUST);
 	SmartDashboard::PutBoolean("Shooter Tuning", false);
-	double kp = RoboPreferences::GetInstance()->GetDouble("Shooter_kP", 2);
+	double kp = RoboPreferences::GetInstance()->GetDouble("Shooter_kP", 4);
 	double ki = RoboPreferences::GetInstance()->GetDouble("Shooter_kI", .005);
 	double kd = RoboPreferences::GetInstance()->GetDouble("Shooter_kD", 0);
 	double kf = RoboPreferences::GetInstance()->GetDouble("Shooter_kF", 0);
+	double kIZone = RoboPreferences::GetInstance()->GetDouble("Shooter_kIZone", 500);
 	m_shooterWheel->SetControlMode(CANTalon::kSpeed);
 	m_shooterWheel->SetPID(kp, ki, kd, kf);
 	m_shooterWheel->ConfigEncoderCodesPerRev(1024);
 	m_shooterWheel->SetFeedbackDevice(CANTalon::CtreMagEncoder_Relative);
-	m_shooterWheel->SetSensorDirection(true);
+	m_shooterWheel->SetSensorDirection(true);\
+	m_shooterWheel->SetIzone(kIZone);
 }
 
 void Shooter::InitDefaultCommand()
@@ -29,12 +31,14 @@ void Shooter::InitDefaultCommand()
 void Shooter::Periodic() {
 	bool tuning = SmartDashboard::GetBoolean("Shooter Tuning", false);
 	if (tuning){
-		double kp = RoboPreferences::GetInstance()->GetDouble("Shooter_kP", 2);
+		double kp = RoboPreferences::GetInstance()->GetDouble("Shooter_kP", 4);
 		double ki = RoboPreferences::GetInstance()->GetDouble("Shooter_kI", .005);
 		double kd = RoboPreferences::GetInstance()->GetDouble("Shooter_kD", 0);
 		double kf = RoboPreferences::GetInstance()->GetDouble("Shooter_kF", 0);
+		double kIZone = RoboPreferences::GetInstance()->GetDouble("Shooter_kIZone", 500);
 
 		m_shooterWheel->SetPID(kp, ki, kd, kf);
+		m_shooterWheel->SetIzone(kIZone);
 	}
 
 	SmartDashboard::PutNumber("Shooter Motor", m_shooterWheel->GetSpeed());
