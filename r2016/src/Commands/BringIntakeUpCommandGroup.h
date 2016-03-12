@@ -11,6 +11,7 @@ class BringIntakeUpCommandGroup: public CommandGroup
 public:
 	BringIntakeUpCommandGroup() : CommandGroup("BringIntakeUpCommandGroup"){
 		AddParallel(new RaiseIntakeCommand());
+		AddSequential(new WaitCommand(1));
 		AddSequential(new StopIntakeCommand());
 	}
 };

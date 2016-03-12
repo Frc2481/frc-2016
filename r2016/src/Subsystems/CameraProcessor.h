@@ -13,13 +13,19 @@
 
 class CameraProcessor: public SubsystemBase {
 private:
-	const int k_resX = 640;
-	const int k_resY = 480;
+	const int k_resX = 320;
+	const int k_resY = 240;
 	const int k_FOV = 37.4;
 	const int k_tWidthIn = 20;
 	const int k_tHeightIn = 12;
+	const double k_xOffset = -11.0;
+	const double k_yOffset = -8.5;
+	const double k_OffsetAngle = .5;
 	bool m_targetVisible;
+	bool m_onTarget;
 	double m_angle;
+	int m_prevOwlCounter;
+	int m_owlMissingCounter;
 	std::shared_ptr<NetworkTable> m_table;
 	Solenoid* m_cameraLight;
 public:
@@ -27,6 +33,7 @@ public:
 	CameraProcessor();
 	virtual ~CameraProcessor();
 	bool isTargetAvailable();
+	bool isOnTarget();
 	double getAngle();
 	void calculate();
 	void SetLight(bool state);

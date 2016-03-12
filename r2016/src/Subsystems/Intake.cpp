@@ -8,6 +8,7 @@
 #include <Subsystems/Intake.h>
 #include "RobotMap.h"
 #include <SubsystemBase.h>
+#include "CommandBase.h"
 
 Intake::Intake() : SubsystemBase("Intake") {
 	m_intakeMotor = new CANTalon(INTAKE_MOTOR);

@@ -16,15 +16,19 @@
 #include "Commands/TurnOffShooterCommand.h"
 #include "Commands/RotateToAngleCommand.h"
 #include "Commands/ShiftDriveTrainCommand.h"
-#include "commands/ToggleIntakeCommand.h"
+#include "Commands/ToggleIntakeCommand.h"
+#include "Commands/TraversePortcullisCommandGroup.h"
+#include "Commands/UnClogCommandGroup.h"
+#include "Commands/StopDriveCommand.h"
 
 OI::OI() {
 	driveStick = new Joystick2481(0);
-	operatorStick = new Joystick(1);
+	operatorStick = new Joystick2481(1);
 	debugStick = new Joystick(2);
 
 	intakeButton = new INTAKE_BUTTON;
-	intakeButton->WhenPressed(new AcquireBallCommandGroup());
+	intakeButton->WhenPressed(new IntakeBallCommandGroup());
+	intakeButton->WhenReleased(new BringIntakeUpCommandGroup());
 
 	turnOnShooter = new TURN_SHOOTER_ON_BUTTON;
 	turnOnShooter->WhenPressed(new TurnOnShooterCommand());
@@ -36,10 +40,11 @@ OI::OI() {
 	manualIntakeButton->WhenPressed(new ToggleIntakeCommand());
 
 	intakeRevButton = new INTAKE_REVERSE_BUTTON;
-	intakeRevButton->WhileHeld(new TurnIntakeOnRevCommand());
+	intakeRevButton->WhenPressed(new TurnIntakeOnRevCommand());
+	intakeRevButton->WhenReleased(new StopIntakeCommand());
 
 	rotateToAngleCam = new CAMERA_ROTATE_BUTTON;
-	rotateToAngleCam->WhileHeld(new RotateToAngleFromCameraCommand());
+	rotateToAngleCam->WhenPressed(new RotateToAngleFromCameraCommand());
 
 	driveTrainShift = new DRIVE_TRAIN_SHIFT_BUTTON;
 	driveTrainShift->WhenPressed(new ShiftDriveTrainCommand(true));
@@ -57,6 +62,15 @@ OI::OI() {
 
 	waitForBallTest = new TEST_INTAKE_WAIT_BUTTON;
 	waitForBallTest->WhenPressed(new WaitForBallTestCommandGroup());
+
+	portcullisTraverse = new PORTCULLIS_BUTTON;
+	portcullisTraverse->WhenPressed(new TraversePortcullisCommandGroup());
+
+	shooterRevButton = new REVERSE_SHOOTER_BUTTON;
+	shooterRevButton->WhenPressed(new UnClogCommandGroup());
+
+	stopSpinButton = new STOP_SPIN_BUTTON;
+	stopSpinButton->WhenPressed(new StopDriveCommand());
 }
 
 OI::~OI() {
@@ -67,7 +81,7 @@ Joystick2481* OI::GetDriveStick() {
 	return driveStick;
 }
 
-Joystick* OI::GetOperatorStick() {
+Joystick2481* OI::GetOperatorStick() {
 	return operatorStick;
 }
 

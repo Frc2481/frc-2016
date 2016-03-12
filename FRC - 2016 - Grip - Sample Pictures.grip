@@ -1,7 +1,7 @@
 <grip:Pipeline>
   <sources>
     <grip:Camera>
-      <property name="address" value="http://192.168.0.90"/>
+      <property name="address" value="http://10.24.81.11"/>
     </grip:Camera>
   </sources>
   <steps>
@@ -9,135 +9,105 @@
       <grip:Input step="0" socket="0"/>
       <grip:Input step="0" socket="1">
         <value>
-          <double>43.705035971223026</double>
-          <double>86.84261974584561</double>
+          <double>50.17985611510791</double>
+          <double>140.60606060606062</double>
         </value>
       </grip:Input>
       <grip:Input step="0" socket="2">
         <value>
-          <double>45.86330935251798</double>
+          <double>57.329136690647495</double>
           <double>255.0</double>
         </value>
       </grip:Input>
       <grip:Input step="0" socket="3">
         <value>
-          <double>16.052158273381295</double>
-          <double>255.0</double>
+          <double>112.36510791366906</double>
+          <double>171.28787878787878</double>
         </value>
       </grip:Input>
       <grip:Output step="0" socket="0" previewed="true"/>
     </grip:Step>
-    <grip:Step name="CV dilate">
-      <grip:Input step="1" socket="0"/>
-      <grip:Input step="1" socket="1"/>
-      <grip:Input step="1" socket="2"/>
-      <grip:Input step="1" socket="3">
-        <value>7.0</value>
-      </grip:Input>
-      <grip:Input step="1" socket="4">
-        <value>BORDER_CONSTANT</value>
-      </grip:Input>
-      <grip:Input step="1" socket="5"/>
-      <grip:Output step="1" socket="0" previewed="true"/>
-    </grip:Step>
-    <grip:Step name="CV erode">
-      <grip:Input step="2" socket="0"/>
-      <grip:Input step="2" socket="1"/>
-      <grip:Input step="2" socket="2"/>
-      <grip:Input step="2" socket="3">
-        <value>7.0</value>
-      </grip:Input>
-      <grip:Input step="2" socket="4">
-        <value>BORDER_CONSTANT</value>
-      </grip:Input>
-      <grip:Input step="2" socket="5"/>
-      <grip:Output step="2" socket="0" previewed="true"/>
-    </grip:Step>
     <grip:Step name="Find Contours">
-      <grip:Input step="3" socket="0"/>
-      <grip:Input step="3" socket="1">
+      <grip:Input step="1" socket="0"/>
+      <grip:Input step="1" socket="1">
         <value>false</value>
       </grip:Input>
-      <grip:Output step="3" socket="0" previewed="true"/>
+      <grip:Output step="1" socket="0" previewed="true"/>
     </grip:Step>
     <grip:Step name="Filter Contours">
-      <grip:Input step="4" socket="0"/>
-      <grip:Input step="4" socket="1">
-        <value>400.0</value>
+      <grip:Input step="2" socket="0"/>
+      <grip:Input step="2" socket="1">
+        <value>200.0</value>
       </grip:Input>
-      <grip:Input step="4" socket="2">
+      <grip:Input step="2" socket="2">
         <value>0.0</value>
       </grip:Input>
-      <grip:Input step="4" socket="3">
+      <grip:Input step="2" socket="3">
         <value>0.0</value>
       </grip:Input>
-      <grip:Input step="4" socket="4">
+      <grip:Input step="2" socket="4">
         <value>1000.0</value>
       </grip:Input>
-      <grip:Input step="4" socket="5">
+      <grip:Input step="2" socket="5">
         <value>0.0</value>
       </grip:Input>
-      <grip:Input step="4" socket="6">
+      <grip:Input step="2" socket="6">
         <value>1000.0</value>
       </grip:Input>
-      <grip:Input step="4" socket="7">
+      <grip:Input step="2" socket="7">
         <value>
           <int>0</int>
           <int>100</int>
         </value>
       </grip:Input>
-      <grip:Output step="4" socket="0" previewed="true"/>
-    </grip:Step>
-    <grip:Step name="Convex Hulls">
-      <grip:Input step="5" socket="0"/>
-      <grip:Output step="5" socket="0" previewed="true"/>
+      <grip:Output step="2" socket="0" previewed="true"/>
     </grip:Step>
     <grip:Step name="Publish ContoursReport">
-      <grip:Input step="6" socket="0"/>
-      <grip:Input step="6" socket="1">
+      <grip:Input step="3" socket="0"/>
+      <grip:Input step="3" socket="1">
         <value>aGoalContours</value>
       </grip:Input>
-      <grip:Input step="6" socket="2">
+      <grip:Input step="3" socket="2">
         <value>true</value>
       </grip:Input>
-      <grip:Input step="6" socket="3">
+      <grip:Input step="3" socket="3">
         <value>true</value>
       </grip:Input>
-      <grip:Input step="6" socket="4">
+      <grip:Input step="3" socket="4">
         <value>true</value>
       </grip:Input>
-      <grip:Input step="6" socket="5">
+      <grip:Input step="3" socket="5">
         <value>true</value>
       </grip:Input>
-      <grip:Input step="6" socket="6">
+      <grip:Input step="3" socket="6">
         <value>true</value>
       </grip:Input>
-      <grip:Input step="6" socket="7">
+      <grip:Input step="3" socket="7">
         <value>true</value>
       </grip:Input>
     </grip:Step>
   </steps>
   <connections>
     <grip:Connection>
-      <grip:Output step="0" socket="0" previewed="true"/>
+      <grip:Output step="2" socket="0" previewed="true"/>
       <grip:Input step="3" socket="0"/>
     </grip:Connection>
     <grip:Connection>
-      <grip:Output step="4" socket="0" previewed="true"/>
-      <grip:Input step="6" socket="0"/>
-    </grip:Connection>
-    <grip:Connection>
-      <grip:Output step="3" socket="0" previewed="true"/>
-      <grip:Input step="4" socket="0"/>
+      <grip:Output step="1" socket="0" previewed="true"/>
+      <grip:Input step="2" socket="0"/>
     </grip:Connection>
     <grip:Connection>
       <grip:Output source="0" socket="0" previewed="true"/>
       <grip:Input step="0" socket="0"/>
     </grip:Connection>
+    <grip:Connection>
+      <grip:Output step="0" socket="0" previewed="true"/>
+      <grip:Input step="1" socket="0"/>
+    </grip:Connection>
   </connections>
   <settings>
     <teamNumber>2481</teamNumber>
-    <publishAddress>172.22.11.2</publishAddress>
+    <publishAddress>roborio-2481-frc.local</publishAddress>
     <deployAddress></deployAddress>
   </settings>
 </grip:Pipeline>

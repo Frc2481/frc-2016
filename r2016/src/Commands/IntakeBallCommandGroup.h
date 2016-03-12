@@ -10,7 +10,7 @@ class IntakeBallCommandGroup: public CommandGroup
 {
 public:
 	IntakeBallCommandGroup() : CommandGroup("IntakeBallCommandGroup"){
-		AddParallel(new LowerIntakeCommand());
+		AddSequential(new LowerIntakeCommand());
 		AddSequential(new TurnIntakeOnFwdCommand());
 	}
 };

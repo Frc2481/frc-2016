@@ -8,21 +8,34 @@ class ExtendKickerCommand: public CommandBase
 {
 private:
 	bool m_skip;
+	int m_onTargetCounter;
 public:
 	ExtendKickerCommand(): CommandBase("ExtendKickerCommand"){
 		Requires(kicker.get());
 		m_skip = false;
+		m_onTargetCounter = 0;
 	}
 	void Initialize(){
 		m_skip = true;
+		m_onTargetCounter = 0;
+	}
+	void Execute(){
 		if (!intake->IsLowered()) {
 			kicker->Extend();
 			m_skip = false;
+			if (kicker->GetCurrentDraw() >= 10) {
+				m_onTargetCounter++;
+			}
+			else {
+				m_onTargetCounter = 0;
+			}
+		}
+		else {
+			m_skip = true;
 		}
 	}
-	void Execute(){}
 	bool IsFinished(){
-		return kicker->GetCurrentDraw() >= 10 || m_skip;
+		return m_onTargetCounter >= 50 || m_skip;
 	}
 	void End(){
 		kicker->Stop();

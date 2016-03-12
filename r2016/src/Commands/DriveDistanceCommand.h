@@ -8,20 +8,29 @@ class DriveDistanceCommand: public CommandBase
 {
 private:
 	double m_distance;
+	double m_offset;
+	double m_rightSpeed;
+	double m_leftSpeed;
 public:
-	DriveDistanceCommand(double distance) : CommandBase("DriveDistanceCommand"){
+	DriveDistanceCommand(double rightSpeed, double leftSpeed, double distance) : CommandBase("DriveDistanceCommand"){
+		Requires(driveTrain.get());
+		m_rightSpeed = rightSpeed;
+		m_leftSpeed = leftSpeed;
 		m_distance = distance;
+		m_offset = 0;
 	}
 	void Initialize(){
-		driveTrain->SetToDistanceMode();
-		driveTrain->SetSetpoint(m_distance);
+		m_offset = driveTrain->GetEncoderPos();
+		driveTrain->TankRaw(-m_rightSpeed,-m_leftSpeed);
 	}
 	void Execute(){}
 	bool IsFinished(){
-		return driveTrain->IsAtSetpoint();
+		SmartDashboard::PutNumber("Offset Encoder Pos", driveTrain->GetEncoderPos() - m_offset);
+		return driveTrain->GetEncoderPos() > m_distance + m_offset;
 	}
 	void End(){
 		driveTrain->SetToVoltageMode();
+		driveTrain->StopMotors();
 	}
 	void Interrupted(){
 		End();

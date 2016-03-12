@@ -4,10 +4,10 @@
 #include "WPILib.h"
 
 //DriveTrain
-#define FL_MOTOR 0
-#define FR_MOTOR 1
-#define BL_MOTOR 2
-#define BR_MOTOR 3
+#define RM_MOTOR 0
+#define LM_MOTOR 1
+#define LS_MOTOR 2
+#define RS_MOTOR 3
 #define DRIVETRAIN_SHIFTER 2
 
 //Shooter
@@ -29,7 +29,9 @@
 
 //Kicker
 #define KICKER 6
+
 //Camera
-#define CAMERA_LIGHT 8
+#define CAMERA_LIGHT 4
+#define CAMERA_TOLERANCE .5
 
 #endif
