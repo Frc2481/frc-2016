@@ -32,9 +32,10 @@ void Intake::Periodic(){
 	SmartDashboard::PutNumber("Intake Motor", m_intakeMotor->Get());
 	SmartDashboard::PutNumber("Intake Output Current", m_intakeMotor->GetOutputCurrent());
 	SmartDashboard::PutNumber("Intake Extender", m_extender->Get());
+	SmartDashboard::PutNumber("Intake Stalled Counter", m_stalledCounter);
 	if (m_intakeMotor->GetOutputCurrent() > 10) {
 		m_stalledCounter++;
-		if (m_stalledCounter > 100) {
+		if (m_stalledCounter > 50) {
 			TurnOff();
 			m_stalledCounter = 0;
 		}
