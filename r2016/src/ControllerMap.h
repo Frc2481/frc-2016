@@ -11,6 +11,7 @@
 #include "WPILib.h"
 #include <XboxController.h>
 #include "Components/AnalogJoystickButton.h"
+#include "Components/POVJoystickButton.h"
 
 //Drive Stick
 #define INTAKE_BUTTON AnalogJoystickButton(driveStick, XboxController::xbRightTrigger, .5)
@@ -27,10 +28,10 @@
 #define TOGGLE_INTAKE_BUTTON JoystickButton(operatorStick, XboxController::xbStartButton)
 #define TOGGLE_SHOOTER_ANGLE_BUTTON JoystickButton(operatorStick, XboxController::xbBButton)
 #define REVERSE_SHOOTER_BUTTON JoystickButton(operatorStick, XboxController::xbBackButton)
-#define SHOOTER_INC_BUTTON JoystickButton(operatorStick, XboxController::xbDPadTop)
-#define SHOOTER_DEC_BUTTON JoystickButton(operatorStick, XboxController::xbDPadBottom)
-#define CAMERA_INC_BUTTON JoystickButton(operatorStick, XboxController::xbDPadRight)
-#define CAMERA_DEC_BUTTON JoystickButton(operatorStick, XboxController::xbDPadLeft)
+#define SHOOTER_INC_BUTTON POVJoystickButton(operatorStick, 0, XboxController::xbDPadTop)
+#define SHOOTER_DEC_BUTTON POVJoystickButton(operatorStick, 0, XboxController::xbDPadBottom)
+#define CAMERA_INC_BUTTON POVJoystickButton(operatorStick, 0, XboxController::xbDPadRight)
+#define CAMERA_DEC_BUTTON POVJoystickButton(operatorStick, 0, XboxController::xbDPadLeft)
 
 //Debug Stick
 #define NO_CAMERA_ROTATE_BUTTON JoystickButton(debugStick, XboxController::xbBButton)
