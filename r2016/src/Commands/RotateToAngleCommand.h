@@ -101,15 +101,15 @@ public:
 		if(CommandBase::mCameraProcessor->isTargetAvailable()){
 			double scale = SmartDashboard::GetNumber("Camera Scale", 1.35275); //30.37 / 14.19; //TODO: Figure out why the camera or gyro angle is wrong.
 
-			printf("raw relative angle = %f\n", CommandBase::mCameraProcessor->getAngle());
+//			printf("raw relative angle = %f\n", CommandBase::mCameraProcessor->getAngle());
 			m_angle = CommandBase::mCameraProcessor->getAngle();
 			m_angle *= scale;
 
-			printf("scaled relative angle = %f\n", m_angle);
+//			printf("scaled relative angle = %f\n", m_angle);
 			m_angle += CommandBase::driveTrain->GetAngle();
 
-			printf("current driveTrain angle = %f\n", CommandBase::driveTrain->GetAngle());
-			printf("absolute angle with offset = %f\n", m_angle);
+//			printf("current driveTrain angle = %f\n", CommandBase::driveTrain->GetAngle());
+//			printf("absolute angle with offset = %f\n", m_angle);
 			RotateToAngleCommand::Initialize();
 		} else {
 			m_skip = true;
