@@ -10,6 +10,7 @@
 #include "WPILib.h"
 #include "XboxController.h"
 #include "Components/AnalogJoystickButton.h"
+#include "Components/POVJoystickButton.h"
 #include "Components/Joystick2481.h"
 
 class OI {
@@ -33,10 +34,10 @@ private:
 	Button* manualIntakeButton;
 	Button* changeShooterAngle;
 	Button* shooterRevButton;
-	Button* shooterIncButton;
-	Button* shooterDecButton;
-	Button* cameraIncButton;
-	Button* cameraDecButton;
+	POVJoystickButton* shooterIncButton;
+	POVJoystickButton* shooterDecButton;
+	POVJoystickButton* cameraIncButton;
+	POVJoystickButton* cameraDecButton;
 
 	//Debug Buttons
 	Button* rotateToAngleNoCam;

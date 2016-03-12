@@ -93,6 +93,7 @@ void CameraProcessor::calculate(){
 		double camDistToTargetY = (k_tWidthIn*k_resX)/(2.0 * width * tan(k_FOV*(M_PI/180)/2.0));		//hypotenuse distance from camera to Target in inches (Dc)
 		double camDistToTargetX = posx*((double)k_tWidthIn/(double)width);	//Camera's distance to the Target on the X-axis (Parallel to target)(Wc)
 		double camDistToTargetHyp = sqrt(pow(camDistToTargetY,2) + pow(camDistToTargetX,2));	//Camera's distance to the Target on the Y-axis (perpendicular to target)(Dr)
+		SmartDashboard::PutBoolean("Shooter Hot Zones", camDistToTargetHyp > m_shotRange);
 		double camera_angle = atan2(camDistToTargetY,camDistToTargetX) * (180/M_PI);
 		camera_angle = 90 - camera_angle;
 

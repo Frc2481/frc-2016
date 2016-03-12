@@ -26,6 +26,7 @@ private:
 	double m_angle;
 	int m_prevOwlCounter;
 	int m_owlMissingCounter;
+	double m_shotRange = 150;
 	std::shared_ptr<NetworkTable> m_table;
 	Solenoid* m_cameraLight;
 public:

@@ -206,7 +206,7 @@ void DriveTrain::Periodic(){
 
 	SmartDashboard::PutNumber("Left Master Enc Pos", m_leftMaster->GetEncPosition());
 
-	SmartDashboard::PutNumber("IMU is Moving", m_imu->IsMoving());
+	SmartDashboard::PutBoolean("IMU is Moving", m_imu->IsMoving());
 
 	m_prevEncPositionLeft = m_leftMaster->GetEncPosition();
 	m_prevEncPositionRight = m_rightMaster->GetEncPosition();

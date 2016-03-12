@@ -157,7 +157,7 @@ private:
 		if (autonomousCommand != NULL)
 			autonomousCommand->Cancel();
 
-		CommandBase::shooter->SetHighPosition();
+		CommandBase::shooter->SetLowPosition();
 		CommandBase::shooter->TurnOff();
 		CommandBase::intake->Raise();
 		CommandBase::intake->TurnOff();

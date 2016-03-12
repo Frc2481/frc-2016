@@ -37,10 +37,10 @@ void Shooter::Periodic() {
 		m_shooterWheel->SetPID(kp, ki, kd, kf);
 	}
 
-	SmartDashboard::PutNumber("Shooter Motor", m_shooterSpeed);
+	SmartDashboard::PutNumber("Shooter Motor", m_shooterWheel->GetSpeed());
 	SmartDashboard::PutNumber("Shooter Enc Vel", m_shooterWheel->GetEncVel());
 	SmartDashboard::PutNumber("Shooter Error", m_shooterWheel->GetClosedLoopError());
-	SmartDashboard::PutNumber("Shooter Setpoint", m_shooterWheel->GetSetpoint());
+	SmartDashboard::PutNumber("Shooter Setpoint", m_shooterSpeed);
 	SmartDashboard::PutBoolean("Shooter High Position", m_highPosition);
 	SmartDashboard::PutBoolean("Shooter on Target", IsOnTarget());
 	SmartDashboard::PutNumber("Shooter Current", m_shooterWheel->GetOutputCurrent());
