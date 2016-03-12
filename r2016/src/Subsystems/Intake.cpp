@@ -13,6 +13,7 @@
 Intake::Intake() : SubsystemBase("Intake") {
 	m_intakeMotor = new CANTalon(INTAKE_MOTOR);
 	m_extender = new Solenoid(INTAKE_EXTENDER);
+	m_stalledCounter = 0;
 }
 
 Intake::~Intake() {
@@ -31,6 +32,17 @@ void Intake::Periodic(){
 	SmartDashboard::PutNumber("Intake Motor", m_intakeMotor->Get());
 	SmartDashboard::PutNumber("Intake Output Current", m_intakeMotor->GetOutputCurrent());
 	SmartDashboard::PutNumber("Intake Extender", m_extender->Get());
+	if (m_intakeMotor->GetOutputCurrent() > 10) {
+		m_stalledCounter++;
+		if (m_stalledCounter > 100) {
+			TurnOff();
+			m_stalledCounter = 0;
+		}
+	}
+	else {
+		m_stalledCounter = 0;
+	}
+
 }
 void Intake::Lower() {
 	m_extender->Set(true);

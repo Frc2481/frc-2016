@@ -15,6 +15,7 @@ class Intake : public SubsystemBase{
 private:
 	CANTalon* m_intakeMotor;
 	Solenoid* m_extender;
+	int m_stalledCounter;
 public:
 	Intake();
 	virtual ~Intake();
