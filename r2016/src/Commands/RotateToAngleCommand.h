@@ -14,7 +14,7 @@ protected:
 	int m_onTarget;
 public:
 	RotateToAngleCommand(double angle)
-			: PIDCommand("RotateToAngle", .050, .007, 0){
+			: PIDCommand("RotateToAngle", .04, .025, 0){
 		Requires(CommandBase::driveTrain.get());
 		m_angle = angle;
 		m_onTarget = 0;
@@ -72,6 +72,15 @@ public:
 	}
 
 	bool IsFinished(){
+
+		if (fabs(CommandBase::oi->GetDriveStick()->GetRawAxis(XboxController::xbLeftYAxis)) > .25 ||
+				fabs(CommandBase::oi->GetDriveStick()->GetRawAxis(XboxController::xbRightYAxis)) > .25 ||
+				fabs(CommandBase::oi->GetOperatorStick()->GetRawAxis(XboxController::xbLeftYAxis)) > .25 ||
+				fabs(CommandBase::oi->GetOperatorStick()->GetRawAxis(XboxController::xbRightYAxis)) > .25) {
+			return true;
+		}
+
+
 		return m_onTarget >= SmartDashboard::GetNumber("Rotation Ontarget Time", 5) || m_skip;
 	}
 	void End(){

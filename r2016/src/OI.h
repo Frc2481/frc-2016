@@ -33,6 +33,10 @@ private:
 	Button* manualIntakeButton;
 	Button* changeShooterAngle;
 	Button* shooterRevButton;
+	Button* shooterIncButton;
+	Button* shooterDecButton;
+	Button* cameraIncButton;
+	Button* cameraDecButton;
 
 	//Debug Buttons
 	Button* rotateToAngleNoCam;

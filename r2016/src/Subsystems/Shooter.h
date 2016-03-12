@@ -11,6 +11,7 @@ private:
 	Solenoid* m_shooterAdjuster;
 	bool m_highPosition;
 	double m_shooterDistance;
+	double m_shooterSpeed;
 
 public:
 	Shooter();
@@ -18,12 +19,14 @@ public:
 	void Periodic();
 
 	void TurnOff();
-	void SetShooterSpeed(double val);
+	void SetShooterSpeed(bool forward = true);
 	void SetGoalDistance(double val);
 
 	double GetShooterSpeed();
 	double GetDesiredSpeed();
 	double GetGoalDistance();
+	void incShooterSpeed();
+	void decShooterSpeed();
 
 	bool IsOn();
 	bool IsOnTarget();

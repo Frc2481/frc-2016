@@ -27,6 +27,10 @@
 #define TOGGLE_INTAKE_BUTTON JoystickButton(operatorStick, XboxController::xbStartButton)
 #define TOGGLE_SHOOTER_ANGLE_BUTTON JoystickButton(operatorStick, XboxController::xbBButton)
 #define REVERSE_SHOOTER_BUTTON JoystickButton(operatorStick, XboxController::xbBackButton)
+#define SHOOTER_INC_BUTTON JoystickButton(operatorStick, XboxController::xbDPadTop)
+#define SHOOTER_DEC_BUTTON JoystickButton(operatorStick, XboxController::xbDPadBottom)
+#define CAMERA_INC_BUTTON JoystickButton(operatorStick, XboxController::xbDPadRight)
+#define CAMERA_DEC_BUTTON JoystickButton(operatorStick, XboxController::xbDPadLeft)
 
 //Debug Stick
 #define NO_CAMERA_ROTATE_BUTTON JoystickButton(debugStick, XboxController::xbBButton)

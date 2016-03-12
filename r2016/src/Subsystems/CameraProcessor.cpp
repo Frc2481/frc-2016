@@ -97,7 +97,7 @@ void CameraProcessor::calculate(){
 		camera_angle = 90 - camera_angle;
 
 
-		double angle_actual = k_OffsetAngle + camera_angle;
+		double angle_actual = m_OffsetAngle + camera_angle;
 		double camDistToTargetY_actual = (camDistToTargetHyp * cos(angle_actual * M_PI/180));
 		double camDistToTargetX_actual = (camDistToTargetHyp * sin(angle_actual * M_PI/180));
 		double camDistToTargetHyp_actual = sqrt(pow(camDistToTargetY_actual,2) + pow(camDistToTargetX_actual,2));
@@ -143,4 +143,12 @@ void CameraProcessor::calculate(){
 
 bool CameraProcessor::isOnTarget() {
 	return m_onTarget;
+}
+
+void CameraProcessor::incOffsetAngle() {
+	m_OffsetAngle += .5;
+}
+
+void CameraProcessor::decOffSetAngle() {
+	m_OffsetAngle -= .5;
 }

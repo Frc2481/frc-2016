@@ -20,6 +20,10 @@
 #include "Commands/TraversePortcullisCommandGroup.h"
 #include "Commands/UnClogCommandGroup.h"
 #include "Commands/StopDriveCommand.h"
+#include "Commands/DecrementCameraOffsetCommand.h"
+#include "Commands/DecrementShooterSpeedCommand.h"
+#include "Commands/IncShooterSpeedCommand.h"
+#include "Commands/IncrementCameraOffsetCommand.h"
 
 OI::OI() {
 	driveStick = new Joystick2481(0);
@@ -71,6 +75,18 @@ OI::OI() {
 
 	stopSpinButton = new STOP_SPIN_BUTTON;
 	stopSpinButton->WhenPressed(new StopDriveCommand());
+
+	shooterIncButton = new SHOOTER_INC_BUTTON;
+	shooterIncButton->WhenPressed(new IncShooterSpeedCommand());
+
+	shooterDecButton = new SHOOTER_DEC_BUTTON;
+	shooterDecButton->WhenPressed(new DecrementShooterSpeedCommand());
+
+	cameraIncButton = new CAMERA_INC_BUTTON;
+	cameraIncButton->WhenPressed(new IncrementCameraOffsetCommand());
+
+	cameraDecButton = new CAMERA_DEC_BUTTON;
+	cameraDecButton->WhenPressed(new DecrementCameraOffsetCommand());
 }
 
 OI::~OI() {

@@ -11,7 +11,7 @@ public:
 		Requires(shooter.get());
 	}
 	void Initialize(){
-		shooter->SetShooterSpeed(-3000);
+		shooter->SetShooterSpeed(false);
 	}
 	void Execute(){}
 	bool IsFinished(){

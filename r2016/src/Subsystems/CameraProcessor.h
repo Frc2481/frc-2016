@@ -20,7 +20,7 @@ private:
 	const int k_tHeightIn = 12;
 	const double k_xOffset = -11.0;
 	const double k_yOffset = -8.5;
-	const double k_OffsetAngle = .5;
+	double m_OffsetAngle = .5;
 	bool m_targetVisible;
 	bool m_onTarget;
 	double m_angle;
@@ -35,6 +35,8 @@ public:
 	bool isTargetAvailable();
 	bool isOnTarget();
 	double getAngle();
+	void incOffsetAngle();
+	void decOffSetAngle();
 	void calculate();
 	void SetLight(bool state);
 	void Periodic();

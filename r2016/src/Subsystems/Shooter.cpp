@@ -6,6 +6,7 @@ Shooter::Shooter() :
 		SubsystemBase("Shooter")
 {
 	m_shooterDistance = 0;
+	m_shooterSpeed = 3200;
 	m_shooterWheel = new CANTalon(SHOOTER_MOTOR);
 	m_shooterWheel->SetClosedLoopOutputDirection(true);
 	m_shooterAdjuster = new Solenoid(SHOOTER_ANGLE_ADJUST);
@@ -36,7 +37,7 @@ void Shooter::Periodic() {
 		m_shooterWheel->SetPID(kp, ki, kd, kf);
 	}
 
-	SmartDashboard::PutNumber("Shooter Motor", m_shooterWheel->GetSpeed());
+	SmartDashboard::PutNumber("Shooter Motor", m_shooterSpeed);
 	SmartDashboard::PutNumber("Shooter Enc Vel", m_shooterWheel->GetEncVel());
 	SmartDashboard::PutNumber("Shooter Error", m_shooterWheel->GetClosedLoopError());
 	SmartDashboard::PutNumber("Shooter Setpoint", m_shooterWheel->GetSetpoint());
@@ -49,9 +50,15 @@ void Shooter::TurnOff(){
 	m_shooterWheel->Disable();
 }
 
-void Shooter::SetShooterSpeed(double val) {
-	m_shooterWheel->Enable();
-	m_shooterWheel->Set(val);
+void Shooter::SetShooterSpeed(bool forward) {
+	if (forward){
+		m_shooterWheel->Enable();
+		m_shooterWheel->Set(m_shooterSpeed);
+	}
+	else {
+		m_shooterWheel->Enable();
+		m_shooterWheel->Set(-m_shooterSpeed);
+	}
 }
 
 void Shooter::SetGoalDistance(double val) {
@@ -59,7 +66,7 @@ void Shooter::SetGoalDistance(double val) {
 }
 
 double Shooter::GetShooterSpeed() {
-	return m_shooterWheel->Get();
+	return m_shooterSpeed;
 }
 
 double Shooter::GetGoalDistance() {
@@ -92,3 +99,12 @@ bool Shooter::IsOnTarget() {
 bool Shooter::GetPosition() {
 	return m_highPosition;
 }
+
+void Shooter::incShooterSpeed() {
+	m_shooterSpeed += 100;
+}
+
+void Shooter::decShooterSpeed() {
+	m_shooterSpeed -= 100;
+}
+

@@ -6,18 +6,20 @@
 #include "Commands/TurnOnShooterCommand.h"
 #include "Commands/TurnOnShooterRevCommand.h"
 #include "Commands/WaitCommand.h"
+#include "Commands/ShooterUpCommand.h"
 #include "WPILib.h"
 
 class UnClogCommandGroup: public CommandGroup
 {
 public:
 	UnClogCommandGroup() : CommandGroup("UnClogCommandGroup"){
+		AddSequential(new ShooterUpCommand());
 		AddSequential(new TurnOnShooterCommand());
 		AddSequential(new WaitCommand(.2));
 		AddSequential(new TurnOffShooterCommand());
 		AddSequential(new WaitCommand(.5));
 		AddSequential(new TurnOnShooterRevCommand());
-		AddSequential(new WaitCommand(.5));
+		AddSequential(new WaitCommand(1));
 		AddSequential(new TurnOffShooterCommand());
 	}
 };
