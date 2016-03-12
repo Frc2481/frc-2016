@@ -97,7 +97,7 @@ public:
 
 	void Initialize(){
 		m_skip = false;
-		m_onTargetTolerance = .25;
+		m_onTargetTolerance = .5; //.25;
 		if(CommandBase::mCameraProcessor->isTargetAvailable()){
 			double scale = SmartDashboard::GetNumber("Camera Scale", 1.35275); //30.37 / 14.19; //TODO: Figure out why the camera or gyro angle is wrong.
 
