@@ -16,6 +16,7 @@ CameraProcessor::CameraProcessor() : SubsystemBase("CameraProcessor") {
 	m_cameraLight = new Solenoid(CAMERA_LIGHT);
 	m_onTarget = false;
 	m_prevOwlCounter = 0;
+	m_robotCounter = 0;
 	SmartDashboard::PutBoolean("Camera Tuning", false);
 }
 
@@ -45,6 +46,7 @@ void CameraProcessor::Periodic() {
 			SmartDashboard::PutBoolean("Vision", true);
 		}
 	}
+	m_table->PutNumber("RobotCounter", m_robotCounter++);
 	SmartDashboard::PutNumber("Camera Offset Angle", m_OffsetAngle);
 }
 
