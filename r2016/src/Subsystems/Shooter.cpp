@@ -6,7 +6,8 @@ Shooter::Shooter() :
 		SubsystemBase("Shooter")
 {
 	m_shooterDistance = 0;
-	m_shooterSpeed = 3200;
+	m_shooterSpeed = 3300;
+	m_onTargetCounter = 0;
 	m_shooterWheel = new CANTalon(SHOOTER_MOTOR);
 	m_shooterWheel->SetClosedLoopOutputDirection(true);
 	m_shooterAdjuster = new Solenoid(SHOOTER_ANGLE_ADJUST);
@@ -96,8 +97,14 @@ void Shooter::SetLowPosition() {
 }
 
 bool Shooter::IsOnTarget() {
-	return m_shooterWheel->GetSpeed() > 1000
-			&& fabs(m_shooterWheel->GetSpeed() - m_shooterWheel->GetSetpoint()) < 20;
+	if (m_shooterWheel->GetSpeed() > 1000 && fabs(m_shooterWheel->GetSpeed() - m_shooterWheel->GetSetpoint()) < 20) {
+		m_onTargetCounter++;
+	}
+	else {
+		m_onTargetCounter = 0;
+	}
+
+	return m_onTargetCounter > 5;
 }
 
 bool Shooter::GetPosition() {

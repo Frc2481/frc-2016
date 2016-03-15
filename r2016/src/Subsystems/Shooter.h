@@ -12,6 +12,7 @@ private:
 	bool m_highPosition;
 	double m_shooterDistance;
 	double m_shooterSpeed;
+	int m_onTargetCounter;
 
 public:
 	Shooter();
