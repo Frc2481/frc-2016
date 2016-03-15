@@ -29,6 +29,7 @@ private:
 
 	//Operator Buttons
 	AnalogJoystickButton* fireBall;
+	AnalogJoystickButton* operatorRevIntake;
 	Button* turnOnShooter;
 	Button* turnOffShooter;
 	Button* manualIntakeButton;

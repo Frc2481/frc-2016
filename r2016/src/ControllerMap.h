@@ -32,6 +32,7 @@
 #define SHOOTER_DEC_BUTTON POVJoystickButton(operatorStick, 0, XboxController::xbDPadBottom)
 #define CAMERA_INC_BUTTON POVJoystickButton(operatorStick, 0, XboxController::xbDPadRight)
 #define CAMERA_DEC_BUTTON POVJoystickButton(operatorStick, 0, XboxController::xbDPadLeft)
+#define OPERATOR_REV_INTAKE_BUTTON AnalogJoystickButton(operatorStick, XboxController::xbLeftTrigger, .5)
 
 //Debug Stick
 #define NO_CAMERA_ROTATE_BUTTON JoystickButton(debugStick, XboxController::xbBButton)

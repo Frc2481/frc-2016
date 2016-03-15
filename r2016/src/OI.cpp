@@ -87,6 +87,10 @@ OI::OI() {
 
 	cameraDecButton = new CAMERA_DEC_BUTTON;
 	cameraDecButton->WhenPressed(new DecrementCameraOffsetCommand());
+
+	operatorRevIntake = new OPERATOR_REV_INTAKE_BUTTON;
+	operatorRevIntake->WhenPressed(new TurnIntakeOnRevCommand());
+	operatorRevIntake->WhenReleased(new StopIntakeCommand());
 }
 
 OI::~OI() {
