@@ -86,12 +86,12 @@ double Shooter::GetDesiredSpeed() {
 }
 
 void Shooter::SetHighPosition() {
-	m_shooterAdjuster->Set(true);
+	m_shooterAdjuster->Set(false);
 	m_highPosition = true;
 }
 
 void Shooter::SetLowPosition() {
-	m_shooterAdjuster->Set(false);
+	m_shooterAdjuster->Set(true);
 	m_highPosition = false;
 }
 
