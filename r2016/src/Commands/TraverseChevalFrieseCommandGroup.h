@@ -17,9 +17,8 @@ public:
 		AddSequential(new WaitCommand(2));
 		AddSequential(new DriveDistanceCommand(.8,.8,7000));
 		AddSequential(new RaiseIntakeCommand());
-		AddSequential(new AutoDriveCommand(.8,.8));
+		AddSequential(new AutoDriveCommand(.6,.6));
 		AddSequential(new DriveUntilLevelCommand());
-		AddSequential(new AutoDriveCommand(.8,.8,.25));
 		AddSequential(new WaitCommand(1));
 	}
 };

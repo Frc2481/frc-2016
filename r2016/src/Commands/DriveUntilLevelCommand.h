@@ -24,7 +24,7 @@ public:
 		}
 	}
 	bool IsFinished(){
-		return m_onTargetCounter >= 5;
+		return m_onTargetCounter >= 3;
 	}
 	void End(){}
 	void Interrupted(){}

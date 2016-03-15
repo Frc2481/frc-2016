@@ -72,7 +72,7 @@ private:
 
 		m_posChooser = new SendableChooser();
 		m_posChooser->AddDefault("Nothing", NULL);
-		m_posChooser->AddObject("Pos 1 (Low Bar)", (void*)1);
+//		m_posChooser->AddObject("Pos 1 (Low Bar)", (void*)1);
 		m_posChooser->AddObject("Pos 2", (void*)2);
 		m_posChooser->AddObject("Pos 3", (void*)3);
 		m_posChooser->AddObject("Pos 4", (void*)4);

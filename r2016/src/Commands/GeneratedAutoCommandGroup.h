@@ -5,6 +5,7 @@
 #include "Commands/AutoBlockOneCommandGroup.h"
 #include "Commands/AutoBlockTwoCommandGroup.h"
 #include "Commands/RoughRotationCommand.h"
+#include "Commands/DriveUntilBatterCommand.h"
 #include "WPILib.h"
 
 class GeneratedAutoCommandGroup: public CommandGroup
@@ -16,7 +17,13 @@ public:
 		if (traverseCommand){
 			AddSequential(new AutoBlockOneCommandGroup());
 			AddSequential(traverseCommand);
+
+//			AddSequential(new AutoDriveCommand(-.5,-.5));
+//			AddSequential(new DriveUntilBatterCommand());
+//			AddSequential(new AutoDriveCommand(.5,.5,.5));
+
 			AddSequential(new RotateToAngleCommand(angleArray[position]));    //disabling for middle pos
+			AddSequential(new WaitCommand(.25));
 			AddSequential(new AutoBlockTwoCommandGroup());
 			if (driveBack==1) {
 				AddSequential(new DriveDistanceCommand(.5, .5, 1000));
