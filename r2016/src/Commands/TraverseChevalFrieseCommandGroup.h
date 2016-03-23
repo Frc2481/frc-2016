@@ -15,7 +15,7 @@ public:
 	TraverseChevalFrieseCommandGroup() : CommandGroup("TraverseChevalFrieseCommandGroup"){
 		AddSequential(new LowerIntakeCommand());
 		AddSequential(new WaitCommand(2));
-		AddSequential(new DriveDistanceCommand(.8,.8,7000));
+		AddSequential(new DriveDistanceCommand(.8,.8,5000));
 		AddSequential(new RaiseIntakeCommand());
 		AddSequential(new AutoDriveCommand(.6,.6));
 		AddSequential(new DriveUntilLevelCommand());

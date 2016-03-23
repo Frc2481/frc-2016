@@ -23,22 +23,19 @@ public:
 //			AddSequential(new AutoDriveCommand(.5,.5,.5));
 
 			AddSequential(new RotateToAngleCommand(angleArray[position]));    //disabling for middle pos
-			AddSequential(new WaitCommand(.25));
 			AddSequential(new AutoBlockTwoCommandGroup());
+			AddSequential(new RotateToAngleCommand(0));
+			AddSequential(new DriveDistanceCommand(.5, .5, 2000));
+			if (dynamic_cast<TraverseChevalFrieseCommandGroup*>(traverseCommand) != 0 ||
+					dynamic_cast<TraverseRampartsCommandGroup*>(traverseCommand) != 0) {
+				AddSequential(new Rotate180Command(.5));
+			} else {
+				AddSequential(new Rotate180Command());
+			}
 			if (driveBack==1) {
-				AddSequential(new DriveDistanceCommand(.5, .5, 1000));
-				if (dynamic_cast<TraverseChevalFrieseCommandGroup*>(traverseCommand) != 0 ||
-						dynamic_cast<TraverseRampartsCommandGroup*>(traverseCommand) != 0) {
-
-					AddSequential(new Rotate180Command(.5));
-				} else {
-					AddSequential(new Rotate180Command());
-				}
-				AddSequential(new DriveDistanceCommand(.5, .5, 1000));
+				AddSequential(new DriveDistanceCommand(.5, .5, 2000));
 				AddSequential(traverseCommand);
 			}
-
-
 		}
 	}
 };

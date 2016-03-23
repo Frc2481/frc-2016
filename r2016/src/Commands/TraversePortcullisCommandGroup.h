@@ -7,18 +7,22 @@
 #include "Commands/AutoDriveCommand.h"
 #include "Commands/RaiseIntakeCommand.h"
 #include "Commands/WaitCommand.h"
+#include "Commands/DriveDistanceCommand.h"
 #include "WPILib.h"
 
 class TraversePortcullisCommandGroup: public CommandGroup
 {
 public:
 	TraversePortcullisCommandGroup() : CommandGroup("TraversePortcullisCommandGroup"){
+		AddSequential(new AutoDriveCommand(0,0,2));
 		AddSequential(new ToggleShooterPositionCommand());
-		AddParallel(new LowerIntakeCommand());
-		AddSequential(new WaitCommand(1));
+		AddSequential(new LowerIntakeCommand());
+		AddSequential(new WaitCommand(.5));
 		AddSequential(new AutoDriveCommand(.25,.25,1));
-		AddParallel(new RaiseIntakeCommand());
-		AddSequential(new AutoDriveCommand(.5,.5,1));
+		AddSequential(new RaiseIntakeCommand());
+		AddSequential(new WaitCommand(.5));
+		AddSequential(new AutoDriveCommand(.25,.25,.5));
+		AddSequential(new DriveDistanceCommand(.5,.5,16000));
 		AddSequential(new ToggleShooterPositionCommand());
 	}
 };
