@@ -6,6 +6,7 @@
 #include "Commands/AutoBlockTwoCommandGroup.h"
 #include "Commands/RoughRotationCommand.h"
 #include "Commands/DriveUntilBatterCommand.h"
+#include "Commands/LockOnTargetCommand.h"
 #include "WPILib.h"
 
 class GeneratedAutoCommandGroup: public CommandGroup
@@ -23,6 +24,11 @@ public:
 //			AddSequential(new AutoDriveCommand(.5,.5,.5));
 
 			AddSequential(new RotateToAngleCommand(angleArray[position]));    //disabling for middle pos
+			if (position == 2) {
+				AddSequential(new LockOnTargetCommand(CameraProcessor::LEFT_TARGET));
+			} else {
+				AddSequential(new LockOnTargetCommand(CameraProcessor::RIGHT_TARGET));
+			}
 			AddSequential(new AutoBlockTwoCommandGroup());
 			AddSequential(new RotateToAngleCommand(0));
 			AddSequential(new DriveDistanceCommand(.5, .5, 2000));

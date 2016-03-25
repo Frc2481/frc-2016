@@ -12,6 +12,26 @@
 #include <SubsystemBase.h>
 
 class CameraProcessor: public SubsystemBase {
+public:
+
+	class Target {
+	public:
+		double width;
+		double height;
+		double area;
+		double x;
+		double y;
+		double distance;
+		double angle;
+	};
+
+	enum target_type_t{
+		LEFT_TARGET = 0,
+		RIGHT_TARGET,
+		AUTO_TARGET,
+		TARGET_TYPE_SIZE
+	};
+
 private:
 	const int k_resX = 320;
 	const int k_resY = 240;
@@ -20,18 +40,21 @@ private:
 	const int k_tHeightIn = 12;
 	const double k_xOffset = -11.0;
 	const double k_yOffset = -8.5;
+	const double k_sizeTolerance = 0.1;
 	double m_OffsetAngle = .5;
 	bool m_targetVisible;
 	bool m_onTarget;
-	double m_angle;
+	Target m_targets[TARGET_TYPE_SIZE];
+
 	int m_prevOwlCounter;
 	int m_owlMissingCounter;
 	int m_robotCounter;
 	double m_shotRange = 190;
 	std::shared_ptr<NetworkTable> m_table;
 	Solenoid* m_cameraLight;
-public:
+	target_type_t m_activeTarget;
 
+public:
 	CameraProcessor();
 	virtual ~CameraProcessor();
 	bool isTargetAvailable();
@@ -40,8 +63,10 @@ public:
 	void incOffsetAngle();
 	void decOffSetAngle();
 	void calculate();
+	void calculateDistanceAndAngleOfTarget(Target& target);
 	void SetLight(bool state);
 	void Periodic();
+	void lockOnTarget(target_type_t target);
 };
 
 #endif /* SRC_SUBSYSTEMS_CAMERAPROCESSOR_H_ */

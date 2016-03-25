@@ -22,7 +22,8 @@ private:
 	//Driver Buttons
 	AnalogJoystickButton* intakeButton;
 	Button* intakeRevButton;
-	Button* rotateToAngleCam;
+	Button* rotateToLeftAngleCam;
+	Button* rotateToRightAngleCam;
 	Button* driveTrainShift;
 	Button* portcullisTraverse;
 	Button* stopSpinButton;

@@ -12,11 +12,13 @@
 #include "../RobotMap.h"
 
 CameraProcessor::CameraProcessor() : SubsystemBase("CameraProcessor") {
-	m_angle = 0;
 	m_cameraLight = new Solenoid(CAMERA_LIGHT);
 	m_onTarget = false;
+	m_targetVisible = false;
+	m_owlMissingCounter = 0;
 	m_prevOwlCounter = 0;
 	m_robotCounter = 0;
+	m_activeTarget = RIGHT_TARGET;
 	SmartDashboard::PutBoolean("Camera Tuning", false);
 }
 
@@ -48,6 +50,8 @@ void CameraProcessor::Periodic() {
 	}
 	m_table->PutNumber("RobotCounter", m_robotCounter++);
 	SmartDashboard::PutNumber("Camera Offset Angle", m_OffsetAngle);
+	SmartDashboard::PutBoolean("Target in Range", m_targets[m_activeTarget].distance > m_shotRange);
+	SmartDashboard::PutNumber("Target Angle (relative)", m_targets[m_activeTarget].angle);
 }
 
 bool CameraProcessor::isTargetAvailable(){
@@ -55,7 +59,7 @@ bool CameraProcessor::isTargetAvailable(){
 }
 
 double CameraProcessor::getAngle(){
-	return m_angle;
+	return m_targets[m_activeTarget].angle;
 }
 
 void CameraProcessor::calculate(){
@@ -65,14 +69,15 @@ void CameraProcessor::calculate(){
 	std::vector<double> centerXs = m_table->GetNumberArray("centerX", llvm::ArrayRef<double>());
 	std::vector<double> widths = m_table->GetNumberArray("width", llvm::ArrayRef<double>());
 	std::vector<double> heights = m_table->GetNumberArray("height", llvm::ArrayRef<double>());
-	double angle = 0;
-	double area = 0;
-	double posx = 0;
-	double posy = 0;
-	double width = 0;
-	double height = 0;
+
 	m_targetVisible = false;
-	m_angle = 0;
+
+	//Zero out all the targets.
+	Target t{};
+	for (int i = 0; i < TARGET_TYPE_SIZE; ++i) {
+		m_targets[i] = t;
+	}
+
 	//All of the size checks are needed to prevent a crash if GRIP is in the middle of removing a target while
 	//we are grabbing the table.
 	if(areas.size() > 0 &&
@@ -80,62 +85,69 @@ void CameraProcessor::calculate(){
 			areas.size() == centerYs.size() &&
 			areas.size() == widths.size() &&
 			areas.size() == heights.size()){
+
 		for (unsigned int i = 0; i < areas.size(); i++) {
-			if(widths[i] > width) {
-				area = areas[i];
-				posx = centerXs[i];
-				posy = centerYs[i];
-				width = widths[i];
-				height = heights[i];
+
+			Target target;
+			target.x = centerXs[i];
+			target.y = centerYs[i];
+			target.width = widths[i];
+			target.height = heights[i];
+			target.area = areas[i];
+
+			//Keep track of the left most target.
+			if (centerXs[i] < m_targets[LEFT_TARGET].x) {
+				m_targets[LEFT_TARGET] = target;
+			}
+
+			//Keep track of the right most target.
+			if (centerXs[i] > m_targets[RIGHT_TARGET].x) {
+				m_targets[RIGHT_TARGET] = target;
+			}
+
+			//Keep track of the largest target.
+			if (widths[i] > m_targets[AUTO_TARGET].width) {
+				m_targets[AUTO_TARGET] = target;
 			}
 		}
-		//refer to Drawing Github Wiki "Camera Processor"
-		posx = (posx - k_resX/2.0);		//X position of target from center of Camera in pixels
-		posy = (posy - k_resY/2.0);		//Y position of target from center of Camera in pixels
 
-		double camDistToTargetY = (k_tWidthIn*k_resX)/(2.0 * width * tan(k_FOV*(M_PI/180)/2.0));		//hypotenuse distance from camera to Target in inches (Dc)
-		double camDistToTargetX = posx*((double)k_tWidthIn/(double)width);	//Camera's distance to the Target on the X-axis (Parallel to target)(Wc)
-		double camDistToTargetHyp = sqrt(pow(camDistToTargetY,2) + pow(camDistToTargetX,2));	//Camera's distance to the Target on the Y-axis (perpendicular to target)(Dr)
-		SmartDashboard::PutBoolean("Target in Range", camDistToTargetHyp > m_shotRange);
-		double camera_angle = atan2(camDistToTargetY,camDistToTargetX) * (180/M_PI);
-		camera_angle = 90 - camera_angle;
+		//If one of the targets is vastly larger than the other then ignore the small one regardless.
+		if (areas.size() == 2) {
+			double ratio = m_targets[AUTO_TARGET].area / m_targets[RIGHT_TARGET].area;
+			if (ratio < 1 - k_sizeTolerance) {
+				m_targets[LEFT_TARGET] = m_targets[RIGHT_TARGET];
+			}
+			else if (ratio > 1 + k_sizeTolerance) {
+				m_targets[RIGHT_TARGET] = m_targets[LEFT_TARGET];
+			}
+		}
 
+		//If there are more than 2 targets ignore all but the largest.
+		if (areas.size() > 2) {
+			m_targets[LEFT_TARGET] = m_targets[RIGHT_TARGET] = m_targets[AUTO_TARGET];
+		}
 
-		double angle_actual = m_OffsetAngle + camera_angle;
-		double camDistToTargetY_actual = (camDistToTargetHyp * cos(angle_actual * M_PI/180));
-		double camDistToTargetX_actual = (camDistToTargetHyp * sin(angle_actual * M_PI/180));
-		double camDistToTargetHyp_actual = sqrt(pow(camDistToTargetY_actual,2) + pow(camDistToTargetX_actual,2));
+		//Calculate angle and distance of left target.
+		calculateDistanceAndAngleOfTarget(m_targets[LEFT_TARGET]);
 
-//		double robotDistToTargetX = camDistToTargetX + k_xOffset;		//Robot's distance to the Target on the X-axis (Wr)
+		//Calculate angle and distance of right target.
+		calculateDistanceAndAngleOfTarget(m_targets[RIGHT_TARGET]);
 
-//		angle = atan2(robotDistToTargetX,robotDistToTargetY) * 180/3.14159265;		//angle from X-axis of Robot
-		double robotDistToTargetX_actual = camDistToTargetX_actual + k_xOffset;
-		double robotDistToTargetY_actual = camDistToTargetY_actual + k_yOffset;
-		//double robotDistToTargetX = camDistToTargetX - k_xOffset;		//Robot's distance to the Target on the X-axis (Wr)
-		//double robotDistToTargetY = camDistToTargetY - k_yOffset;		//Robot's distance to the Target on the Y-axis (Lr)
-		angle = atan2(robotDistToTargetY_actual,robotDistToTargetX_actual) * (180/M_PI);		//angle from X-axis of Robot
-		angle = 90 - angle;
+		//Calculate angle and distance of auto target.
+		calculateDistanceAndAngleOfTarget(m_targets[AUTO_TARGET]);
 
 		bool tuning = SmartDashboard::GetBoolean("Camera Tuning", false);
 		if (tuning) {
-			SmartDashboard::PutNumber("Camera Area", area);
-			SmartDashboard::PutNumber("Camera Width", width);
-			SmartDashboard::PutNumber("Camera Height", height);
-			SmartDashboard::PutNumber("Camera PosX", posx);
-			SmartDashboard::PutNumber("Camera PosY", posy);
-			SmartDashboard::PutNumber("Camera Angle Actual", angle_actual);
-			SmartDashboard::PutNumber("Camera Dist to Target Hyp",camDistToTargetHyp_actual);
-			SmartDashboard::PutNumber("Camera Dist To Target X",camDistToTargetX_actual);
-			SmartDashboard::PutNumber("Camera Dist To Target Y",camDistToTargetY_actual);
-			SmartDashboard::PutNumber("Robot  Dist To Target X",robotDistToTargetX_actual);
-			SmartDashboard::PutNumber("Robot  Dist To Target Y",robotDistToTargetY_actual);
+			SmartDashboard::PutNumber("Camera Area", m_targets[m_activeTarget].area);
+			SmartDashboard::PutNumber("Camera Width", m_targets[m_activeTarget].width);
+			SmartDashboard::PutNumber("Camera Height", m_targets[m_activeTarget].height);
+			SmartDashboard::PutNumber("Camera PosX", m_targets[m_activeTarget].x);
+			SmartDashboard::PutNumber("Camera PosY", m_targets[m_activeTarget].y);
 		}
-		SmartDashboard::PutNumber("Target Angle (relative)", angle);
 
-		m_angle = angle;
 		m_targetVisible = true;
 	}
-	if(-CAMERA_TOLERANCE < m_angle && m_angle < CAMERA_TOLERANCE){
+	if(-CAMERA_TOLERANCE < getAngle() && getAngle() < CAMERA_TOLERANCE){
 			SmartDashboard::PutBoolean("Camera on Target", m_targetVisible);
 			m_onTarget = m_targetVisible;
 		}
@@ -143,6 +155,44 @@ void CameraProcessor::calculate(){
 			SmartDashboard::PutBoolean("Camera on Target", false);
 			m_onTarget = false;
 		}
+}
+
+//void CameraProcessor::calculateDistanceAndAngleOfTarget(double posx,  double width, double& angle, double& distance) {
+void CameraProcessor::calculateDistanceAndAngleOfTarget(Target& target) {
+	target.x = (target.x - k_resX/2.0);		//X position of target from center of Camera in pixels
+
+	double camDistToTargetY = (k_tWidthIn*k_resX)/(2.0 * target.width * tan(k_FOV*(M_PI/180)/2.0));		//hypotenuse distance from camera to Target in inches (Dc)
+	double camDistToTargetX = target.x*((double)k_tWidthIn/(double)target.width);	//Camera's distance to the Target on the X-axis (Parallel to target)(Wc)
+	double camDistToTargetHyp = sqrt(pow(camDistToTargetY,2) + pow(camDistToTargetX,2));	//Camera's distance to the Target on the Y-axis (perpendicular to target)(Dr)
+	double camera_angle = atan2(camDistToTargetY,camDistToTargetX) * (180/M_PI);
+	camera_angle = 90 - camera_angle;
+
+
+	double angle_actual = m_OffsetAngle + camera_angle;
+	double camDistToTargetY_actual = (camDistToTargetHyp * cos(angle_actual * M_PI/180));
+	double camDistToTargetX_actual = (camDistToTargetHyp * sin(angle_actual * M_PI/180));
+	double camDistToTargetHyp_actual = sqrt(pow(camDistToTargetY_actual,2) + pow(camDistToTargetX_actual,2));
+
+//		double robotDistToTargetX = camDistToTargetX + k_xOffset;		//Robot's distance to the Target on the X-axis (Wr)
+
+//		angle = atan2(robotDistToTargetX,robotDistToTargetY) * 180/3.14159265;		//angle from X-axis of Robot
+	double robotDistToTargetX_actual = camDistToTargetX_actual + k_xOffset;
+	double robotDistToTargetY_actual = camDistToTargetY_actual + k_yOffset;
+	//double robotDistToTargetX = camDistToTargetX - k_xOffset;		//Robot's distance to the Target on the X-axis (Wr)
+	//double robotDistToTargetY = camDistToTargetY - k_yOffset;		//Robot's distance to the Target on the Y-axis (Lr)
+	target.angle = atan2(robotDistToTargetY_actual,robotDistToTargetX_actual) * (180/M_PI);		//angle from X-axis of Robot
+	target.angle = 90 - target.angle;
+	target.distance = camDistToTargetHyp;
+
+	bool tuning = SmartDashboard::GetBoolean("Camera Tuning", false);
+	if (tuning) {
+		SmartDashboard::PutNumber("Camera Angle Actual", angle_actual);
+		SmartDashboard::PutNumber("Camera Dist to Target Hyp",camDistToTargetHyp_actual);
+		SmartDashboard::PutNumber("Camera Dist To Target X",camDistToTargetX_actual);
+		SmartDashboard::PutNumber("Camera Dist To Target Y",camDistToTargetY_actual);
+		SmartDashboard::PutNumber("Robot  Dist To Target X",robotDistToTargetX_actual);
+		SmartDashboard::PutNumber("Robot  Dist To Target Y",robotDistToTargetY_actual);
+	}
 }
 
 bool CameraProcessor::isOnTarget() {
@@ -155,4 +205,11 @@ void CameraProcessor::incOffsetAngle() {
 
 void CameraProcessor::decOffSetAngle() {
 	m_OffsetAngle -= .5;
+}
+
+void CameraProcessor::lockOnTarget(target_type_t target) {
+	//FIXME: Only allow left and right for now.
+	if (target < TARGET_TYPE_SIZE - 1) {
+		m_activeTarget = target;
+	}
 }
