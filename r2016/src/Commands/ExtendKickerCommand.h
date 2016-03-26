@@ -16,6 +16,7 @@ public:
 		m_onTargetCounter = 0;
 	}
 	void Initialize(){
+		SetTimeout(1);
 		m_skip = true;
 		m_onTargetCounter = 0;
 	}
@@ -23,7 +24,7 @@ public:
 		if (!intake->IsLowered()) {
 			kicker->Extend();
 			m_skip = false;
-			if (kicker->GetCurrentDraw() >= 10) {
+			if (kicker->GetCurrentDraw() >= 20) {
 				m_onTargetCounter++;
 			}
 			else {
@@ -35,7 +36,7 @@ public:
 		}
 	}
 	bool IsFinished(){
-		return m_onTargetCounter >= 50 || m_skip;
+		return m_onTargetCounter >= 5 || m_skip || IsTimedOut();
 	}
 	void End(){
 		kicker->Stop();

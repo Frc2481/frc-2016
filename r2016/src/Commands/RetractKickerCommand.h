@@ -11,16 +11,19 @@ public:
 		Requires(kicker.get());
 	}
 	void Initialize(){
+		SetTimeout(1);
 		kicker->Retract();
 	}
 	void Execute(){}
 	bool IsFinished(){
-		return kicker->GetCurrentDraw() >= 10;
+		return kicker->GetCurrentDraw() >= 10 || IsTimedOut();
 	}
 	void End(){
 		kicker->Stop();
 	}
-	void Interrupted(){}
+	void Interrupted(){
+		End();
+	}
 };
 
 #endif

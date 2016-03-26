@@ -17,8 +17,8 @@
 //Intake
 #define INTAKE_MOTOR 4
 #define INTAKE_EXTENDER 1
-#define INTAKE_FWD_SPD .75
-#define INTAKE_REV_SPD -.75
+#define INTAKE_FWD_SPD 1
+#define INTAKE_REV_SPD -1
 
 //Lift
 #define LIFT_MOTOR 7
