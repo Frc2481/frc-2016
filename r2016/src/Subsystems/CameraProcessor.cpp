@@ -105,12 +105,12 @@ void CameraProcessor::calculate(){
 			target.area = areas[i];
 
 			//Keep track of the left most target.
-			if (centerXs[i] < m_targets[LEFT_TARGET].x) {
+			if (centerXs[i] < m_targets[LEFT_TARGET].x || i == 0) {
 				m_targets[LEFT_TARGET] = target;
 			}
 
 			//Keep track of the right most target.
-			if (centerXs[i] > m_targets[RIGHT_TARGET].x) {
+			if (centerXs[i] > m_targets[RIGHT_TARGET].x || i == 0) {
 				m_targets[RIGHT_TARGET] = target;
 			}
 
@@ -121,15 +121,17 @@ void CameraProcessor::calculate(){
 		}
 
 		//If one of the targets is vastly larger than the other then ignore the small one regardless.
-		if (areas.size() == 2) {
-			double ratio = m_targets[AUTO_TARGET].area / m_targets[RIGHT_TARGET].area;
-			if (ratio < 1 - k_sizeTolerance) {
-				m_targets[LEFT_TARGET] = m_targets[RIGHT_TARGET];
-			}
-			else if (ratio > 1 + k_sizeTolerance) {
-				m_targets[RIGHT_TARGET] = m_targets[LEFT_TARGET];
-			}
-		}
+//		if (areas.size() == 2) {
+//			double ratio = m_targets[LEFT_TARGET].area / m_targets[RIGHT_TARGET].area;
+//			if (ratio < 1 - k_sizeTolerance) {
+//				printf("RIGHT %f %f %f\n", ratio, m_targets[LEFT_TARGET].area, m_targets[RIGHT_TARGET].area);
+//				m_targets[LEFT_TARGET] = m_targets[RIGHT_TARGET];
+//			}
+//			else if (ratio > 1 + k_sizeTolerance) {
+//				printf("LEFT %f %f %f\n", ratio, m_targets[LEFT_TARGET].area, m_targets[RIGHT_TARGET].area);
+//				m_targets[RIGHT_TARGET] = m_targets[LEFT_TARGET];
+//			}
+//		}
 
 		//If there are more than 2 targets ignore all but the largest.
 		if (areas.size() > 2) {
@@ -227,13 +229,24 @@ void CameraProcessor::lockOnTarget(target_type_t target) {
 
 void CameraProcessor::calculateSteadyCount() {
 	if (m_targetVisible &&
-			m_prevTargets[LEFT_TARGET] == m_targets[LEFT_TARGET] &&
-			m_prevTargets[RIGHT_TARGET] == m_targets[RIGHT_TARGET] &&
-			m_prevTargets[AUTO_TARGET] == m_targets[AUTO_TARGET]) {
+			(m_prevTargets[LEFT_TARGET] == m_targets[LEFT_TARGET] ||
+			m_prevTargets[RIGHT_TARGET] == m_targets[RIGHT_TARGET])) {
 		m_steadyCount++;
 	}
 	else {
 		m_steadyCount = 0;
+//		printf("PREV: %f ", m_prevTargets[LEFT_TARGET].x);
+//		printf(" %f ", m_prevTargets[LEFT_TARGET].area);
+//		printf(" %f ", m_prevTargets[RIGHT_TARGET].x);
+//		printf(" %f ", m_prevTargets[RIGHT_TARGET].area);
+//		printf(" %f ", m_prevTargets[AUTO_TARGET].x);
+//		printf(" %f\n", m_prevTargets[AUTO_TARGET].area);
+//		printf("CUR: %f ", m_targets[LEFT_TARGET].x);
+//		printf(" %f ", m_targets[LEFT_TARGET].area);
+//		printf(" %f ", m_targets[RIGHT_TARGET].x);
+//		printf(" %f ", m_targets[RIGHT_TARGET].area);
+//		printf(" %f ", m_targets[AUTO_TARGET].x);
+//		printf(" %f\n", m_targets[AUTO_TARGET].area);
 	}
 
 	for (int i = 0; i < TARGET_TYPE_SIZE; ++i) {
@@ -242,5 +255,5 @@ void CameraProcessor::calculateSteadyCount() {
 }
 
 bool CameraProcessor::isCameraSteady() {
-	return m_steadyCount > 3;
+	return m_steadyCount > 20;
 }

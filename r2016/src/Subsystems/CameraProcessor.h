@@ -48,7 +48,7 @@ private:
 	const int k_tHeightIn = 12;
 	const double k_xOffset = -11.0;
 	const double k_yOffset = -8.5;
-	const double k_sizeTolerance = 0.1;
+	const double k_sizeTolerance = 0.3;
 	double m_OffsetAngle = .5;
 	bool m_targetVisible;
 	bool m_onTarget;
