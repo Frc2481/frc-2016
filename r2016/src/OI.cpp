@@ -24,6 +24,7 @@
 #include "Commands/DecrementShooterSpeedCommand.h"
 #include "Commands/IncShooterSpeedCommand.h"
 #include "Commands/IncrementCameraOffsetCommand.h"
+#include "Commands/CameraRotateCommandGroup.h"
 
 OI::OI() {
 	driveStick = new Joystick2481(0);
@@ -47,8 +48,11 @@ OI::OI() {
 	intakeRevButton->WhenPressed(new TurnIntakeOnRevCommand());
 	intakeRevButton->WhenReleased(new StopIntakeCommand());
 
-	rotateToAngleCam = new CAMERA_ROTATE_BUTTON;
-	rotateToAngleCam->WhenPressed(new RotateToAngleFromCameraCommand());
+	rotateToRightAngleCam = new LOCK_ON_TARGET_RIGHT_BUTTON;
+	rotateToRightAngleCam->WhenPressed(new CameraRotateCommandGroup(CameraProcessor::RIGHT_TARGET));
+
+	rotateToLeftAngleCam = new LOCK_ON_TARGET_LEFT_BUTTON;
+	rotateToLeftAngleCam->WhenPressed(new CameraRotateCommandGroup(CameraProcessor::LEFT_TARGET));
 
 	driveTrainShift = new DRIVE_TRAIN_SHIFT_BUTTON;
 	driveTrainShift->WhenPressed(new ShiftDriveTrainCommand(true));
@@ -67,8 +71,8 @@ OI::OI() {
 	waitForBallTest = new TEST_INTAKE_WAIT_BUTTON;
 	waitForBallTest->WhenPressed(new WaitForBallTestCommandGroup());
 
-	portcullisTraverse = new PORTCULLIS_BUTTON;
-	portcullisTraverse->WhenPressed(new TraversePortcullisCommandGroup());
+//	portcullisTraverse = new PORTCULLIS_BUTTON;
+//	portcullisTraverse->WhenPressed(new TraversePortcullisCommandGroup());
 
 	shooterRevButton = new REVERSE_SHOOTER_BUTTON;
 	shooterRevButton->WhenPressed(new UnClogCommandGroup());

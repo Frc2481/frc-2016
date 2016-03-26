@@ -15,10 +15,11 @@
 
 //Drive Stick
 #define INTAKE_BUTTON AnalogJoystickButton(driveStick, XboxController::xbRightTrigger, .5)
-#define CAMERA_ROTATE_BUTTON JoystickButton(driveStick, XboxController::xbAButton)
+#define LOCK_ON_TARGET_RIGHT_BUTTON JoystickButton(driveStick, XboxController::xbAButton)
+#define LOCK_ON_TARGET_LEFT_BUTTON JoystickButton(driveStick,XboxController::xbXButton)
 #define DRIVE_TRAIN_SHIFT_BUTTON JoystickButton(driveStick, XboxController::xbLeftBumper)
 #define INTAKE_REVERSE_BUTTON JoystickButton(driveStick, XboxController::xbBButton)
-#define PORTCULLIS_BUTTON JoystickButton(driveStick, XboxController::xbXButton)
+//#define PORTCULLIS_BUTTON JoystickButton(driveStick, XboxController::xbXButton)
 #define STOP_SPIN_BUTTON JoystickButton(driveStick, XboxController::xbBackButton)
 
 //Operator Stick
