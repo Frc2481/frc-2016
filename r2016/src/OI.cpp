@@ -29,7 +29,7 @@
 OI::OI() {
 	driveStick = new Joystick2481(0);
 	operatorStick = new Joystick2481(1);
-	debugStick = new Joystick(2);
+	//debugStick = new Joystick(2);
 
 	intakeButton = new INTAKE_BUTTON;
 	intakeButton->WhenPressed(new IntakeBallCommandGroup());
@@ -58,9 +58,8 @@ OI::OI() {
 	driveTrainShift->WhenPressed(new ShiftDriveTrainCommand(true));
 	driveTrainShift->WhenReleased(new ShiftDriveTrainCommand(false));
 
-
-	rotateToAngleNoCam = new NO_CAMERA_ROTATE_BUTTON;
-	rotateToAngleNoCam->WhileHeld(new RotateToAngleCommand(90));
+//	rotateToAngleNoCam = new NO_CAMERA_ROTATE_BUTTON;
+//	rotateToAngleNoCam->WhileHeld(new RotateToAngleCommand(90));
 
 	fireBall = new FIRE_BALL_BUTTON;
 	fireBall->WhenPressed(new FireBallCommandGroup(true));
@@ -68,8 +67,8 @@ OI::OI() {
 	changeShooterAngle = new TOGGLE_SHOOTER_ANGLE_BUTTON;
 	changeShooterAngle->WhenPressed(new ToggleShooterPositionCommand());
 
-	waitForBallTest = new TEST_INTAKE_WAIT_BUTTON;
-	waitForBallTest->WhenPressed(new WaitForBallTestCommandGroup());
+//	waitForBallTest = new TEST_INTAKE_WAIT_BUTTON;
+//	waitForBallTest->WhenPressed(new WaitForBallTestCommandGroup());
 
 //	portcullisTraverse = new PORTCULLIS_BUTTON;
 //	portcullisTraverse->WhenPressed(new TraversePortcullisCommandGroup());
@@ -109,6 +108,6 @@ Joystick2481* OI::GetOperatorStick() {
 	return operatorStick;
 }
 
-Joystick* OI::GetDebugStick() {
-	return debugStick;
-}
+//Joystick* OI::GetDebugStick() {
+//	return debugStick;
+//}
