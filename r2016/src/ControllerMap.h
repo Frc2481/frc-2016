@@ -36,7 +36,7 @@
 #define OPERATOR_REV_INTAKE_BUTTON AnalogJoystickButton(operatorStick, XboxController::xbLeftTrigger, .5)
 
 //Debug Stick
-#define NO_CAMERA_ROTATE_BUTTON JoystickButton(debugStick, XboxController::xbBButton)
-#define TEST_INTAKE_WAIT_BUTTON JoystickButton(debugStick, XboxController::xbAButton)
+//#define NO_CAMERA_ROTATE_BUTTON JoystickButton(debugStick, XboxController::xbBButton)
+//#define TEST_INTAKE_WAIT_BUTTON JoystickButton(debugStick, XboxController::xbAButton)
 
 #endif /* SRC_CONTROLLERMAP_H_ */

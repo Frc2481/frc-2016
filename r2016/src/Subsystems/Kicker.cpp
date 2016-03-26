@@ -18,7 +18,7 @@ void Kicker::Extend() {
 }
 
 void Kicker::Retract() {
-	m_kicker->Set(1);
+	m_kicker->Set(.2);
 	m_isExtended = false;
 }
 
@@ -31,6 +31,7 @@ bool Kicker::IsExtended() {
 }
 
 void Kicker::Periodic() {
+
 	SmartDashboard::PutNumber("Kicker Output Current", m_kicker->GetOutputCurrent());
 	SmartDashboard::PutNumber("Kicker Output Current", m_kicker->GetOutputCurrent());
 	SmartDashboard::PutNumber("Kicker Speed", m_kicker->GetSpeed());
