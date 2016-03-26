@@ -19,7 +19,15 @@ CameraProcessor::CameraProcessor() : SubsystemBase("CameraProcessor") {
 	m_prevOwlCounter = 0;
 	m_robotCounter = 0;
 	m_activeTarget = RIGHT_TARGET;
+	m_steadyCount = 0;
 	SmartDashboard::PutBoolean("Camera Tuning", false);
+
+	//Zero out all the targets.
+	Target t{};
+	for (int i = 0; i < TARGET_TYPE_SIZE; ++i) {
+		m_targets[i] = t;
+		m_prevTargets[i] = t;
+	}
 }
 
 CameraProcessor::~CameraProcessor() {
@@ -52,6 +60,7 @@ void CameraProcessor::Periodic() {
 	SmartDashboard::PutNumber("Camera Offset Angle", m_OffsetAngle);
 	SmartDashboard::PutBoolean("Target in Range", m_targets[m_activeTarget].distance > m_shotRange);
 	SmartDashboard::PutNumber("Target Angle (relative)", m_targets[m_activeTarget].angle);
+	SmartDashboard::PutBoolean("Camera Stable", isCameraSteady());
 }
 
 bool CameraProcessor::isTargetAvailable(){
@@ -147,6 +156,9 @@ void CameraProcessor::calculate(){
 
 		m_targetVisible = true;
 	}
+
+	calculateSteadyCount();
+
 	if(-CAMERA_TOLERANCE < getAngle() && getAngle() < CAMERA_TOLERANCE){
 			SmartDashboard::PutBoolean("Camera on Target", m_targetVisible);
 			m_onTarget = m_targetVisible;
@@ -157,7 +169,6 @@ void CameraProcessor::calculate(){
 		}
 }
 
-//void CameraProcessor::calculateDistanceAndAngleOfTarget(double posx,  double width, double& angle, double& distance) {
 void CameraProcessor::calculateDistanceAndAngleOfTarget(Target& target) {
 	target.x = (target.x - k_resX/2.0);		//X position of target from center of Camera in pixels
 
@@ -212,4 +223,24 @@ void CameraProcessor::lockOnTarget(target_type_t target) {
 	if (target < TARGET_TYPE_SIZE - 1) {
 		m_activeTarget = target;
 	}
+}
+
+void CameraProcessor::calculateSteadyCount() {
+	if (m_targetVisible &&
+			m_prevTargets[LEFT_TARGET] == m_targets[LEFT_TARGET] &&
+			m_prevTargets[RIGHT_TARGET] == m_targets[RIGHT_TARGET] &&
+			m_prevTargets[AUTO_TARGET] == m_targets[AUTO_TARGET]) {
+		m_steadyCount++;
+	}
+	else {
+		m_steadyCount = 0;
+	}
+
+	for (int i = 0; i < TARGET_TYPE_SIZE; ++i) {
+		m_prevTargets[i] = m_targets[i];
+	}
+}
+
+bool CameraProcessor::isCameraSteady() {
+	return m_steadyCount > 3;
 }

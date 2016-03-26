@@ -16,6 +16,7 @@ public:
 
 	class Target {
 	public:
+		static const int k_pixelTolerance = 2;
 		double width;
 		double height;
 		double area;
@@ -23,6 +24,13 @@ public:
 		double y;
 		double distance;
 		double angle;
+		bool operator==(const Target& other) {
+			if (fabs(x - other.x) < k_pixelTolerance &&
+					fabs(y - other.y) < k_pixelTolerance) {
+				return true;
+			}
+			return false;
+		}
 	};
 
 	enum target_type_t{
@@ -45,6 +53,8 @@ private:
 	bool m_targetVisible;
 	bool m_onTarget;
 	Target m_targets[TARGET_TYPE_SIZE];
+	Target m_prevTargets[TARGET_TYPE_SIZE];
+	int m_steadyCount;
 
 	int m_prevOwlCounter;
 	int m_owlMissingCounter;
@@ -67,6 +77,8 @@ public:
 	void SetLight(bool state);
 	void Periodic();
 	void lockOnTarget(target_type_t target);
+	void calculateSteadyCount();
+	bool isCameraSteady();
 };
 
 #endif /* SRC_SUBSYSTEMS_CAMERAPROCESSOR_H_ */
