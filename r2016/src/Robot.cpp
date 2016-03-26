@@ -26,6 +26,9 @@
 #include "Commands/ToggleGameOverCommand.h"
 #include "Commands/GeneratedAutoBatterShotsCommandGroup.h"
 #include "Commands/SpyBotTwoBallAutoCommandGroup.h"
+
+#include "Commands/TestRunMotionProfileCommand.h"
+
 #include "CommandBase.h"
 
 class Robot: public IterativeRobot
@@ -116,6 +119,8 @@ private:
 		SmartDashboard::PutBoolean("Shooter on Target", false);
 		SmartDashboard::PutNumber("Camera Scale", 1.35275);
 		SmartDashboard::PutNumber("Desired Shooter Speed", CommandBase::shooter->GetDesiredSpeed());
+
+		SmartDashboard::PutData("TEST Motion Profile", new TestRunMotionProfileCommand());
 	}
 
 	void DisabledInit()
