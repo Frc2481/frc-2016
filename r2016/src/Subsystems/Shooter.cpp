@@ -8,21 +8,16 @@ Shooter::Shooter() :
 	m_shooterDistance = 0;
 	m_shooterSpeed = 3100;
 	m_onTargetCounter = 0;
+	m_highPosition = true;
 	m_shooterWheel = new CANTalon(SHOOTER_MOTOR);
 	m_shooterWheel->SetClosedLoopOutputDirection(true);
 	m_shooterAdjuster = new Solenoid(SHOOTER_ANGLE_ADJUST);
 	SmartDashboard::PutBoolean("Shooter Tuning", false);
-	double kp = RoboPreferences::GetInstance()->GetDouble("Shooter_kP", 0.9);
-	double ki = RoboPreferences::GetInstance()->GetDouble("Shooter_kI", .00004);
-	double kd = RoboPreferences::GetInstance()->GetDouble("Shooter_kD", 0);
-	double kf = RoboPreferences::GetInstance()->GetDouble("Shooter_kF", 0);
-	double kIZone = RoboPreferences::GetInstance()->GetDouble("Shooter_kIZone", 0);
+	m_shooterWheel->SelectProfileSlot(0);
 	m_shooterWheel->SetControlMode(CANTalon::kSpeed);
-	m_shooterWheel->SetPID(kp, ki, kd, kf);
-	m_shooterWheel->ConfigEncoderCodesPerRev(1024);
+	m_shooterWheel->SetPID(2.04, 0.0, 0.0, .03589);
 	m_shooterWheel->SetFeedbackDevice(CANTalon::CtreMagEncoder_Relative);
-	m_shooterWheel->SetSensorDirection(true);\
-	m_shooterWheel->SetIzone(kIZone);
+	m_shooterWheel->SetSensorDirection(true);
 }
 
 void Shooter::InitDefaultCommand()
@@ -30,18 +25,6 @@ void Shooter::InitDefaultCommand()
 }
 
 void Shooter::Periodic() {
-	bool tuning = SmartDashboard::GetBoolean("Shooter Tuning", false);
-	if (tuning){
-		double kp = RoboPreferences::GetInstance()->GetDouble("Shooter_kP", 0.9);
-		double ki = RoboPreferences::GetInstance()->GetDouble("Shooter_kI", .00004);
-		double kd = RoboPreferences::GetInstance()->GetDouble("Shooter_kD", 0);
-		double kf = RoboPreferences::GetInstance()->GetDouble("Shooter_kF", 0);
-		double kIZone = RoboPreferences::GetInstance()->GetDouble("Shooter_kIZone", 0);
-
-		m_shooterWheel->SetPID(kp, ki, kd, kf);
-		m_shooterWheel->SetIzone(kIZone);
-	}
-
 	SmartDashboard::PutNumber("Shooter Motor", m_shooterWheel->GetSpeed());
 	SmartDashboard::PutNumber("Shooter Enc Vel", m_shooterWheel->GetEncVel());
 	SmartDashboard::PutNumber("Shooter Error", m_shooterWheel->GetClosedLoopError());
