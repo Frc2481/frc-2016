@@ -3,7 +3,7 @@
 #include "../RoboPreferences.h"
 
 Shooter::Shooter() :
-		SubsystemBase("Shooter")
+		SubsystemBase("Shooter"), m_notifier(&Shooter::PeriodicTask, this)
 {
 	m_shooterDistance = 0;
 	m_shooterSpeed = 3100;
@@ -18,6 +18,8 @@ Shooter::Shooter() :
 	m_shooterWheel->SetPID(2.04, 0.0, 0.0, .03589);
 	m_shooterWheel->SetFeedbackDevice(CANTalon::CtreMagEncoder_Relative);
 	m_shooterWheel->SetSensorDirection(true);
+	//TODO: Move to DriveTrain once Working
+	m_notifier.StartPeriodic(0.005);
 }
 
 void Shooter::InitDefaultCommand()
@@ -32,6 +34,11 @@ void Shooter::Periodic() {
 	SmartDashboard::PutBoolean("Shooter High Position", m_highPosition);
 	SmartDashboard::PutBoolean("Shooter on Target", IsOnTarget());
 	SmartDashboard::PutNumber("Shooter Current", m_shooterWheel->GetOutputCurrent());
+
+	CANTalon::MotionProfileStatus motionProfileStatus;
+	m_shooterWheel->GetMotionProfileStatus(motionProfileStatus);
+	SmartDashboard::PutBoolean("Shooter Motion Profile is Underrun",motionProfileStatus.isUnderrun);
+
 }
 
 void Shooter::TurnOff(){
@@ -87,7 +94,7 @@ bool Shooter::IsOnTarget() {
 		m_onTargetCounter = 0;
 	}
 
-	return m_onTargetCounter > 5;
+	return m_onTargetCounter > 10;
 }
 
 bool Shooter::GetPosition() {
@@ -102,3 +109,53 @@ void Shooter::decShooterSpeed() {
 	m_shooterSpeed -= 100;
 }
 
+//TODO: Move to DriveTrain once working
+void Shooter::PeriodicTask(){
+	m_shooterWheel->ProcessMotionProfileBuffer();
+}
+
+void Shooter::ResetMotionControl() {
+	m_shooterWheel->ClearMotionProfileTrajectories();
+}
+
+void Shooter::StartFilling(){
+	StartFilling(kMotionProfile,kMotionProfilesz);
+}
+
+void Shooter::StartMotionProfile() {
+	m_shooterWheel->SetControlMode(CANTalon::kMotionProfile);
+	m_shooterWheel->Set(CANTalon::SetValueMotionProfileEnable);
+}
+
+void Shooter::StopMotionProfile() {
+	m_shooterWheel->SetControlMode(CANTalon::kSpeed);
+}
+
+void Shooter::StartFilling(const double profile[][3],int totalCnt){
+	CANTalon::TrajectoryPoint point;
+	//TODO: Handle Underrun
+
+	m_shooterWheel->ClearMotionProfileTrajectories();
+
+	for (int i; i < totalCnt; i++){
+		point.position = profile[i][0];
+		point.velocity = profile[i][1];
+		point.timeDurMs = profile[i][2];
+
+		point.profileSlotSelect = 1;
+		point.velocityOnly = false;
+		point.zeroPos = false;
+
+		if(i == 0){
+			point.zeroPos = true;
+		}
+
+		point.isLastPoint = false;
+
+		if (i + 1 == totalCnt){
+			point.isLastPoint = true;
+		}
+
+		m_shooterWheel->PushMotionProfileTrajectory(point);
+	}
+}

@@ -3,12 +3,14 @@
 
 #include "WPILib.h"
 #include <SubsystemBase.h>
+#include "../MotionProfiles/TESTMotionProfile.h"
 
 class Shooter: public SubsystemBase
 {
 private:
 	CANTalon* m_shooterWheel;
 	Solenoid* m_shooterAdjuster;
+	Notifier m_notifier;
 	bool m_highPosition;
 	double m_shooterDistance;
 	double m_shooterSpeed;
@@ -35,6 +37,14 @@ public:
 	void SetHighPosition();
 	void SetLowPosition();
 	bool GetPosition();
+
+	//TODO: move to DriveTrain once working
+	void PeriodicTask();
+	void ResetMotionControl();
+	void StartMotionProfile();
+	void StopMotionProfile();
+	void StartFilling();
+	void StartFilling(const double profile[][3],int totalCnt);
 };
 
 #endif
