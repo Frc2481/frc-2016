@@ -2,6 +2,7 @@
 #define TestRunMotionProfileCommand_H
 
 #include "../CommandBase.h"
+#include "../MotionProfiles/Instrumentation.h"
 #include "WPILib.h"
 
 class TestRunMotionProfileCommand: public CommandBase
@@ -11,13 +12,14 @@ public:
 		Requires(shooter.get());
 	}
 	void Initialize(){
-		shooter->StartFilling();
 		shooter->StartMotionProfile();
+
 	}
 	void Execute(){
+		shooter->PeriodicMotionProfile();
 	}
 	bool IsFinished(){
-		return false;
+		return shooter->IsMPFinished();
 	}
 	void End(){
 		shooter->StopMotionProfile();

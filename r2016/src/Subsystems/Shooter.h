@@ -3,6 +3,7 @@
 
 #include "WPILib.h"
 #include <SubsystemBase.h>
+#include "../MotionProfiles/Instrumentation.h"
 #include "../MotionProfiles/TESTMotionProfile.h"
 
 class Shooter: public SubsystemBase
@@ -15,6 +16,17 @@ private:
 	double m_shooterDistance;
 	double m_shooterSpeed;
 	int m_onTargetCounter;
+
+	//TODO: move to DriveTrain once working
+	//MP Variables
+	const int kNumLoopsTimeoutMP = 10;
+	const int kMinPointsInTalonMP = 5;
+
+	unsigned int m_loopTimeoutMP;
+	int m_stateMP;
+	bool m_startMP;
+	CANTalon::SetValueMotionProfile m_setValueMP;
+	CANTalon::MotionProfileStatus m_motionProfileStatus;
 
 public:
 	Shooter();
@@ -40,10 +52,13 @@ public:
 
 	//TODO: move to DriveTrain once working
 	void PeriodicTask();
+	void PeriodicMotionProfile();
 	void ResetMotionControl();
 	void StartMotionProfile();
 	void StopMotionProfile();
 	void StartFilling();
+	bool IsMPFinished();
+	CANTalon::SetValueMotionProfile getSetValue();
 	void StartFilling(const double profile[][3],int totalCnt);
 };
 
