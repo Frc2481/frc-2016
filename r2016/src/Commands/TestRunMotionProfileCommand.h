@@ -16,7 +16,7 @@ public:
 
 	}
 	void Execute(){
-		shooter->PeriodicMotionProfile();
+//		shooter->PeriodicMotionProfile();
 	}
 	bool IsFinished(){
 		return shooter->IsMPFinished();

@@ -19,7 +19,7 @@ Shooter::Shooter() :
 	m_shooterWheel->SetFeedbackDevice(CANTalon::CtreMagEncoder_Relative);
 	m_shooterWheel->SetSensorDirection(true);
 	//TODO: Move to DriveTrain once Working
-//	m_notifier.StartPeriodic(0.005);
+	m_notifier.StartPeriodic(0.005);
 	m_loopTimeoutMP = -1;
 }
 
@@ -35,7 +35,7 @@ void Shooter::Periodic() {
 	SmartDashboard::PutBoolean("Shooter High Position", m_highPosition);
 	SmartDashboard::PutBoolean("Shooter on Target", IsOnTarget());
 	SmartDashboard::PutNumber("Shooter Current", m_shooterWheel->GetOutputCurrent());
-//	PeriodicMotionProfile();
+	PeriodicMotionProfile();
 }
 
 void Shooter::TurnOff(){
@@ -43,6 +43,7 @@ void Shooter::TurnOff(){
 }
 
 void Shooter::SetShooterSpeed(bool forward) {
+	m_shooterWheel->SetControlMode(CANTalon::kSpeed);
 	if (forward){
 		m_shooterWheel->Enable();
 		m_shooterWheel->Set(m_shooterSpeed);
@@ -120,12 +121,14 @@ void Shooter::StartFilling(){
 }
 
 void Shooter::StartMotionProfile() {
+	m_shooterWheel->Enable();
 	m_shooterWheel->SetControlMode(CANTalon::kMotionProfile);
 	m_startMP = true;
 }
 
 void Shooter::StopMotionProfile() {
-	m_shooterWheel->SetControlMode(CANTalon::kSpeed);
+	m_shooterWheel->Set(CANTalon::SetValueMotionProfileDisable);
+//	m_shooterWheel->SetControlMode(CANTalon::kSpeed);
 }
 
 void Shooter::PeriodicMotionProfile(){
@@ -148,7 +151,8 @@ void Shooter::PeriodicMotionProfile(){
 			if (m_startMP){
 				m_startMP = false;
 
-				m_setValueMP = CANTalon::SetValueMotionProfileDisable;
+//				m_setValueMP = CANTalon::SetValueMotionProfileDisable;
+				m_shooterWheel->Set(CANTalon::SetValueMotionProfileDisable);
 				StartFilling();
 
 				m_stateMP = 1;
@@ -157,7 +161,8 @@ void Shooter::PeriodicMotionProfile(){
 			break;
 		case 1:
 			if(m_motionProfileStatus.btmBufferCnt > kMinPointsInTalonMP){
-				m_setValueMP = CANTalon::SetValueMotionProfileEnable;
+//				m_setValueMP = CANTalon::SetValueMotionProfileEnable;
+				m_shooterWheel->Set(CANTalon::SetValueMotionProfileEnable);
 				m_stateMP = 2;
 				m_loopTimeoutMP = kNumLoopsTimeoutMP;
 			}
@@ -168,14 +173,15 @@ void Shooter::PeriodicMotionProfile(){
 			}
 
 			if(m_motionProfileStatus.activePointValid && m_motionProfileStatus.activePoint.isLastPoint){
-				m_setValueMP = CANTalon::SetValueMotionProfileHold;
+//				m_setValueMP = CANTalon::SetValueMotionProfileHold;
+				m_shooterWheel->Set(CANTalon::SetValueMotionProfileHold);
 				m_stateMP = 0;
 				m_loopTimeoutMP = -1;
 			}
 			break;
 		}
 	}
-	m_shooterWheel->Set(m_setValueMP);
+//	m_shooterWheel->Set(m_setValueMP);
 	instrumentation::Process(m_motionProfileStatus);
 }
 
@@ -196,14 +202,13 @@ void Shooter::StartFilling(const double profile[][3],int totalCnt){
 
 		point.profileSlotSelect = 0;
 		point.velocityOnly = false;
-		point.zeroPos = false;
 
+		point.zeroPos = false;
 		if(i == 0){
 			point.zeroPos = true;
 		}
 
 		point.isLastPoint = false;
-
 		if (i + 1 == totalCnt){
 			point.isLastPoint = true;
 		}
@@ -213,5 +218,5 @@ void Shooter::StartFilling(const double profile[][3],int totalCnt){
 }
 
 CANTalon::SetValueMotionProfile Shooter::getSetValue(){
-	return m_setValueMP;
+	return CANTalon::SetValueMotionProfileDisable; //m_setValueMP;
 }

@@ -25,7 +25,7 @@ private:
 	unsigned int m_loopTimeoutMP;
 	int m_stateMP;
 	bool m_startMP;
-	CANTalon::SetValueMotionProfile m_setValueMP;
+//	CANTalon::SetValueMotionProfile m_setValueMP;
 	CANTalon::MotionProfileStatus m_motionProfileStatus;
 
 public:
