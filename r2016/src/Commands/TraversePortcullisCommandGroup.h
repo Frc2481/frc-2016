@@ -14,11 +14,12 @@ class TraversePortcullisCommandGroup: public CommandGroup
 {
 public:
 	TraversePortcullisCommandGroup() : CommandGroup("TraversePortcullisCommandGroup"){
-		AddSequential(new AutoDriveCommand(0,0,2));
+		AddSequential(new AutoDriveCommand(0,0,1));
+		AddSequential(new AutoDriveCommand(-.5,-.5,.25));
 		AddSequential(new ToggleShooterPositionCommand());
 		AddSequential(new LowerIntakeCommand());
-		AddSequential(new WaitCommand(.5));
-		AddSequential(new AutoDriveCommand(.25,.25,1));
+		AddSequential(new WaitCommand(2));
+		AddSequential(new AutoDriveCommand(.25,.25,1.5));
 		AddSequential(new RaiseIntakeCommand());
 		AddSequential(new WaitCommand(.5));
 		AddSequential(new AutoDriveCommand(.25,.25,.5));
