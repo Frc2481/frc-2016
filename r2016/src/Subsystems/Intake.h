@@ -16,6 +16,7 @@ private:
 	CANTalon* m_intakeMotor;
 	Solenoid* m_extender;
 	int m_stalledCounter;
+	double m_intakeSpeed;
 public:
 	Intake();
 	virtual ~Intake();
@@ -24,6 +25,7 @@ public:
 	void SetSpeed(double spd);
 	void TurnOff();
 	double GetIntakeCurrent();
+	double GetIntakeSpeed();
 	bool IsLowered();
 	void Periodic();
 };

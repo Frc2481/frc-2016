@@ -15,10 +15,14 @@ public:
 	}
 	void Execute(){}
 	bool IsFinished(){
-		return true;
+		return false;
 	}
-	void End(){}
-	void Interrupted(){}
+	void End(){
+		shooter->TurnOff();
+	}
+	void Interrupted(){
+		End();
+	}
 };
 
 #endif

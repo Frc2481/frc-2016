@@ -9,6 +9,7 @@ class Kicker: public SubsystemBase
 private:
 	CANTalon* m_kicker;
 	bool m_isExtended;
+	double m_kickerSpeed;
 public:
 	Kicker();
 	void InitDefaultCommand();
