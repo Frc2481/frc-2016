@@ -10,6 +10,9 @@
 #include "WPILib.h"
 #include "../IMU/AHRS.h"
 #include "RobotMap.h"
+#include "../MotionProfiles/RotateProfileGenerator.h"
+//#include "../MotionProfiles/Instrumentation.h"
+//#include "../MotionProfiles/TESTMotionProfile.h"
 #include <SubsystemBase.h>
 
 class DriveTrain : public SubsystemBase{
@@ -29,6 +32,18 @@ private:
 	double m_gyroOffset;
 	double m_prevEncPositionLeft;
 	double m_prevEncPositionRight;
+
+	//MP Variables
+	Notifier m_notifier;
+	const int kNumLoopsTimeoutMP = 10;
+	const int kMinPointsInTalonMP = 5;
+	unsigned int m_loopTimeoutMP;
+	int m_stateMP;
+	bool m_startMP;
+	CANTalon::MotionProfileStatus m_motionProfileStatus;
+
+	RotateProfileGenerator* m_rotateGenerator;
+
 public:
 	DriveTrain();
 	virtual ~DriveTrain();
@@ -54,6 +69,16 @@ public:
 	void FPSDrive(double spd, double rotate);
 	double GetOutputCurrent();
 	void Periodic();
+
+	void PeriodicTask();
+	void PeriodicMotionProfile();
+	void ResetMotionControl();
+	void StartMotionProfile();
+	void StopMotionProfile();
+	void StartFilling();
+	bool IsMPFinished();
+	void StartFilling(double** profile,int totalCnt);
+	RotateProfileGenerator* GetProfileGenerator();
 };
 
 #endif /* SRC_SUBSYSTEMS_DRIVETRAIN_H_ */

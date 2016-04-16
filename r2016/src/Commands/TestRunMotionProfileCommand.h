@@ -9,20 +9,22 @@ class TestRunMotionProfileCommand: public CommandBase
 {
 public:
 	TestRunMotionProfileCommand(){
-		Requires(shooter.get());
+		SetRunWhenDisabled(true);
+		Requires(driveTrain.get());
 	}
 	void Initialize(){
-		shooter->StartMotionProfile();
+		driveTrain->GetProfileGenerator()->GenerateMotionProfile(15);
+		driveTrain->StartMotionProfile();
 
 	}
 	void Execute(){
-//		shooter->PeriodicMotionProfile();
+//		driveTrain->GetProfileGenerator()->GenerateMotionProfile(15);
 	}
 	bool IsFinished(){
-		return shooter->IsMPFinished();
+		return driveTrain->IsMPFinished();
 	}
 	void End(){
-		shooter->StopMotionProfile();
+//		driveTrain->StopMotionProfile();
 	}
 	void Interrupted(){
 		End();

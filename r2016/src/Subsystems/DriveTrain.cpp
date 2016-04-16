@@ -11,7 +11,8 @@
 #include <SubsystemBase.h>
 #include <RoboPreferences.h>
 
-DriveTrain::DriveTrain() : SubsystemBase("DriveTrain"){
+DriveTrain::DriveTrain() : SubsystemBase("DriveTrain"), m_notifier(&DriveTrain::PeriodicTask, this)
+{
 	// TODO Auto-generated constructor stub
 	m_rightMaster = new CANTalon(RM_MOTOR);
 	m_rightMaster->ConfigNeutralMode(CANTalon::kNeutralMode_Brake);
@@ -39,13 +40,16 @@ DriveTrain::DriveTrain() : SubsystemBase("DriveTrain"){
 
 	m_rightMaster->SelectProfileSlot(kDistancePID);
 	m_rightMaster->SetPID(dp, di, dd);
+	m_rightMaster->SetF(3.0838);
 	m_rightMaster->SelectProfileSlot(kSpeedPID);
 	m_rightMaster->SetPID(sp, si, sd);
 	m_rightMaster->ConfigEncoderCodesPerRev(128);
 	m_rightMaster->SetFeedbackDevice(CANTalon::QuadEncoder);
+	m_rightMaster->ChangeMotionControlFramePeriod(5);
 
 	m_leftMaster->SelectProfileSlot(kDistancePID);
 	m_leftMaster->SetPID(dp, di, dd);
+	m_leftMaster->SetF(3.0838);
 	m_leftMaster->SelectProfileSlot(kSpeedPID);
 	m_leftMaster->SetPID(sp, si, sd);
 	m_leftMaster->ConfigEncoderCodesPerRev(128);
@@ -60,6 +64,14 @@ DriveTrain::DriveTrain() : SubsystemBase("DriveTrain"){
 	m_gyroOffset = 0;
 
 	SmartDashboard::PutBoolean("DriveTrain Tuning", false);
+
+	m_rightMaster->Enable();
+	m_leftMaster->Enable();
+
+	m_rotateGenerator = new RotateProfileGenerator();
+
+	m_notifier.StartPeriodic(0.0025);
+	m_loopTimeoutMP = -1;
 }
 
 DriveTrain::~DriveTrain() {
@@ -210,6 +222,8 @@ void DriveTrain::Periodic(){
 
 	m_prevEncPositionLeft = m_leftMaster->GetEncPosition();
 	m_prevEncPositionRight = m_rightMaster->GetEncPosition();
+
+	PeriodicMotionProfile();
 }
 
 void DriveTrain::Tank(double rightSpeed, double leftSpeed) {
@@ -264,4 +278,117 @@ double DriveTrain::GetOutputCurrent() {
 	double avgCurrent = fabs(m_rightMaster->GetOutputCurrent()) + fabs(m_leftMaster->GetOutputCurrent());
 	avgCurrent /= 2;
 	return avgCurrent;
+}
+
+void DriveTrain::PeriodicTask(){
+	m_rightMaster->ProcessMotionProfileBuffer();
+}
+
+void DriveTrain::ResetMotionControl() {
+	m_rightMaster->ClearMotionProfileTrajectories();
+}
+
+void DriveTrain::StartFilling(){
+	StartFilling(m_rotateGenerator->GetRightProfile(),m_rotateGenerator->GetProfileLength());
+}
+
+void DriveTrain::StartMotionProfile() {
+	m_rightMaster->Enable();
+	m_rightMaster->SetControlMode(CANTalon::kMotionProfile);
+	m_startMP = true;
+}
+
+void DriveTrain::StopMotionProfile() {
+	m_rightMaster->Set(CANTalon::SetValueMotionProfileDisable);
+//	m_shooterWheel->SetControlMode(CANTalon::kSpeed);
+}
+
+void DriveTrain::PeriodicMotionProfile(){
+	m_rightMaster->GetMotionProfileStatus(m_motionProfileStatus);
+
+	if(m_loopTimeoutMP >= 0){
+		if(m_loopTimeoutMP == 0){
+			instrumentation::OnNoProgress();
+			//TODO: we might want to do somthing here so we can react to the talon not being there
+		} else {
+			m_loopTimeoutMP--;
+		}
+	}
+
+	if(m_rightMaster->GetControlMode() != CANSpeedController::kMotionProfile){
+		m_stateMP = 0;
+	} else {
+		switch (m_stateMP){
+	case 0:
+			if (m_startMP){
+				m_startMP = false;
+
+//				m_setValueMP = CANTalon::SetValueMotionProfileDisable;
+				m_rightMaster->Set(CANTalon::SetValueMotionProfileDisable);
+				StartFilling();
+
+				m_stateMP = 1;
+				m_loopTimeoutMP = kNumLoopsTimeoutMP;
+			}
+			break;
+		case 1:
+			if(m_motionProfileStatus.btmBufferCnt > kMinPointsInTalonMP){
+//				m_setValueMP = CANTalon::SetValueMotionProfileEnable;
+				m_rightMaster->Set(CANTalon::SetValueMotionProfileEnable);
+				m_stateMP = 2;
+				m_loopTimeoutMP = kNumLoopsTimeoutMP;
+			}
+			break;
+		case 2:
+			if(m_motionProfileStatus.isUnderrun == false){
+				m_loopTimeoutMP = kNumLoopsTimeoutMP;
+			}
+
+			if(m_motionProfileStatus.activePointValid && m_motionProfileStatus.activePoint.isLastPoint){
+//				m_setValueMP = CANTalon::SetValueMotionProfileHold;
+				m_rightMaster->Set(CANTalon::SetValueMotionProfileHold);
+				m_stateMP = 0;
+				m_loopTimeoutMP = -1;
+			}
+			break;
+		}
+	}
+//	m_shooterWheel->Set(m_setValueMP);
+	instrumentation::Process(m_motionProfileStatus);
+}
+
+bool DriveTrain::IsMPFinished(){
+	return m_motionProfileStatus.activePointValid && m_motionProfileStatus.activePoint.isLastPoint;
+}
+
+void DriveTrain::StartFilling(double **profile,int totalCnt){
+	CANTalon::TrajectoryPoint point;
+	//TODO: Handle Underrun
+
+	m_rightMaster->ClearMotionProfileTrajectories();
+
+	for (int i=0; i < totalCnt; i++){
+		point.position = profile[i][0];
+		point.velocity = profile[i][1];
+		point.timeDurMs = profile[i][2];
+
+		point.profileSlotSelect = 0;
+		point.velocityOnly = false;
+
+		point.zeroPos = false;
+		if(i == 0){
+			point.zeroPos = true;
+		}
+
+		point.isLastPoint = false;
+		if (i + 1 == totalCnt){
+			point.isLastPoint = true;
+		}
+
+		m_rightMaster->PushMotionProfileTrajectory(point);
+	}
+}
+
+RotateProfileGenerator* DriveTrain::GetProfileGenerator() {
+	return m_rotateGenerator;
 }
