@@ -16,13 +16,8 @@ public:
 		: CommandGroup("GeneratedAutoCommandGroup"){
 		double angleArray[6] = {0, 0, 30, 0, 0, -25};
 		if (traverseCommand){
-//			AddParallel(new DriveTrainStallDetectionCommand());
 			AddSequential(new AutoBlockOneCommandGroup());
 			AddSequential(traverseCommand);
-
-//			AddSequential(new AutoDriveCommand(-.5,-.5));
-//			AddSequential(new DriveUntilBatterCommand());
-//			AddSequential(new AutoDriveCommand(.5,.5,.5));
 
 			if (position == 2 || position == 5) {
 				AddSequential(new LockOnTargetCommand(CameraProcessor::LEFT_TARGET));
@@ -39,8 +34,7 @@ public:
 			if (position != 2) {
 				AddSequential(new DriveDistanceCommand(.5, .5, 2000));
 			}
-			if (dynamic_cast<TraverseChevalFrieseCommandGroup*>(traverseCommand) != 0 ||
-					dynamic_cast<TraverseRampartsCommandGroup*>(traverseCommand) != 0) {
+			if (dynamic_cast<TraverseChevalFrieseCommandGroup*>(traverseCommand) != 0) {
 				AddSequential(new Rotate180Command(.5));
 			} else {
 				AddSequential(new Rotate180Command());

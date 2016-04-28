@@ -94,6 +94,9 @@ OI::OI() {
 	operatorRevIntake = new OPERATOR_REV_INTAKE_BUTTON;
 	operatorRevIntake->WhenPressed(new TurnIntakeOnRevCommand());
 	operatorRevIntake->WhenReleased(new StopIntakeCommand());
+
+	dinkerDownButton = new DINKER_DOWN_BUTTON;
+	dinkerDownButton->WhenPressed(new RetractKickerCommand());
 }
 
 OI::~OI() {
