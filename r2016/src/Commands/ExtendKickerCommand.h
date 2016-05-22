@@ -11,28 +11,29 @@ private:
 	int m_onTargetCounter;
 public:
 	ExtendKickerCommand(): CommandBase("ExtendKickerCommand"){
+		SetInterruptible(false);
 		Requires(kicker.get());
+		Requires(intake.get());
 		m_skip = false;
 		m_onTargetCounter = 0;
 	}
 	void Initialize(){
 		SetTimeout(1);
-		m_skip = true;
 		m_onTargetCounter = 0;
-	}
-	void Execute(){
-		if (!intake->IsLowered()) {
+		if (!intake->IsLowered() && shooter->IsOnTarget()) {
 			kicker->Extend();
 			m_skip = false;
-			if (kicker->GetCurrentDraw() >= 20) {
-				m_onTargetCounter++;
-			}
-			else {
-				m_onTargetCounter = 0;
-			}
 		}
 		else {
 			m_skip = true;
+		}
+	}
+	void Execute(){
+		if (kicker->GetCurrentDraw() >= 20) {
+			m_onTargetCounter++;
+		}
+		else {
+			m_onTargetCounter = 0;
 		}
 	}
 	bool IsFinished(){

@@ -9,6 +9,8 @@ class RetractKickerCommand: public CommandBase
 public:
 	RetractKickerCommand() : CommandBase("RetractKickerCommand"){
 		Requires(kicker.get());
+		Requires(intake.get());
+		SetInterruptible(false);
 	}
 	void Initialize(){
 		SetTimeout(1);

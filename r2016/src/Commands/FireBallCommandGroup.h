@@ -12,6 +12,7 @@ class FireBallCommandGroup: public CommandGroup
 {
 public:
 	FireBallCommandGroup(bool waitForOnTarget = false) : CommandGroup("FireBallCommandGroup"){
+		SetInterruptible(false);
 		if (waitForOnTarget) {
 			AddSequential(new CancelIfShooterNotOnTargetCommand());
 		}

@@ -11,7 +11,6 @@ class IntakeBallCommandGroup: public CommandGroup
 {
 public:
 	IntakeBallCommandGroup() : CommandGroup("IntakeBallCommandGroup"){
-		AddSequential(new RetractKickerCommand());
 		AddSequential(new LowerIntakeCommand());
 		AddSequential(new TurnIntakeOnFwdCommand());
 	}
