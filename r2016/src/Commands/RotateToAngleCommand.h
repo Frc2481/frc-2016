@@ -18,7 +18,7 @@ public:
 		Requires(CommandBase::driveTrain.get());
 		m_angle = angle;
 		m_onTarget = 0;
-		m_onTargetTolerance = 1;
+		m_onTargetTolerance = 3;
 		SmartDashboard::PutNumber("Rotation I Zone", 4);
 		SmartDashboard::PutNumber("DriveTrain Rotate D", 0);
 		SmartDashboard::PutNumber("DriveTrain Rotate I", .025);

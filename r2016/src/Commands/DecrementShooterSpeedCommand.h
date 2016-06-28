@@ -7,7 +7,9 @@
 class DecrementShooterSpeedCommand: public CommandBase
 {
 public:
-	DecrementShooterSpeedCommand() : CommandBase("DecrementShooterSpeedCommand"){}
+	DecrementShooterSpeedCommand() : CommandBase("DecrementShooterSpeedCommand"){
+		SetRunWhenDisabled(true);
+	}
 	void Initialize(){
 		shooter->decShooterSpeed();
 	}

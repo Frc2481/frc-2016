@@ -176,6 +176,11 @@ void CameraProcessor::calculateDistanceAndAngleOfTarget(Target& target) {
 
 	double camDistToTargetY = (k_tWidthIn*k_resX)/(2.0 * target.width * tan(k_FOV*(M_PI/180)/2.0));		//hypotenuse distance from camera to Target in inches (Dc)
 	double camDistToTargetX = target.x*((double)k_tWidthIn/(double)target.width);	//Camera's distance to the Target on the X-axis (Parallel to target)(Wc)
+
+	//Camera Angle
+	double camAngle = 20.0;
+	double testDistance = target.y/tan(camAngle * (M_PI/180));
+
 	double camDistToTargetHyp = sqrt(pow(camDistToTargetY,2) + pow(camDistToTargetX,2));	//Camera's distance to the Target on the Y-axis (perpendicular to target)(Dr)
 	double camera_angle = atan2(camDistToTargetY,camDistToTargetX) * (180/M_PI);
 	camera_angle = 90 - camera_angle;
@@ -198,7 +203,9 @@ void CameraProcessor::calculateDistanceAndAngleOfTarget(Target& target) {
 	target.distance = camDistToTargetHyp;
 
 	bool tuning = SmartDashboard::GetBoolean("Camera Tuning", false);
+
 	if (tuning) {
+		SmartDashboard::PutNumber("Test Camera Distance", testDistance);
 		SmartDashboard::PutNumber("Camera Angle Actual", angle_actual);
 		SmartDashboard::PutNumber("Camera Dist to Target Hyp",camDistToTargetHyp_actual);
 		SmartDashboard::PutNumber("Camera Dist To Target X",camDistToTargetX_actual);

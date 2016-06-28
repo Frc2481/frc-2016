@@ -7,7 +7,9 @@
 class IncShooterSpeedCommand: public CommandBase
 {
 public:
-	IncShooterSpeedCommand() : CommandBase("IncShooterSpeedCommand"){}
+	IncShooterSpeedCommand() : CommandBase("IncShooterSpeedCommand"){
+		SetRunWhenDisabled(true);
+	}
 	void Initialize(){
 		shooter->incShooterSpeed();
 	}

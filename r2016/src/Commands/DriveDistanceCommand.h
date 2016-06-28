@@ -26,7 +26,11 @@ public:
 	void Execute(){}
 	bool IsFinished(){
 		SmartDashboard::PutNumber("Offset Encoder Pos", driveTrain->GetEncoderPos() - m_offset);
-		return driveTrain->GetEncoderPos() > m_distance + m_offset;
+		if (m_distance > 0) {
+			return driveTrain->GetEncoderPos() > m_distance + m_offset;
+		} else {
+			return driveTrain->GetEncoderPos() < m_distance + m_offset;
+		}
 	}
 	void End(){
 		driveTrain->SetToVoltageMode();

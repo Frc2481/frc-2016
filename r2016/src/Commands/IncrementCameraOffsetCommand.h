@@ -7,7 +7,9 @@
 class IncrementCameraOffsetCommand: public CommandBase
 {
 public:
-	IncrementCameraOffsetCommand() : CommandBase("IncrementCameraOffsetCommand"){}
+	IncrementCameraOffsetCommand() : CommandBase("IncrementCameraOffsetCommand"){
+		SetRunWhenDisabled(true);
+	}
 	void Initialize(){
 		mCameraProcessor->incOffsetAngle();
 	}

@@ -6,7 +6,7 @@ Shooter::Shooter() :
 		SubsystemBase("Shooter")
 {
 	m_shooterDistance = 0;
-	m_shooterSpeed = 3100;
+	m_shooterSpeed = 3300;
 	m_onTargetCounter = 0;
 	m_highPosition = true;
 	m_shooterWheel = new CANTalon(SHOOTER_MOTOR);
@@ -15,7 +15,7 @@ Shooter::Shooter() :
 	SmartDashboard::PutBoolean("Shooter Tuning", false);
 	m_shooterWheel->SelectProfileSlot(0);
 	m_shooterWheel->SetControlMode(CANTalon::kSpeed);
-	m_shooterWheel->SetPID(2.04, 0.0, 0.0, .03589);
+	m_shooterWheel->SetPID(.5, 0.0, 0.0, .033);
 	m_shooterWheel->SetFeedbackDevice(CANTalon::CtreMagEncoder_Relative);
 	m_shooterWheel->SetSensorDirection(true);
 }
