@@ -7,7 +7,9 @@
 class DecrementCameraOffsetCommand: public CommandBase
 {
 public:
-	DecrementCameraOffsetCommand() : CommandBase("DecrementCameraOffsetCommand"){}
+	DecrementCameraOffsetCommand() : CommandBase("DecrementCameraOffsetCommand"){
+		SetRunWhenDisabled(true);
+	}
 	void Initialize(){
 		mCameraProcessor->decOffSetAngle();
 	}

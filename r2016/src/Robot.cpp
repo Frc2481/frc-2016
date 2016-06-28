@@ -1,3 +1,4 @@
+#include <Commands/GeneratedAutoCommandGroup2.h>
 #include "WPILib.h"
 #include "Commands/Command.h"
 #include "Commands/ExampleCommand.h"
@@ -14,6 +15,7 @@
 #include "Commands/TraverseTerrainCommandGroup.h"
 #include "Commands/TraverseWallCommandGroup.h"
 #include "Commands/GeneratedAutoCommandGroup.h"
+#include "Commands/GeneratedAutoCommandGroup2.h"
 #include "Commands/FireBallCommandGroup.h"
 #include "Commands/ExtendKickerCommand.h"
 #include "Commands/RetractKickerCommand.h"
@@ -72,7 +74,6 @@ private:
 
 		m_posChooser = new SendableChooser();
 		m_posChooser->AddDefault("Nothing", NULL);
-//		m_posChooser->AddObject("Pos 1 (Low Bar)", (void*)1);
 		m_posChooser->AddObject("Pos 2", (void*)2);
 		m_posChooser->AddObject("Pos 3", (void*)3);
 		m_posChooser->AddObject("Pos 4", (void*)4);
@@ -90,6 +91,7 @@ private:
 		m_autoChooser->AddObject("Normal Auto", (void*)1);
 		m_autoChooser->AddObject("Batter Shot", (void*)2);
 		m_autoChooser->AddObject("Spy Bot Two Ball. KOBE!", (void*)3);
+		m_autoChooser->AddObject("Normal Two Ball Auto", (void*)4);
 		SmartDashboard::PutData("AutoChooser", m_autoChooser);
 
 		SmartDashboard::PutData("Rotate To Angle", (PIDCommand*)(new RotateToAngleCommand(0)));
@@ -138,11 +140,17 @@ private:
 				(int)m_backChooser->GetSelected()));
 		}
 		else if((int)m_autoChooser->GetSelected() == 2){
-			autonomousCommand.reset(new GeneratedAutoBatterShotsCommandGroup((Command*)m_defenseChooser->GetSelected(), (int)m_posChooser->GetSelected()));
+			autonomousCommand.reset(new GeneratedAutoBatterShotsCommandGroup((Command*)m_defenseChooser->GetSelected(),
+				(int)m_posChooser->GetSelected()));
 		}
 		else if((int)m_autoChooser->GetSelected() == 3){
 			autonomousCommand.reset(new SpyBotTwoBallAutoCommandGroup((Command*)m_defenseChooser->GetSelected()));
 		}
+		else if((int)m_autoChooser->GetSelected() == 4){
+					autonomousCommand.reset(new GeneratedAutoCommandGroup2((Command*)m_defenseChooser->GetSelected(),
+							(int)m_posChooser->GetSelected(),
+							(int)m_backChooser->GetSelected()));
+				}
 		if (autonomousCommand != NULL)
 			autonomousCommand->Start();
 	}

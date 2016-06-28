@@ -36,6 +36,7 @@ private:
 	Button* manualIntakeButton;
 	Button* changeShooterAngle;
 	Button* shooterRevButton;
+	Button* dinkerDownButton;
 	POVJoystickButton* shooterIncButton;
 	POVJoystickButton* shooterDecButton;
 	POVJoystickButton* cameraIncButton;

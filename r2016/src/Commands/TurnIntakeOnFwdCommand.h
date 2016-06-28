@@ -11,7 +11,7 @@ public:
 		Requires(intake.get());
 	}
 	void Initialize(){
-		intake->SetSpeed(INTAKE_FWD_SPD);
+		intake->SetSpeed(intake->GetIntakeSpeed());
 	}
 	void Execute(){}
 	bool IsFinished(){

@@ -17,7 +17,7 @@ public:
 	}
 	void Initialize(){
 		SetTimeout(1);
-		m_skip = true;
+		m_skip = false;
 		m_onTargetCounter = 0;
 	}
 	void Execute(){

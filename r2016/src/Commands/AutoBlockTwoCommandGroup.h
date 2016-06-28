@@ -17,6 +17,7 @@ public:
 		AddSequential(new ShooterOnTargetCommand());
 		AddSequential(new WaitCommand(.5));
 		AddSequential(new FireBallCommandGroup());
+//		AddSequential(new FireBallCommandGroup());
 		AddSequential(new TurnOffShooterCommand());
 	}
 };

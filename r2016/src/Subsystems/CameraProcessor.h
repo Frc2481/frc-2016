@@ -49,7 +49,7 @@ private:
 	const double k_xOffset = -11.0;
 	const double k_yOffset = -8.5;
 	const double k_sizeTolerance = 0.3;
-	double m_OffsetAngle = .5;
+	double m_OffsetAngle = 1.5;
 	bool m_targetVisible;
 	bool m_onTarget;
 	Target m_targets[TARGET_TYPE_SIZE];

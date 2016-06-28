@@ -19,8 +19,6 @@ public:
 		AddSequential(new TurnOffShooterCommand());
 		AddSequential(new WaitCommand(.5));
 		AddSequential(new TurnOnShooterRevCommand());
-		AddSequential(new WaitCommand(1));
-		AddSequential(new TurnOffShooterCommand());
 	}
 };
 
