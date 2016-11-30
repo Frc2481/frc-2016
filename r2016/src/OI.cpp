@@ -5,13 +5,14 @@
  *      Author: Team2481
  */
 
-#include "Commands/AcquireBallCommandGroup.h"
 #include "Commands/ToggleShooterPositionCommand.h"
 #include "Commands/TurnIntakeOnRevCommand.h"
 #include <OI.h>
 #include <ControllerMap.h>
 #include "Commands/FireBallCommandGroup.h"
-#include "Commands/WaitForBallTestCommandGroup.h"
+#include "Commands/IntakeBallCommandGroup.h"
+#include "Commands/BringIntakeUpCommandGroup.h"
+#include "Commands/StopIntakeCommand.h"
 #include "Commands/TurnOnShooterCommand.h"
 #include "Commands/TurnOffShooterCommand.h"
 #include "Commands/RotateToAngleCommand.h"

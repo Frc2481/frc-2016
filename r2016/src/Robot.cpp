@@ -1,7 +1,5 @@
-#include <Commands/GeneratedAutoCommandGroup2.h>
 #include "WPILib.h"
 #include "Commands/Command.h"
-#include "Commands/ExampleCommand.h"
 #include "Commands/RotateToAngleCommand.h"
 #include "Commands/TurnOnShooterCommand.h"
 #include "Commands/TurnOffShooterCommand.h"
@@ -15,11 +13,9 @@
 #include "Commands/TraverseTerrainCommandGroup.h"
 #include "Commands/TraverseWallCommandGroup.h"
 #include "Commands/GeneratedAutoCommandGroup.h"
-#include "Commands/GeneratedAutoCommandGroup2.h"
 #include "Commands/FireBallCommandGroup.h"
 #include "Commands/ExtendKickerCommand.h"
 #include "Commands/RetractKickerCommand.h"
-#include "Commands/WaitForBallTestCommandGroup.h"
 #include "Commands/DriveDistanceCommand.h"
 #include "Commands/ZeroGyroCommand.h"
 #include "Commands/AutoBlockOneCommandGroup.h"
@@ -27,7 +23,6 @@
 #include "Commands/TraversePortcullisCommandGroup.h"
 #include "Commands/ToggleGameOverCommand.h"
 #include "Commands/GeneratedAutoBatterShotsCommandGroup.h"
-#include "Commands/SpyBotTwoBallAutoCommandGroup.h"
 #include "CommandBase.h"
 
 class Robot: public IterativeRobot
@@ -90,15 +85,12 @@ private:
 		m_autoChooser->AddDefault("Nothing", NULL);
 		m_autoChooser->AddObject("Normal Auto", (void*)1);
 		m_autoChooser->AddObject("Batter Shot", (void*)2);
-		m_autoChooser->AddObject("Spy Bot Two Ball. KOBE!", (void*)3);
-		m_autoChooser->AddObject("Normal Two Ball Auto", (void*)4);
 		SmartDashboard::PutData("AutoChooser", m_autoChooser);
 
 		SmartDashboard::PutData("Rotate To Angle", (PIDCommand*)(new RotateToAngleCommand(0)));
 		SmartDashboard::PutData("Turn Light Ring On", new TurnLightRingOnCommand());
 		SmartDashboard::PutData("ExtendKickerCommand", new ExtendKickerCommand());
 		SmartDashboard::PutData("RetractKickerCommand", new RetractKickerCommand());
-		SmartDashboard::PutData("WaitForBallCommandGroup", new WaitForBallTestCommandGroup());
 		SmartDashboard::PutData("Zero Gyro Command", new ZeroGyroCommand());
 		SmartDashboard::PutData("AutoBlockOneCommand", new AutoBlockOneCommandGroup());
 		SmartDashboard::PutData("AutoBlockTwoCommand", new AutoBlockTwoCommandGroup());
@@ -143,14 +135,6 @@ private:
 			autonomousCommand.reset(new GeneratedAutoBatterShotsCommandGroup((Command*)m_defenseChooser->GetSelected(),
 				(int)m_posChooser->GetSelected()));
 		}
-		else if((int)m_autoChooser->GetSelected() == 3){
-			autonomousCommand.reset(new SpyBotTwoBallAutoCommandGroup((Command*)m_defenseChooser->GetSelected()));
-		}
-		else if((int)m_autoChooser->GetSelected() == 4){
-					autonomousCommand.reset(new GeneratedAutoCommandGroup2((Command*)m_defenseChooser->GetSelected(),
-							(int)m_posChooser->GetSelected(),
-							(int)m_backChooser->GetSelected()));
-				}
 		if (autonomousCommand != NULL)
 			autonomousCommand->Start();
 	}

@@ -4,7 +4,6 @@
 #include "Commands/RotateToAngleCommand.h"
 #include "Commands/AutoBlockOneCommandGroup.h"
 #include "Commands/AutoBlockTwoCommandGroup.h"
-#include "Commands/RoughRotationCommand.h"
 #include "Commands/DriveUntilBatterCommand.h"
 #include "Commands/LockOnTargetCommand.h"
 #include "WPILib.h"
